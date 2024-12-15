@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/WebMedia/Callback/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/WebMedia/Callback/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="ProcessingStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Received"/>
+         <xs:enumeration value="Timer"/>
+         <xs:enumeration value="Queued"/>
+         <xs:enumeration value="Distributed"/>
+         <xs:enumeration value="SubmittedToAgent"/>
+         <xs:enumeration value="RejectedByAgent"/>
+         <xs:enumeration value="CanceledByAgent"/>
+         <xs:enumeration value="ProcessedByAgent"/>
+         <xs:enumeration value="StatFinal"/>
+         <xs:enumeration value="NotQueued"/>
+         <xs:enumeration value="Error"/>
+         <xs:enumeration value="Replaced"/>
+         <xs:enumeration value="AgentTransfer"/>
+         <xs:enumeration value="EndTimeExpired"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="MediaType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Voice"/>
+         <xs:enumeration value="VoiceOverIp"/>
+      </xs:restriction>
+   </xs:simpleType>
+        <xs:complexType name="SearchResult">
+      <xs:all>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="MediaType"/>
+         <xs:element name="Done" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="StartTime" minOccurs="0" type="xs:string"/>
+         <xs:element name="EndTime" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+   </xs:complexType>
+    
+           <xs:complexType name="RequestCallback">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="MediaType"/>
+         <xs:element name="Done" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="StartTime" minOccurs="0" type="xs:string"/>
+         <xs:element name="EndTime" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCallback" name="RequestCallback"/>
+
+            <xs:complexType name="RequestCancel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCancel" name="RequestCancel"/>
+
+             <xs:complexType name="RequestSearch">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="MediaType"/>
+         <xs:element name="Done" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSearch" name="RequestSearch"/>
+
+            <xs:complexType name="RequestGetInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetInfo" name="RequestGetInfo"/>
+
+            <xs:complexType name="RequestGetStatistics">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStatistics" name="RequestGetStatistics"/>
+        			
+			<xs:complexType name="EventRedirect">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Host" minOccurs="0" type="xs:string"/>
+         <xs:element name="Port" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRedirect" name="EventRedirect"/>
+
+            <xs:complexType name="EventInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="MediaType"/>
+         <xs:element name="Done" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="StartTime" minOccurs="0" type="xs:string"/>
+         <xs:element name="EndTime" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInfo" name="EventInfo"/>
+
+        <xs:complexType name="EventStatInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Contact" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestStatus" minOccurs="0" type="xs:string"/>
+         <xs:element name="QueueSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="QueueEstimatedWaitingTime" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestPositionInQueue" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestEstimatedWaitingTime" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStatInfo" name="EventStatInfo"/>
+
+        <xs:complexType name="EventAck">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAck" name="EventAck"/>
+
+            <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+            <xs:complexType name="EventSearchResult">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SearchResultList" minOccurs="0" type="SearchResultList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSearchResult" name="EventSearchResult"/>
+    	<xs:complexType name="SearchResultList">
+		    <xs:sequence>
+			      <xs:element name="SearchResult" minOccurs="0" maxOccurs="unbounded">
+				        <xs:complexType>
+					          <xs:sequence>
+						            <xs:any minOccurs="1" maxOccurs="unbounded" processContents="skip"/>
+					          </xs:sequence>
+				        </xs:complexType>
+			      </xs:element>
+		    </xs:sequence>
+    </xs:complexType>
+</xs:schema>

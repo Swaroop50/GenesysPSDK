@@ -1,0 +1,1503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Reporting/StatServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Reporting/StatServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="CampaignStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Deactivated"/>
+         <xs:enumeration value="Activated"/>
+         <xs:enumeration value="Running"/>
+         <xs:enumeration value="Stopped"/>
+         <xs:enumeration value="WaitingRecords"/>
+         <xs:enumeration value="WaitingPorts"/>
+         <xs:enumeration value="WaitingAgents"/>
+         <xs:enumeration value="SystemError"/>
+         <xs:enumeration value="ModeNoDial"/>
+         <xs:enumeration value="ModePredict"/>
+         <xs:enumeration value="ModeProgress"/>
+         <xs:enumeration value="ModePreview"/>
+         <xs:enumeration value="ModeProgressAndSeize"/>
+         <xs:enumeration value="ModePredictAndSeize"/>
+         <xs:enumeration value="LeadProcessed"/>
+         <xs:enumeration value="CallbackScheduled"/>
+         <xs:enumeration value="CallbackCompleted"/>
+         <xs:enumeration value="CallbackMissed"/>
+         <xs:enumeration value="AgentError"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="StatisticObjectType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Agent"/>
+         <xs:enumeration value="AgentPlace"/>
+         <xs:enumeration value="GroupAgents"/>
+         <xs:enumeration value="GroupPlaces"/>
+         <xs:enumeration value="RoutePoint"/>
+         <xs:enumeration value="Queue"/>
+         <xs:enumeration value="GroupQueues"/>
+         <xs:enumeration value="Switch"/>
+         <xs:enumeration value="RegularDN"/>
+         <xs:enumeration value="Campaign"/>
+         <xs:enumeration value="CampaignGroup"/>
+         <xs:enumeration value="CallingList"/>
+         <xs:enumeration value="CampaignCallingList"/>
+         <xs:enumeration value="Tenant"/>
+         <xs:enumeration value="StagingArea"/>
+         <xs:enumeration value="RoutingStrategy"/>
+         <xs:enumeration value="Workbin"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="NotificationMode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Immediate"/>
+         <xs:enumeration value="Periodical"/>
+         <xs:enumeration value="NoNotification"/>
+         <xs:enumeration value="Reset"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="StatisticCategory">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="TotalTime"/>
+         <xs:enumeration value="TotalNumber"/>
+         <xs:enumeration value="AverageTime"/>
+         <xs:enumeration value="MaxTime"/>
+         <xs:enumeration value="MinTime"/>
+         <xs:enumeration value="ElapsedTimePercentage"/>
+         <xs:enumeration value="RelativeTimePercentage"/>
+         <xs:enumeration value="RelativeNumberPercentage"/>
+         <xs:enumeration value="TotalNumberInTimeRange"/>
+         <xs:enumeration value="TotalNumberInTimeRangePercentage"/>
+         <xs:enumeration value="CurrentState"/>
+         <xs:enumeration value="CurrentTime"/>
+         <xs:enumeration value="CurrentNumber"/>
+         <xs:enumeration value="CurrentMaxTime"/>
+         <xs:enumeration value="CurrentMinTime"/>
+         <xs:enumeration value="CurrentAverageTime"/>
+         <xs:enumeration value="CurrentRelativeTimePercentage"/>
+         <xs:enumeration value="CurrentRelativeNumberPercentage"/>
+         <xs:enumeration value="CurrentNumberInTimeRange"/>
+         <xs:enumeration value="CurrentNumberInTimeRangePercentage"/>
+         <xs:enumeration value="TotalNumberPerSecond"/>
+         <xs:enumeration value="EstimTimeToEndCurrentNumber"/>
+         <xs:enumeration value="ServiceFactor1"/>
+         <xs:enumeration value="LoadBalance1"/>
+         <xs:enumeration value="TotalNumberErrors"/>
+         <xs:enumeration value="TotalCustomValue"/>
+         <xs:enumeration value="AverageCustomValue"/>
+         <xs:enumeration value="MinCustomValue"/>
+         <xs:enumeration value="MaxCustomValue"/>
+         <xs:enumeration value="CurrentCustomValue"/>
+         <xs:enumeration value="CurrentAverageCustomValue"/>
+         <xs:enumeration value="CurrentMinCustomValue"/>
+         <xs:enumeration value="CurrentMaxCustomValue"/>
+         <xs:enumeration value="EstimWaitingTime"/>
+         <xs:enumeration value="LoadBalance"/>
+         <xs:enumeration value="RelativeNumber"/>
+         <xs:enumeration value="EstimTimeToComplete"/>
+         <xs:enumeration value="AverageOfCurrentNumber"/>
+         <xs:enumeration value="AverageOfCurrentTime"/>
+         <xs:enumeration value="TotalAdjustedTime"/>
+         <xs:enumeration value="TotalAdjustedNumber"/>
+         <xs:enumeration value="CurrentStateReasons"/>
+         <xs:enumeration value="JavaCategory"/>
+         <xs:enumeration value="AverageNumberPerRelativeHour"/>
+         <xs:enumeration value="CurrentTargetState"/>
+         <xs:enumeration value="TotalTimeInTimeRange"/>
+         <xs:enumeration value="MinNumber"/>
+         <xs:enumeration value="MaxNumber"/>
+         <xs:enumeration value="CurrentDistinctNumber"/>
+         <xs:enumeration value="CurrentContinuousTime"/>
+         <xs:enumeration value="Formula"/>
+         <xs:enumeration value="TotalDistinctTime"/>
+         <xs:enumeration value="ExpectedWaitTime2"/>
+         <xs:enumeration value="TotalContinuousNumber"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="StatisticProfile">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="StatTypes"/>
+         <xs:enumeration value="TimeProfiles"/>
+         <xs:enumeration value="Filters"/>
+         <xs:enumeration value="TimeRanges"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="StatisticInterval">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="GrowingWindow"/>
+         <xs:enumeration value="SinceLogin"/>
+         <xs:enumeration value="SlidingWindow"/>
+         <xs:enumeration value="SlidingSelection"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="StatisticSubject">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="DNAction"/>
+         <xs:enumeration value="DNStatus"/>
+         <xs:enumeration value="AgentStatus"/>
+         <xs:enumeration value="PlaceStatus"/>
+         <xs:enumeration value="GroupStatus"/>
+         <xs:enumeration value="CampaignAction"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="DnActions">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NotMonitored"/>
+         <xs:enumeration value="Monitored"/>
+         <xs:enumeration value="LoggedIn"/>
+         <xs:enumeration value="OnHook"/>
+         <xs:enumeration value="WaitForNextCall"/>
+         <xs:enumeration value="OffHook"/>
+         <xs:enumeration value="CallDialing"/>
+         <xs:enumeration value="CallRinging"/>
+         <xs:enumeration value="NotReadyForNextCall"/>
+         <xs:enumeration value="AfterCallWork"/>
+         <xs:enumeration value="OfflineWorkType2"/>
+         <xs:enumeration value="BreakType1"/>
+         <xs:enumeration value="BreakType2"/>
+         <xs:enumeration value="CallOnHold"/>
+         <xs:enumeration value="SM_Engaged"/>
+         <xs:enumeration value="SM_Outbound"/>
+         <xs:enumeration value="CallUnknown"/>
+         <xs:enumeration value="CallConsult"/>
+         <xs:enumeration value="CallInternal"/>
+         <xs:enumeration value="CallOutbound"/>
+         <xs:enumeration value="CallInbound"/>
+         <xs:enumeration value="LoggedOut"/>
+         <xs:enumeration value="CallDialed"/>
+         <xs:enumeration value="CallAbandonedFromDialing"/>
+         <xs:enumeration value="CallAnswered"/>
+         <xs:enumeration value="CallAbandonedFromRinging"/>
+         <xs:enumeration value="CallHeld"/>
+         <xs:enumeration value="CallRetrievedFromHold"/>
+         <xs:enumeration value="CallAbandonedFromHold"/>
+         <xs:enumeration value="CallTransferMade"/>
+         <xs:enumeration value="CallTransferTaken"/>
+         <xs:enumeration value="CallTransferPartyChanged"/>
+         <xs:enumeration value="CallConferenceMade"/>
+         <xs:enumeration value="CallConferenceJoined"/>
+         <xs:enumeration value="CallConferencePartyAdded"/>
+         <xs:enumeration value="CallConferencePartyDeleted"/>
+         <xs:enumeration value="UserEvent"/>
+         <xs:enumeration value="CallDialingUnknown"/>
+         <xs:enumeration value="CallDialingInternal"/>
+         <xs:enumeration value="CallDialingInbound"/>
+         <xs:enumeration value="CallDialingOutbound"/>
+         <xs:enumeration value="CallDialingConsult"/>
+         <xs:enumeration value="CallRingingUnknown"/>
+         <xs:enumeration value="CallRingingInternal"/>
+         <xs:enumeration value="CallRingingInbound"/>
+         <xs:enumeration value="CallRingingOutbound"/>
+         <xs:enumeration value="CallRingingConsult"/>
+         <xs:enumeration value="AfterCallWorkUnknown"/>
+         <xs:enumeration value="AfterCallWorkInternal"/>
+         <xs:enumeration value="AfterCallWorkInbound"/>
+         <xs:enumeration value="AfterCallWorkOutbound"/>
+         <xs:enumeration value="AfterCallWorkConsult"/>
+         <xs:enumeration value="CallOnHoldUnknown"/>
+         <xs:enumeration value="CallOnHoldInternal"/>
+         <xs:enumeration value="CallOnHoldInbound"/>
+         <xs:enumeration value="CallOnHoldOutbound"/>
+         <xs:enumeration value="CallOnHoldConsult"/>
+         <xs:enumeration value="CallAbandonedFromDialingUnknown"/>
+         <xs:enumeration value="CallAbandonedFromDialingInternal"/>
+         <xs:enumeration value="CallAbandonedFromDialingInbound"/>
+         <xs:enumeration value="CallAbandonedFromDialingOutbound"/>
+         <xs:enumeration value="CallAbandonedFromDialingConsult"/>
+         <xs:enumeration value="CallAnsweredUnknown"/>
+         <xs:enumeration value="CallAnsweredInternal"/>
+         <xs:enumeration value="CallAnsweredInbound"/>
+         <xs:enumeration value="CallAnsweredOutbound"/>
+         <xs:enumeration value="CallAnsweredConsult"/>
+         <xs:enumeration value="CallAbandonedFromRingingUnknown"/>
+         <xs:enumeration value="CallAbandonedFromRingingInternal"/>
+         <xs:enumeration value="CallAbandonedFromRingingInbound"/>
+         <xs:enumeration value="CallAbandonedFromRingingOutbound"/>
+         <xs:enumeration value="CallAbandonedFromRingingConsult"/>
+         <xs:enumeration value="CallAbandonedFromHoldUnknown"/>
+         <xs:enumeration value="CallAbandonedFromHoldInternal"/>
+         <xs:enumeration value="CallAbandonedFromHoldInbound"/>
+         <xs:enumeration value="CallAbandonedFromHoldOutbound"/>
+         <xs:enumeration value="CallAbandonedFromHoldConsult"/>
+         <xs:enumeration value="CallWait"/>
+         <xs:enumeration value="CallEntered"/>
+         <xs:enumeration value="CallDistributed"/>
+         <xs:enumeration value="CallAbandoned"/>
+         <xs:enumeration value="CallWaitUnknown"/>
+         <xs:enumeration value="CallWaitInternal"/>
+         <xs:enumeration value="CallWaitInbound"/>
+         <xs:enumeration value="CallWaitOutbound"/>
+         <xs:enumeration value="CallWaitConsult"/>
+         <xs:enumeration value="CallEnteredUnknown"/>
+         <xs:enumeration value="CallEnteredInternal"/>
+         <xs:enumeration value="CallEnteredInbound"/>
+         <xs:enumeration value="CallEnteredOutbound"/>
+         <xs:enumeration value="CallEnteredConsult"/>
+         <xs:enumeration value="CallDistributedUnknown"/>
+         <xs:enumeration value="CallDistributedInternal"/>
+         <xs:enumeration value="CallDistributedInbound"/>
+         <xs:enumeration value="CallDistributedOutbound"/>
+         <xs:enumeration value="CallDistributedConsult"/>
+         <xs:enumeration value="CallAbandonedUnknown"/>
+         <xs:enumeration value="CallAbandonedInternal"/>
+         <xs:enumeration value="CallAbandonedInbound"/>
+         <xs:enumeration value="CallAbandonedOutbound"/>
+         <xs:enumeration value="CallAbandonedConsult"/>
+         <xs:enumeration value="DialingStarted"/>
+         <xs:enumeration value="DialingStartedUnknown"/>
+         <xs:enumeration value="DialingStartedInternal"/>
+         <xs:enumeration value="DialingStartedInbound"/>
+         <xs:enumeration value="DialingStartedOutbound"/>
+         <xs:enumeration value="DialingStartedConsult"/>
+         <xs:enumeration value="CallDialedUnknown"/>
+         <xs:enumeration value="CallDialedInternal"/>
+         <xs:enumeration value="CallDialedInbound"/>
+         <xs:enumeration value="CallDialedOutbound"/>
+         <xs:enumeration value="CallDialedConsult"/>
+         <xs:enumeration value="CallDialTransferred"/>
+         <xs:enumeration value="CallDialConferenced"/>
+         <xs:enumeration value="RingingStarted"/>
+         <xs:enumeration value="RingingStartedUnknown"/>
+         <xs:enumeration value="RingingStartedInternal"/>
+         <xs:enumeration value="RingingStartedInbound"/>
+         <xs:enumeration value="RingingStartedOutbound"/>
+         <xs:enumeration value="RingingStartedConsult"/>
+         <xs:enumeration value="RingingPartyChanged"/>
+         <xs:enumeration value="RetrievedFromHoldUnknown"/>
+         <xs:enumeration value="RetrievedFromHoldInternal"/>
+         <xs:enumeration value="RetrievedFromHoldInbound"/>
+         <xs:enumeration value="RetrievedFromHoldOutbound"/>
+         <xs:enumeration value="RetrievedFromHoldConsult"/>
+         <xs:enumeration value="PartyChangedFromHold"/>
+         <xs:enumeration value="TransferredFromHold"/>
+         <xs:enumeration value="TransferredFromHoldUnknown"/>
+         <xs:enumeration value="TransferredFromHoldInternal"/>
+         <xs:enumeration value="TransferredFromHoldInbound"/>
+         <xs:enumeration value="TransferredFromHoldOutbound"/>
+         <xs:enumeration value="TransferredFromHoldConsult"/>
+         <xs:enumeration value="CallPartyChanged"/>
+         <xs:enumeration value="CallUnknownStarted"/>
+         <xs:enumeration value="CallConsultStarted"/>
+         <xs:enumeration value="CallInternalStarted"/>
+         <xs:enumeration value="CallOutboundStarted"/>
+         <xs:enumeration value="CallInboundStarted"/>
+         <xs:enumeration value="CallObservedUnknown"/>
+         <xs:enumeration value="CallObservedConsult"/>
+         <xs:enumeration value="CallObservedInternal"/>
+         <xs:enumeration value="CallObservedOutbound"/>
+         <xs:enumeration value="CallObservedInbound"/>
+         <xs:enumeration value="CallForwarded"/>
+         <xs:enumeration value="CallForwardedUnknown"/>
+         <xs:enumeration value="CallForwardedInternal"/>
+         <xs:enumeration value="CallForwardedInbound"/>
+         <xs:enumeration value="CallForwardedOutbound"/>
+         <xs:enumeration value="CallForwardedConsult"/>
+         <xs:enumeration value="CallTransferMadeUnknown"/>
+         <xs:enumeration value="CallTransferMadeInternal"/>
+         <xs:enumeration value="CallTransferMadeInbound"/>
+         <xs:enumeration value="CallTransferMadeOutbound"/>
+         <xs:enumeration value="CallTransferMadeConsult"/>
+         <xs:enumeration value="CallConsultOriginated"/>
+         <xs:enumeration value="CallConsultReceived"/>
+         <xs:enumeration value="CallInternalOriginated"/>
+         <xs:enumeration value="CallInternalReceived"/>
+         <xs:enumeration value="CallUnknownCompleted"/>
+         <xs:enumeration value="CallConsultCompleted"/>
+         <xs:enumeration value="CallInternalCompleted"/>
+         <xs:enumeration value="CallOutboundCompleted"/>
+         <xs:enumeration value="CallInboundCompleted"/>
+         <xs:enumeration value="PlaceholderForRevoking"/>
+         <xs:enumeration value="PlaceholderForInteractionStarted1"/>
+         <xs:enumeration value="PlaceholderForInteractionStarted2"/>
+         <xs:enumeration value="PlaceholderForInteractionStarted3"/>
+         <xs:enumeration value="PlaceholderForInteractionStarted4"/>
+         <xs:enumeration value="PlaceholderForInteractionStopped1"/>
+         <xs:enumeration value="PlaceholderForInteractionStopped2"/>
+         <xs:enumeration value="PlaceholderForInteractionStopped3"/>
+         <xs:enumeration value="PlaceholderForInteractionStopped4"/>
+         <xs:enumeration value="PlaceholderForMonitoringStarted"/>
+         <xs:enumeration value="PlaceholderForMonitoringInitiated"/>
+         <xs:enumeration value="PlaceholderForBeingMonitored"/>
+         <xs:enumeration value="PlaceholderForMonitoring"/>
+         <xs:enumeration value="PlaceholderForCoachingRequested"/>
+         <xs:enumeration value="PlaceholderForCoachingStarted"/>
+         <xs:enumeration value="PlaceholderForCoachingByRequestInitiated"/>
+         <xs:enumeration value="PlaceholderForCoachingByIntrusionInitiated"/>
+         <xs:enumeration value="PlaceholderForBeingCoached"/>
+         <xs:enumeration value="PlaceholderForCoaching"/>
+         <xs:enumeration value="PlaceholderForConferenceJoinedByIntrusion"/>
+         <xs:enumeration value="PlaceholderForInteractionPulled"/>
+         <xs:enumeration value="StuckCallCleanedWhileRinging"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingUnknown"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingInternal"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingInbound"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingOutbound"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingConsult"/>
+         <xs:enumeration value="CallConferenceOriginated"/>
+         <xs:enumeration value="NotUsed1"/>
+         <xs:enumeration value="AgentLogin"/>
+         <xs:enumeration value="AgentLogout"/>
+         <xs:enumeration value="LoggedInQueue"/>
+         <xs:enumeration value="CallObservingUnknown"/>
+         <xs:enumeration value="CallObservingConsult"/>
+         <xs:enumeration value="CallObservingInternal"/>
+         <xs:enumeration value="CallObservingOutbound"/>
+         <xs:enumeration value="CallObservingInbound"/>
+         <xs:enumeration value="CallOutboundOriginated"/>
+         <xs:enumeration value="CallOutboundReceived"/>
+         <xs:enumeration value="InteractionAccepted1"/>
+         <xs:enumeration value="UserEventReceived"/>
+         <xs:enumeration value="Routable"/>
+         <xs:enumeration value="NotRoutable"/>
+         <xs:enumeration value="CallAbandonedFromRinging2"/>
+         <xs:enumeration value="CallResponded"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="RoutePointActions">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NotMonitored"/>
+         <xs:enumeration value="Monitored"/>
+         <xs:enumeration value="NotReadyForNextCall"/>
+         <xs:enumeration value="CallSilenceTreatment"/>
+         <xs:enumeration value="CallRingBackTreatment"/>
+         <xs:enumeration value="CallMusicTreatmentType1"/>
+         <xs:enumeration value="CallMusicTreatmentType2"/>
+         <xs:enumeration value="CallVoiceTreatmentType1"/>
+         <xs:enumeration value="CallVoiceTreatmentType2"/>
+         <xs:enumeration value="CallWait"/>
+         <xs:enumeration value="CallEntered"/>
+         <xs:enumeration value="CallDistributed"/>
+         <xs:enumeration value="CallAbandoned"/>
+         <xs:enumeration value="WaitForNextCall"/>
+         <xs:enumeration value="CallTreatmentStarted"/>
+         <xs:enumeration value="CallTreatmentNotStarted"/>
+         <xs:enumeration value="CallTreatmentCompleted"/>
+         <xs:enumeration value="CallAnswered"/>
+         <xs:enumeration value="CallAbandonedFromRinging"/>
+         <xs:enumeration value="UserEvent"/>
+         <xs:enumeration value="CallWaitUnknown"/>
+         <xs:enumeration value="CallWaitInternal"/>
+         <xs:enumeration value="CallWaitInbound"/>
+         <xs:enumeration value="CallWaitOutbound"/>
+         <xs:enumeration value="CallWaitConsult"/>
+         <xs:enumeration value="CallEnteredUnknown"/>
+         <xs:enumeration value="CallEnteredInternal"/>
+         <xs:enumeration value="CallEnteredInbound"/>
+         <xs:enumeration value="CallEnteredOutbound"/>
+         <xs:enumeration value="CallEnteredConsult"/>
+         <xs:enumeration value="CallDistributedUnknown"/>
+         <xs:enumeration value="CallDistributedInternal"/>
+         <xs:enumeration value="CallDistributedInbound"/>
+         <xs:enumeration value="CallDistributedOutbound"/>
+         <xs:enumeration value="CallDistributedConsult"/>
+         <xs:enumeration value="CallAbandonedUnknown"/>
+         <xs:enumeration value="CallAbandonedInternal"/>
+         <xs:enumeration value="CallAbandonedInbound"/>
+         <xs:enumeration value="CallAbandonedOutbound"/>
+         <xs:enumeration value="CallAbandonedConsult"/>
+         <xs:enumeration value="CallAnsweredUnknown"/>
+         <xs:enumeration value="CallAnsweredInternal"/>
+         <xs:enumeration value="CallAnsweredInbound"/>
+         <xs:enumeration value="CallAnsweredOutbound"/>
+         <xs:enumeration value="CallAnsweredConsult"/>
+         <xs:enumeration value="CallAbandonedFromRingingUnknown"/>
+         <xs:enumeration value="CallAbandonedFromRingingInternal"/>
+         <xs:enumeration value="CallAbandonedFromRingingInbound"/>
+         <xs:enumeration value="CallAbandonedFromRingingOutbound"/>
+         <xs:enumeration value="CallAbandonedFromRingingConsult"/>
+         <xs:enumeration value="CallReleased"/>
+         <xs:enumeration value="CallMissed"/>
+         <xs:enumeration value="ACWCompleted"/>
+         <xs:enumeration value="ACWMissed"/>
+         <xs:enumeration value="AgentLogin"/>
+         <xs:enumeration value="AgentActive"/>
+         <xs:enumeration value="AgentReady"/>
+         <xs:enumeration value="CallRingingPartyChanged"/>
+         <xs:enumeration value="CallForwarded"/>
+         <xs:enumeration value="CallForwardedUnknown"/>
+         <xs:enumeration value="CallForwardedConsult"/>
+         <xs:enumeration value="CallForwardedInternal"/>
+         <xs:enumeration value="CallForwardedOutbound"/>
+         <xs:enumeration value="CallForwardedInbound"/>
+         <xs:enumeration value="CallCleared"/>
+         <xs:enumeration value="CallClearedUnknown"/>
+         <xs:enumeration value="CallClearedInternal"/>
+         <xs:enumeration value="CallClearedInbound"/>
+         <xs:enumeration value="CallClearedOutbound"/>
+         <xs:enumeration value="CallClearedConsult"/>
+         <xs:enumeration value="DNLogin"/>
+         <xs:enumeration value="DNActive"/>
+         <xs:enumeration value="DNReady"/>
+         <xs:enumeration value="CallDistributedToQueue"/>
+         <xs:enumeration value="CallDistributedToQueueUnknown"/>
+         <xs:enumeration value="CallDistributedToQueueInternal"/>
+         <xs:enumeration value="CallDistributedToQueueInbound"/>
+         <xs:enumeration value="CallDistributedToQueueOutbound"/>
+         <xs:enumeration value="CallDistributedToQueueConsult"/>
+         <xs:enumeration value="StuckCallCleanedWhileRinging"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingUnknown"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingInternal"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingInbound"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingOutbound"/>
+         <xs:enumeration value="StuckCallCleanedWhileRingingConsult"/>
+         <xs:enumeration value="StuckCallCleaned"/>
+         <xs:enumeration value="StuckCallCleanedUnknown"/>
+         <xs:enumeration value="StuckCallCleanedInternal"/>
+         <xs:enumeration value="StuckCallCleanedInbound"/>
+         <xs:enumeration value="StuckCallCleanedOutbound"/>
+         <xs:enumeration value="StuckCallCleanedConsult"/>
+         <xs:enumeration value="UserEventReceived"/>
+         <xs:enumeration value="CallAbandonedFromRinging2"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="CampaignActions">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="StatusDeactivated"/>
+         <xs:enumeration value="StatusActivated"/>
+         <xs:enumeration value="StatusRunning"/>
+         <xs:enumeration value="StatusStopped"/>
+         <xs:enumeration value="StatusWaitingRecords"/>
+         <xs:enumeration value="StatusWaitingPorts"/>
+         <xs:enumeration value="StatusWaitingAgents"/>
+         <xs:enumeration value="StatusSystemError"/>
+         <xs:enumeration value="ModeNoDial"/>
+         <xs:enumeration value="ModePredict"/>
+         <xs:enumeration value="ModeProgress"/>
+         <xs:enumeration value="ModePreview"/>
+         <xs:enumeration value="ModeProgressAndSeize"/>
+         <xs:enumeration value="ModePredictAndSeize"/>
+         <xs:enumeration value="ModePower"/>
+         <xs:enumeration value="ModePowerAndSeize"/>
+         <xs:enumeration value="ModePushPreview"/>
+         <xs:enumeration value="ModeProgressGVP"/>
+         <xs:enumeration value="ModePredictGVP"/>
+         <xs:enumeration value="ModePowerGVP"/>
+         <xs:enumeration value="LeadProcessed"/>
+         <xs:enumeration value="CallbackScheduled"/>
+         <xs:enumeration value="CallbackCompleted"/>
+         <xs:enumeration value="CallbackMissed"/>
+         <xs:enumeration value="AgentError"/>
+         <xs:enumeration value="DialMade"/>
+         <xs:enumeration value="DialAnswer"/>
+         <xs:enumeration value="DialOk"/>
+         <xs:enumeration value="DialGeneralError"/>
+         <xs:enumeration value="DialSystemError"/>
+         <xs:enumeration value="DialBusy"/>
+         <xs:enumeration value="DialNoAnswer"/>
+         <xs:enumeration value="DialSITDetected"/>
+         <xs:enumeration value="DialAnswMachine"/>
+         <xs:enumeration value="DialAllTrunksBusy"/>
+         <xs:enumeration value="DialSITInvalidNum"/>
+         <xs:enumeration value="DialSITVacant"/>
+         <xs:enumeration value="DialSITOperIntercept"/>
+         <xs:enumeration value="DialSITUnknown"/>
+         <xs:enumeration value="DialSITNoCircuit"/>
+         <xs:enumeration value="DialSITReorder"/>
+         <xs:enumeration value="DialFaxDetected"/>
+         <xs:enumeration value="DialAbandoned"/>
+         <xs:enumeration value="DialDropped"/>
+         <xs:enumeration value="DialDroppedNoAnswer"/>
+         <xs:enumeration value="DialUnknown"/>
+         <xs:enumeration value="DialSilence"/>
+         <xs:enumeration value="DialNuTone"/>
+         <xs:enumeration value="DialNoDialTone"/>
+         <xs:enumeration value="DialNoProgress"/>
+         <xs:enumeration value="DialNoRingBack"/>
+         <xs:enumeration value="DialNoEstablished"/>
+         <xs:enumeration value="DialPagerDetected"/>
+         <xs:enumeration value="DialWrongParty"/>
+         <xs:enumeration value="DialError"/>
+         <xs:enumeration value="DialCallDropError"/>
+         <xs:enumeration value="DialSwitchError"/>
+         <xs:enumeration value="DialNoFreePortError"/>
+         <xs:enumeration value="DialTransferError"/>
+         <xs:enumeration value="DialStale"/>
+         <xs:enumeration value="DialAgentCallBackError"/>
+         <xs:enumeration value="DialGroupCallBackError"/>
+         <xs:enumeration value="DialDoNotCall"/>
+         <xs:enumeration value="DialCancel"/>
+         <xs:enumeration value="DialWrongNumber"/>
+         <xs:enumeration value="LeadAnswer"/>
+         <xs:enumeration value="LeadOk"/>
+         <xs:enumeration value="LeadGeneralError"/>
+         <xs:enumeration value="LeadSystemError"/>
+         <xs:enumeration value="LeadBusy"/>
+         <xs:enumeration value="LeadNoAnswer"/>
+         <xs:enumeration value="LeadSITDetected"/>
+         <xs:enumeration value="LeadAnswMachine"/>
+         <xs:enumeration value="LeadAllTrunksBusy"/>
+         <xs:enumeration value="LeadSITInvalidNum"/>
+         <xs:enumeration value="LeadSITVacant"/>
+         <xs:enumeration value="LeadSITOperIntercept"/>
+         <xs:enumeration value="LeadSITUnknown"/>
+         <xs:enumeration value="LeadSITNoCircuit"/>
+         <xs:enumeration value="LeadSITReorder"/>
+         <xs:enumeration value="LeadFaxDetected"/>
+         <xs:enumeration value="LeadAbandoned"/>
+         <xs:enumeration value="LeadDropped"/>
+         <xs:enumeration value="LeadDroppedNoAnswer"/>
+         <xs:enumeration value="LeadUnknown"/>
+         <xs:enumeration value="LeadSilence"/>
+         <xs:enumeration value="LeadNuTone"/>
+         <xs:enumeration value="LeadNoDialTone"/>
+         <xs:enumeration value="LeadNoProgress"/>
+         <xs:enumeration value="LeadNoRingBack"/>
+         <xs:enumeration value="LeadNoEstablished"/>
+         <xs:enumeration value="LeadPagerDetected"/>
+         <xs:enumeration value="LeadWrongParty"/>
+         <xs:enumeration value="LeadError"/>
+         <xs:enumeration value="LeadCallDropError"/>
+         <xs:enumeration value="LeadSwitchError"/>
+         <xs:enumeration value="LeadNoFreePortError"/>
+         <xs:enumeration value="LeadTransferError"/>
+         <xs:enumeration value="LeadStale"/>
+         <xs:enumeration value="LeadAgentCallBackError"/>
+         <xs:enumeration value="LeadGroupCallBackError"/>
+         <xs:enumeration value="LeadDoNotCall"/>
+         <xs:enumeration value="LeadCancel"/>
+         <xs:enumeration value="LeadWrongNumber"/>
+         <xs:enumeration value="PersonalCallbackScheduled"/>
+         <xs:enumeration value="PersonalCallbackCompleted"/>
+         <xs:enumeration value="PersonalCallbackMissed"/>
+         <xs:enumeration value="RecordsNotProcessed"/>
+         <xs:enumeration value="RecordsScheduled"/>
+         <xs:enumeration value="DialRemoteRelease"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="MediaActions">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Active"/>
+         <xs:enumeration value="Available"/>
+         <xs:enumeration value="NotAvailable"/>
+         <xs:enumeration value="Blocked"/>
+         <xs:enumeration value="InteractionDelivering"/>
+         <xs:enumeration value="DoNotDisturb"/>
+         <xs:enumeration value="InteractionHandlingUnknown"/>
+         <xs:enumeration value="InteractionHandlingInternal"/>
+         <xs:enumeration value="InteractionHandlingOutbound"/>
+         <xs:enumeration value="InteractionHandlingInbound"/>
+         <xs:enumeration value="InteractionHandlingUnknownStarted"/>
+         <xs:enumeration value="InteractionHandlingInternalStarted"/>
+         <xs:enumeration value="InteractionHandlingOutboundStarted"/>
+         <xs:enumeration value="InteractionHandlingInboundStarted"/>
+         <xs:enumeration value="InteractionDeliveringStarted"/>
+         <xs:enumeration value="InteractionAccepted"/>
+         <xs:enumeration value="InteractionRejected"/>
+         <xs:enumeration value="InteractionRevoked"/>
+         <xs:enumeration value="TransferMade"/>
+         <xs:enumeration value="TransferMadeUnknown"/>
+         <xs:enumeration value="TransferMadeInternal"/>
+         <xs:enumeration value="TransferMadeInbound"/>
+         <xs:enumeration value="TransferMadeOutbound"/>
+         <xs:enumeration value="InteractionStartedUnknown"/>
+         <xs:enumeration value="InteractionStartedInternal"/>
+         <xs:enumeration value="InteractionStartedInbound"/>
+         <xs:enumeration value="InteractionStartedOutbound"/>
+         <xs:enumeration value="InteractionStoppedUnknown"/>
+         <xs:enumeration value="InteractionStoppedInternal"/>
+         <xs:enumeration value="InteractionStoppedInbound"/>
+         <xs:enumeration value="InteractionStoppedOutbound"/>
+         <xs:enumeration value="TransferTaken"/>
+         <xs:enumeration value="ConferenceMade"/>
+         <xs:enumeration value="ConferenceJoined"/>
+         <xs:enumeration value="MonitoringStarted"/>
+         <xs:enumeration value="MonitoringInitiated"/>
+         <xs:enumeration value="BeingMonitored"/>
+         <xs:enumeration value="Monitoring"/>
+         <xs:enumeration value="CoachingRequested"/>
+         <xs:enumeration value="CoachingStarted"/>
+         <xs:enumeration value="CoachingByRequestInitiated"/>
+         <xs:enumeration value="CoachingByIntrusionInitiated"/>
+         <xs:enumeration value="BeingCoached"/>
+         <xs:enumeration value="Coaching"/>
+         <xs:enumeration value="ConferenceJoinedByIntrusion"/>
+         <xs:enumeration value="InteractionPulled"/>
+         <xs:enumeration value="InteractionAccepted1"/>
+         <xs:enumeration value="InteractionAbandonedDuringOffering"/>
+         <xs:enumeration value="InteractionResponded"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="IxnQActions">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NotMonitored"/>
+         <xs:enumeration value="Monitored"/>
+         <xs:enumeration value="InteractionCreated"/>
+         <xs:enumeration value="InteractionDeleted"/>
+         <xs:enumeration value="InteractionEntered"/>
+         <xs:enumeration value="InteractionDistributed"/>
+         <xs:enumeration value="InteractionAccepted"/>
+         <xs:enumeration value="InteractionAbandonedDuringOffering"/>
+         <xs:enumeration value="InteractionReleased"/>
+         <xs:enumeration value="InteractionCleared"/>
+         <xs:enumeration value="InteractionDistributedToQueue"/>
+         <xs:enumeration value="InteractionAnswered"/>
+         <xs:enumeration value="InteractionPastAcceptServiceLevel"/>
+         <xs:enumeration value="InteractionPastCompletionServiceLevel"/>
+         <xs:enumeration value="InteractionWait"/>
+         <xs:enumeration value="InteractionPastResponseServiceLevel"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="TenantActions">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Monitored"/>
+         <xs:enumeration value="InteractionCreated"/>
+         <xs:enumeration value="InteractionDeleted"/>
+         <xs:enumeration value="InteractionAbandonedDuringOffering"/>
+         <xs:enumeration value="InteractionPastAcceptServiceLevel"/>
+         <xs:enumeration value="InteractionPastCompletionServiceLevel"/>
+         <xs:enumeration value="InteractionAccepted"/>
+         <xs:enumeration value="InteractionAnswered"/>
+         <xs:enumeration value="InteractionReleased"/>
+         <xs:enumeration value="ExternalServiceRequested"/>
+         <xs:enumeration value="ExternalServiceResponded"/>
+         <xs:enumeration value="InteractionPastResponseServiceLevel"/>
+         <xs:enumeration value="InteractionInProgress"/>
+         <xs:enumeration value="InteractionAbandoned"/>
+         <xs:enumeration value="InteractionWait"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="DataStreamType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Broadcast"/>
+         <xs:enumeration value="Unicast"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ActionType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Durable"/>
+         <xs:enumeration value="Instant"/>
+         <xs:enumeration value="Retrospective"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+    <xs:complexType name="DataProtocolInfo">
+      <xs:all>
+         <xs:element name="VersionMajor" minOccurs="0" type="xs:int"/>
+         <xs:element name="VersionMinor" minOccurs="0" type="xs:int"/>
+         <xs:element name="DataStreamProtocolName" minOccurs="0" type="xs:string"/>
+         <xs:element name="ProtocolDatasourceType" minOccurs="0" type="xs:string"/>
+         <xs:element name="Options" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+   </xs:complexType>
+
+    <xs:complexType name="DataStreamInfo">
+      <xs:all>
+         <xs:element name="DataStreamType" minOccurs="0" type="DataStreamType"/>
+         <xs:element name="DatasourceName" minOccurs="0" type="xs:string"/>
+         <xs:element name="DataconsumerUrl" minOccurs="0" type="xs:string"/>
+         <xs:element name="ProtocolInfo" type="DataProtocolInfo" minOccurs="0"/>
+      </xs:all>
+   </xs:complexType>
+
+    <xs:complexType name="Notification">
+      <xs:all>
+         <xs:element name="Mode" minOccurs="0" type="NotificationMode"/>
+         <xs:element name="Frequency" minOccurs="0" type="xs:int"/>
+         <xs:element name="Insensitivity" minOccurs="0" type="xs:int"/>
+      </xs:all>
+   </xs:complexType>
+
+    <xs:complexType name="StatisticMetricEx">
+      <xs:all>
+         <xs:element name="Category" minOccurs="0" type="StatisticCategory"/>
+         <xs:element name="MainMask" minOccurs="0" type="ActionsMask"/>
+         <xs:element name="RelativeMask" minOccurs="0" type="ActionsMask"/>
+         <xs:element name="Subject" minOccurs="0" type="StatisticSubject"/>
+         <xs:element name="TimeProfile" minOccurs="0" type="xs:string"/>
+         <xs:element name="Filter" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeRangeLeft" minOccurs="0" type="xs:int"/>
+         <xs:element name="TimeRangeRight" minOccurs="0" type="xs:int"/>
+         <xs:element name="TimeRangeLeft2" minOccurs="0" type="xs:int"/>
+         <xs:element name="TimeRangeRight2" minOccurs="0" type="xs:int"/>
+         <xs:element name="DynamicUserDataFormula" minOccurs="0" type="xs:string"/>
+         <xs:element name="DistinguishByConnId" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="IntervalType" minOccurs="0" type="StatisticInterval"/>
+         <xs:element name="DynamicTimeProfile" minOccurs="0" type="xs:string"/>
+         <xs:element name="DynamicFilter" minOccurs="0" type="xs:string"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="DynamicGroupBy" minOccurs="0" type="xs:string"/>
+         <xs:element name="DynamicOrderBy" minOccurs="0" type="xs:string"/>
+         <xs:element name="DynamicRowCount" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+    <xs:complexType name="StatisticMetric">
+      <xs:all>
+         <xs:element name="StatisticType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeProfile" minOccurs="0" type="xs:string"/>
+         <xs:element name="Filter" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeRange" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeRange2" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+    <xs:complexType name="StatisticObject">
+      <xs:all>
+         <xs:element name="ObjectId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ObjectType" minOccurs="0" type="StatisticObjectType"/>
+         <xs:element name="TenantName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantPassword" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+    
+  
+
+      
+      
+      <xs:complexType name="RequestGetStatisticEx">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticExtension" minOccurs="0" type="xs:string"/>
+         <xs:element name="StatisticExtensionSubcategory" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticObject" type="StatisticObject" minOccurs="0"/>
+         <xs:element name="StatisticMetricEx" type="StatisticMetricEx" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStatisticEx" name="RequestGetStatisticEx"/>
+      
+      <xs:complexType name="RequestOpenStatisticEx">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticExtension" minOccurs="0" type="xs:string"/>
+         <xs:element name="StatisticExtensionSubcategory" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticObject" type="StatisticObject" minOccurs="0"/>
+         <xs:element name="StatisticMetricEx" type="StatisticMetricEx" minOccurs="0"/>
+         <xs:element name="Notification" type="Notification" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestOpenStatisticEx" name="RequestOpenStatisticEx"/>
+      
+      <xs:complexType name="RequestPeekStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestPeekStatistic" name="RequestPeekStatistic"/>
+      
+      <xs:complexType name="RequestCloseStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCloseStatistic" name="RequestCloseStatistic"/>
+
+      <xs:complexType name="RequestGetStatisticProfile">
+      <xs:all>
+         <xs:element name="StatisticProfile" minOccurs="0" type="StatisticProfile"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStatisticProfile" name="RequestGetStatisticProfile"/>
+      
+      <xs:complexType name="RequestGetStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticMetric" minOccurs="0" type="StatisticMetric"/>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticObject" type="StatisticObject" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStatistic" name="RequestGetStatistic"/>
+      
+      <xs:complexType name="RequestOpenStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticMetric" minOccurs="0" type="StatisticMetric"/>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticObject" type="StatisticObject" minOccurs="0"/>
+         <xs:element name="Notification" type="Notification" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestOpenStatistic" name="RequestOpenStatistic"/>
+
+      
+
+      <xs:complexType name="RequestDataStreamOpen">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="StreamInfo" type="DataStreamInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDataStreamOpen" name="RequestDataStreamOpen"/>
+      <xs:complexType name="RequestDataStreamSend">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DataStream" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDataStreamSend" name="RequestDataStreamSend"/>
+      <xs:complexType name="RequestDataStreamClose">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDataStreamClose" name="RequestDataStreamClose"/>
+
+      <xs:complexType name="RequestSuspendNotification">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSuspendNotification" name="RequestSuspendNotification"/>
+      
+      <xs:complexType name="RequestResumeNotification">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StatisticId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestResumeNotification" name="RequestResumeNotification"/>
+
+    
+
+      <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+
+      <xs:complexType name="EventInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DeltaValue" minOccurs="0" type="xs:base64Binary"/>
+         <xs:element name="StateValue" minOccurs="0" type="IStatisticStatus"/>
+         <xs:element name="GroupByInfo" minOccurs="0" type="GroupByInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInfo" name="EventInfo"/>
+
+      <xs:complexType name="EventStatisticClosed">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStatisticClosed" name="EventStatisticClosed"/>
+
+      <xs:complexType name="EventStatisticProfile">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Profile" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStatisticProfile" name="EventStatisticProfile"/>
+
+      <xs:complexType name="EventStatisticValid">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStatisticValid" name="EventStatisticValid"/>
+      <xs:complexType name="EventStatisticInvalid">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStatisticInvalid" name="EventStatisticInvalid"/>
+
+      
+
+      <xs:complexType name="EventDataStreamOpeningFailure">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDataStreamOpeningFailure" name="EventDataStreamOpeningFailure"/>
+      <xs:complexType name="EventDataStreamOpened">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDataStreamOpened" name="EventDataStreamOpened"/>
+      <xs:complexType name="EventDataStreamMessage">
+      <xs:all>
+         <xs:element name="DataStream" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDataStreamMessage" name="EventDataStreamMessage"/>
+      <xs:complexType name="EventDataStreamClosed">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDataStreamClosed" name="EventDataStreamClosed"/>
+
+      <xs:complexType name="EventCurrentTargetStateSnapshot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="CurrentTargetStateSnapshot" minOccurs="0"
+                     type="CurrentTargetStateSnapshot"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCurrentTargetStateSnapshot" name="EventCurrentTargetStateSnapshot"/>
+      <xs:complexType name="EventCurrentTargetStateTargetAdded">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="CurrentTargetStateDelta" minOccurs="0" type="CurrentTargetStateDelta"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCurrentTargetStateTargetAdded"
+               name="EventCurrentTargetStateTargetAdded"/>
+      <xs:complexType name="EventCurrentTargetStateTargetUpdated">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="CurrentTargetStateDelta" minOccurs="0" type="CurrentTargetStateDelta"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCurrentTargetStateTargetUpdated"
+               name="EventCurrentTargetStateTargetUpdated"/>
+      <xs:complexType name="EventCurrentTargetStateTargetRemoved">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="CurrentTargetStateDelta" minOccurs="0" type="CurrentTargetStateDelta"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCurrentTargetStateTargetRemoved"
+               name="EventCurrentTargetStateTargetRemoved"/>
+
+      <xs:complexType name="EventStatisticOpened">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStatisticOpened" name="EventStatisticOpened"/>
+      <xs:complexType name="EventServerMode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tag" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntervalLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="StringValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventExtensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventServerMode" name="EventServerMode"/>
+
+
+   <xs:complexType name="IStatisticStatus">
+      <xs:choice>
+         <xs:element name="PlaceGroup" type="PlaceGroup" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="DnStatus" type="DnStatus" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="AgentGroup" type="AgentGroup" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="AgentStatus" type="AgentStatus" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="PlaceStatus" type="PlaceStatus" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="QueueGroup" type="QueueGroup" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="AgentGroupReasons" type="AgentGroupReasons" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="AgentReasons" type="AgentReasons" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="CampaignGroup" type="CampaignGroup" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Campaign" type="Campaign" minOccurs="0" maxOccurs="1"/>
+      </xs:choice>
+  </xs:complexType>
+   <xs:complexType name="CampaignGroup">
+      <xs:all>
+         <xs:element name="CampaignId" type="xs:string" minOccurs="0"/>
+         <xs:element name="CampaignDbid" type="xs:int" minOccurs="0"/>
+         <xs:element name="CampaignDbId" type="xs:int" minOccurs="0"/>
+         <xs:element name="GroupId" type="xs:string" minOccurs="0"/>
+         <xs:element name="GroupDbid" type="xs:int" minOccurs="0"/>
+         <xs:element name="GroupDbId" type="xs:int" minOccurs="0"/>
+         <xs:element name="Status" type="CampaignStatus" minOccurs="0"/>
+         <xs:element name="StartTime" type="xs:int" minOccurs="0"/>
+         <xs:element name="GroupType" type="xs:int" minOccurs="0"/>
+         <xs:element name="Actions" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="DnAction" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="DnActionCollection"/>
+            </xs:complexType>
+         </xs:element>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="Campaign">
+      <xs:all>
+         <xs:element name="CampaignId" type="xs:string" minOccurs="0"/>
+	        <xs:element ref="CampaignDbIdIgnoreCase" minOccurs="0"/>
+         <xs:element name="Status" type="CampaignStatus" minOccurs="0"/>
+         <xs:element name="StartTime" type="xs:int" minOccurs="0"/>
+         <xs:element name="Actions" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="DnAction" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="DnActionCollection"/>
+            </xs:complexType>
+         </xs:element>
+      </xs:all>
+  </xs:complexType>
+   <xs:element name="CampaignDbIdIgnoreCase" abstract="true"/>
+   <xs:element name="CampaignDbid" type="xs:int" substitutionGroup="CampaignDbIdIgnoreCase"/>
+   <xs:element name="CampaignDbId" type="xs:int" substitutionGroup="CampaignDbIdIgnoreCase"/>
+   <xs:complexType name="AgentGroupReasons">
+      <xs:all>
+         <xs:element name="AgentReasons" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="AgentReasons" maxOccurs="unbounded" minOccurs="0"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="AgentReasonsCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GroupId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="AgentReasons">
+      <xs:all>
+         <xs:element name="AgentId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+         <xs:element name="LoginId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Reasons" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="AgentStatus">
+      <xs:all>
+         <xs:element name="AgentId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+         <xs:element name="LoginId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Place" type="PlaceStatus" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="AgentGroup">
+      <xs:all>
+         <xs:element name="Agents" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="AgentStatus" maxOccurs="unbounded" minOccurs="0"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="AgentStatusesCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GroupId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="DnStatus">
+      <xs:all>
+         <xs:element name="Actions" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="DnAction" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="DnActionCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="ObjectType" type="StatisticObjectType" minOccurs="0"/>
+         <xs:element name="DnId" type="xs:string" minOccurs="0"/>
+         <xs:element name="SwitchId" type="xs:string" minOccurs="0"/>
+         <xs:element name="GswDnTypes" type="xs:int" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+         <xs:element name="RealDn" type="xs:string" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="PlaceGroup">
+      <xs:all>
+         <xs:element name="Agents" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="AgentInfo" maxOccurs="unbounded" minOccurs="0"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="AgentInfoCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Places" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="PlaceStatus" maxOccurs="unbounded" minOccurs="0"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="PlaceStatusesCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GroupId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="PlaceStatus">
+      <xs:all>
+         <xs:element name="PlaceId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+         <xs:element name="AgentId" type="xs:string" minOccurs="0"/>
+         <xs:element name="LoginId" type="xs:string" minOccurs="0"/>
+         <xs:element name="DnStatuses" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="DnStatus" maxOccurs="unbounded" minOccurs="0"/>
+               </xs:sequence>
+               <xs:attribute name="type">
+                  <xs:simpleType>
+                     <xs:restriction base="xs:string">
+                        <xs:enumeration value="DnCollection"/>
+                        <xs:enumeration value="DnStatusesCollection"/>
+                     </xs:restriction>
+                  </xs:simpleType>
+               </xs:attribute>
+            </xs:complexType>
+         </xs:element>
+      </xs:all>
+   </xs:complexType>
+   <xs:complexType name="AgentInfo">
+       <xs:all>
+         <xs:element name="AgentId" type="xs:string" minOccurs="0"/>
+         <xs:element name="LoginId" type="xs:string" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="QueueGroup">
+       <xs:all>
+         <xs:element name="GroupId" type="xs:string" minOccurs="0"/>
+         <xs:element name="Status" type="xs:int" minOccurs="0"/>
+         <xs:element name="Time" type="xs:int" minOccurs="0"/>
+         <xs:element name="AgentCount" type="xs:int" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="CurrentTargetStateSnapshot">
+      <xs:sequence>
+         <xs:element name="Element" type="CurrentTargetStateInfo" maxOccurs="unbounded"/>
+      </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="CurrentTargetStateDelta">
+      <xs:all>
+         <xs:element name="Requests">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="RequestInfo" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="RequestInfoCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="TargetState" type="CurrentTargetStateInfo"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="CurrentTargetStateInfo">
+      <xs:all>
+         <xs:element name="AgentId" type="xs:string" minOccurs="0"/>
+         <xs:element name="AgentDbid" type="xs:int" minOccurs="0"/>
+         <xs:element name="AgentDbId" type="xs:int" minOccurs="0"/>
+         <xs:element name="LoginId" type="xs:string" minOccurs="0"/>
+         <xs:element name="PlaceId" type="xs:string" minOccurs="0"/>
+         <xs:element name="PlaceDbId" type="xs:int" minOccurs="0"/>
+         <xs:element name="MediaCapacity" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="MediaCapacityInfo" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="MediaCapacityInfoCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DnStatuses" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="DnStatusEx" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="DnStatusExCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="DnStatusEx">
+      <xs:all>
+         <xs:element name="DnId" type="xs:string"/>
+         <xs:element name="ObjectType" type="StatisticObjectType" minOccurs="0"/>
+         <xs:element name="SwitchId" type="xs:string"/>
+         <xs:element name="GswDnTypes" type="xs:int"/>
+         <xs:element name="Status" type="xs:int"/>
+         <xs:element name="Time" type="xs:int"/>
+         <xs:element name="Actions" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="DnAction" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="DnActionCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="RealDn" type="xs:string" minOccurs="0"/>
+         <xs:element name="MultiMedia" type="xs:int" minOccurs="0"/>
+         <xs:element name="MediaCapacity" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="MediaCapacityInfo" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="MediaCapacityInfoCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="DnAction">
+      <xs:all>
+         <xs:element name="Action" type="DnActions"/>
+         <xs:element name="Time" type="xs:int"/>
+         <xs:element name="ActionDataType" type="ActionDataType"/>
+         <xs:element name="ConnectionId" type="ConnectionId" minOccurs="0"/>
+         <xs:element name="DNIS" type="xs:string" minOccurs="0"/>
+         <xs:element name="ANI" type="xs:string" minOccurs="0"/>
+         <xs:element name="UserData" type="gc:KeyValueCollection" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="MediaCapacityInfo">
+      <xs:all>
+         <xs:element name="MediaType" type="xs:string"/>
+         <xs:element name="CurrentInteractionsCount" type="xs:int"/>
+         <xs:element name="MaxInteractionsCount" type="xs:int"/>
+         <xs:element name="CurrentMarginCount" type="xs:int"/>
+         <xs:element name="Timestamp" type="xs:int"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="RequestInfo">
+      <xs:all>
+         <xs:element name="RequestId" type="xs:int"/>
+         <xs:element name="Tag" type="xs:int" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:simpleType name="ActionsMaskContent">
+      <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+   <xs:complexType name="ActionsMask">
+      <xs:simpleContent>
+         <xs:extension base="ActionsMaskContent">
+            <xs:attribute name="type" type="xs:string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:simpleType name="ConnectionId">
+      <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+   <xs:simpleType name="ActionDataType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoData"/>
+         <xs:enumeration value="CallData"/>
+      </xs:restriction>
+  </xs:simpleType>
+   <xs:complexType name="ActionSpace">
+      <xs:all>
+         <xs:element name="Name" type="xs:string"/>
+         <xs:element name="ActionTypes" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="ActionTypeInfo" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="Requests.Customactions.ActionTypeInfoCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Extensions" type="gc:KeyValueCollection" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="ActionTypeInfo">
+      <xs:all>
+         <xs:element name="Name" type="xs:string"/>
+         <xs:element name="Propagated" type="xs:string"/>
+         <xs:element name="Type" type="ActionType"/>
+         <xs:element name="ObjectTypes" minOccurs="0">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Element" type="StatisticObjectType" maxOccurs="unbounded"/>
+               </xs:sequence>
+               <xs:attribute name="type" fixed="Requests.Customactions.StatisticObjectTypeCollection"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Extensions" type="gc:KeyValueCollection" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:complexType name="SsVariant">
+      <xs:attribute name="IntValue" type="xs:string" use="optional"/>
+      <xs:attribute name="StrValue" type="xs:string" use="optional"/>
+      <xs:attribute name="FloatValue" type="xs:string" use="optional"/>
+      <xs:attribute name="BoolValue" type="xs:string" use="optional"/>
+  </xs:complexType>
+   <xs:complexType name="GroupSignature">
+      <xs:sequence>
+          <xs:element name="Token" type="SsVariant" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="GroupInfo">
+        <xs:all>
+            <xs:element name="GroupSignature" type="GroupSignature" minOccurs="0"/>
+            <xs:element name="GlobalValue" type="SsVariant" minOccurs="0"/>
+        </xs:all>
+  </xs:complexType>
+   <xs:complexType name="GroupList">
+      <xs:sequence>
+          <xs:element name="Group" type="GroupInfo" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="GroupByInfo">
+      <xs:all>
+          <xs:element name="TypeSignature" type="xs:string" minOccurs="0"/>
+          <xs:element name="Groups" type="GroupList" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+</xs:schema>

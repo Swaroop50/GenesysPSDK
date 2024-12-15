@@ -1,0 +1,3323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Contacts/ContactServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/KVListsBinding/2006/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Contacts/ContactServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="DataSourceType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Main"/>
+         <xs:enumeration value="Archive"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="Prefixes">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Not"/>
+         <xs:enumeration value="And"/>
+         <xs:enumeration value="Or"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="Operators">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Equal"/>
+         <xs:enumeration value="NotEqual"/>
+         <xs:enumeration value="Greater"/>
+         <xs:enumeration value="GreaterOrEqual"/>
+         <xs:enumeration value="Lesser"/>
+         <xs:enumeration value="LesserOrEqual"/>
+         <xs:enumeration value="Like"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ErrorCodes">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="InvalidServiceName"/>
+         <xs:enumeration value="InvalidMethodName"/>
+         <xs:enumeration value="OldStandardResponseNotFound"/>
+         <xs:enumeration value="OldStandardResponseNotFoundForCategory"/>
+         <xs:enumeration value="TextNotFound"/>
+         <xs:enumeration value="AddressNotFound"/>
+         <xs:enumeration value="TooManyAddresses"/>
+         <xs:enumeration value="InvalidAddressOrDomain"/>
+         <xs:enumeration value="StandardResponseTimeFrameError"/>
+         <xs:enumeration value="StandardResponseStatusError"/>
+         <xs:enumeration value="StandardResponseNotFound"/>
+         <xs:enumeration value="StandardResponseNotFoundForCategory"/>
+         <xs:enumeration value="StandardResponseAlreadyExists"/>
+         <xs:enumeration value="ObjectAlreadyExistsInDatabase"/>
+         <xs:enumeration value="MissingParameter"/>
+         <xs:enumeration value="TwoIncopatibleParameters"/>
+         <xs:enumeration value="IncorrectParameterType"/>
+         <xs:enumeration value="IncorrectParameterValue"/>
+         <xs:enumeration value="RenderingError"/>
+         <xs:enumeration value="ParameterValueTooLong"/>
+         <xs:enumeration value="ParameterAndUserdataNotAllowed"/>
+         <xs:enumeration value="AttributeValueTooLong"/>
+         <xs:enumeration value="InvalidMediatypeValue"/>
+         <xs:enumeration value="Invalid3rdPartyMessageType"/>
+         <xs:enumeration value="ObjectNotFound"/>
+         <xs:enumeration value="InvalidInteractionType"/>
+         <xs:enumeration value="InvalidInteractionSubtype"/>
+         <xs:enumeration value="InvalidInteractionError"/>
+         <xs:enumeration value="InvalidFieldValue"/>
+         <xs:enumeration value="MaxAutoReplyCountReached"/>
+         <xs:enumeration value="ObjectAlreadyExist"/>
+         <xs:enumeration value="FatalError"/>
+         <xs:enumeration value="InvalidObjectId"/>
+         <xs:enumeration value="IncorrectConstraints"/>
+         <xs:enumeration value="InvalidAttributes"/>
+         <xs:enumeration value="ContactIdNotExist"/>
+         <xs:enumeration value="CanNotUpdateAttribute"/>
+         <xs:enumeration value="FromContactIdNotFound"/>
+         <xs:enumeration value="ToContactIdNotFound"/>
+         <xs:enumeration value="MergeIdNotFound"/>
+         <xs:enumeration value="MergeListNotExist"/>
+         <xs:enumeration value="MergeHistoryUnavailable"/>
+         <xs:enumeration value="UnexpectedError"/>
+         <xs:enumeration value="ConnectionToDbFailed"/>
+         <xs:enumeration value="NoEsjConfig"/>
+         <xs:enumeration value="SmtpAuthentificationError"/>
+         <xs:enumeration value="UnknownHost"/>
+         <xs:enumeration value="CantStopProcessing"/>
+         <xs:enumeration value="ConnectionClosed"/>
+         <xs:enumeration value="ServerOverloadedRequestRejected"/>
+         <xs:enumeration value="ConfigError"/>
+         <xs:enumeration value="FieldCodeKeyError"/>
+         <xs:enumeration value="TimeoutError"/>
+         <xs:enumeration value="NoSearchableAttribute"/>
+         <xs:enumeration value="NoCreationAttributeSet"/>
+         <xs:enumeration value="InvalidTenant"/>
+         <xs:enumeration value="NoTenant"/>
+         <xs:enumeration value="MoreThanOneTenant"/>
+         <xs:enumeration value="ContactMergeMultipleLevels"/>
+         <xs:enumeration value="InvalidMediaConfiguration"/>
+         <xs:enumeration value="NoValidSenderFound"/>
+         <xs:enumeration value="NoValidRecipientsFound"/>
+         <xs:enumeration value="BadAddress"/>
+         <xs:enumeration value="NoEmbeddedId"/>
+         <xs:enumeration value="NoParentFound"/>
+         <xs:enumeration value="NoReplyTextFound"/>
+         <xs:enumeration value="IdMismachError"/>
+         <xs:enumeration value="NotWellConstructed"/>
+         <xs:enumeration value="MimeMessageOpenError"/>
+         <xs:enumeration value="ManualIncorrectMime"/>
+         <xs:enumeration value="InvalidSubscriberId"/>
+         <xs:enumeration value="IndexingIsDisabled"/>
+         <xs:enumeration value="IndexSearchingIsDisabled"/>
+         <xs:enumeration value="IncorrectIndexName"/>
+         <xs:enumeration value="UnableToParseQuery"/>
+         <xs:enumeration value="UnableToSearch"/>
+         <xs:enumeration value="UnableToFindDocument"/>
+         <xs:enumeration value="MethodNotAllowed"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="SortMode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Ascending"/>
+         <xs:enumeration value="Descending"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="Statuses">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="New"/>
+         <xs:enumeration value="Pending"/>
+         <xs:enumeration value="InProcess"/>
+         <xs:enumeration value="Stopped"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="EntityTypes">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="EmailIn"/>
+         <xs:enumeration value="EmailOut"/>
+         <xs:enumeration value="Chat"/>
+         <xs:enumeration value="PhoneCall"/>
+         <xs:enumeration value="Callback"/>
+         <xs:enumeration value="CoBrowse"/>
+         <xs:enumeration value="Interaction"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="CoBrowseAction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Add"/>
+         <xs:enumeration value="Replace"/>
+         <xs:enumeration value="Remove"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ResponseType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="SuggestedResponsesIgnored"/>
+         <xs:enumeration value="SystemAutoResponse"/>
+         <xs:enumeration value="SuggestedResponseChoosen"/>
+         <xs:enumeration value="SuggestedResponseNotReceived"/>
+         <xs:enumeration value="AdministratorResponse"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="IndexNameType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Contact"/>
+         <xs:enumeration value="Interaction"/>
+         <xs:enumeration value="SRL"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="RequestGetVersion">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetVersion" name="RequestGetVersion"/>
+   <xs:complexType name="EventGetVersion">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Version" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetVersion" name="EventGetVersion"/>
+   <xs:complexType name="RequestContactListGet">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ESQuery" minOccurs="0" type="xs:string"/>
+         <xs:element name="CloseScroll" minOccurs="0" type="xs:string"/>
+         <xs:element name="ContactCount" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Restricted" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="PageMaxSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="AttributeList" minOccurs="0" type="StringList"/>
+         <xs:element name="SearchCriteria" minOccurs="0" type="SearchCriteriaCollection"/>
+         <xs:element name="SortCriteria" minOccurs="0" type="SortCriteriaCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestContactListGet" name="RequestContactListGet"/>
+   <xs:complexType name="ComplexSearchCriteria">
+      <xs:all>
+         <xs:element name="Prefix" minOccurs="0" type="Prefixes"/>
+         <xs:element name="Criterias" minOccurs="0" type="SearchCriteriaCollection"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ComplexSearchCriteria" name="ComplexSearchCriteria"/>
+   <xs:complexType name="SimpleSearchCriteria">
+      <xs:all>
+         <xs:element name="Operator" minOccurs="0" type="Operators"/>
+         <xs:element name="AttrName" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttrValue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="SimpleSearchCriteria" name="SimpleSearchCriteria"/>
+   <xs:complexType name="SortCriteria">
+      <xs:all>
+         <xs:element name="AttrName" minOccurs="0" type="xs:string"/>
+         <xs:element name="SortIndex" minOccurs="0" type="xs:int"/>
+         <xs:element name="SortOperator" minOccurs="0" type="SortMode"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="SortCriteria" name="SortCriteria"/>
+   <xs:complexType name="EventContactListGet">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="HasNext" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="PageSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScrollId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TotalCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="ContactData" minOccurs="0" type="ContactDataList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventContactListGet" name="EventContactListGet"/>
+   <xs:complexType name="Contact">
+      <xs:all>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="Index" minOccurs="0" type="xs:int"/>
+         <xs:element name="ContactAttributesList" minOccurs="0" type="ContactAttributeList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="Contact" name="Contact"/>
+   <xs:complexType name="Attribute">
+      <xs:all>
+         <xs:element name="AttributeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttributeValue" minOccurs="0" type="KeyValueObject"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="Attribute" name="Attribute"/>
+   <xs:complexType name="RequestContactListGetNextPage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PageMaxSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScrollId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestContactListGetNextPage" name="RequestContactListGetNextPage"/>
+   <xs:complexType name="EventContactListGetNextPage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PageSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="HasNext" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="ContactData" minOccurs="0" type="ContactDataList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventContactListGetNextPage" name="EventContactListGetNextPage"/>
+   <xs:complexType name="RequestContactListRelease">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ScrollId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestContactListRelease" name="RequestContactListRelease"/>
+   <xs:complexType name="EventContactListRelease">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventContactListRelease" name="EventContactListRelease"/>
+   <xs:complexType name="RequestGetContacts">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Restricted" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="ContactCount" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="AttributeList" minOccurs="0" type="StringList"/>
+         <xs:element name="SearchCriteria" minOccurs="0" type="SearchCriteriaCollection"/>
+         <xs:element name="SortCriteria" minOccurs="0" type="SortCriteriaCollection"/>
+         <xs:element name="IndexOfFirst" minOccurs="0" type="xs:int"/>
+         <xs:element name="MaxCount" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetContacts" name="RequestGetContacts"/>
+   <xs:complexType name="EventGetContacts">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactData" minOccurs="0" type="ContactDataList"/>
+         <xs:element name="CurrentCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="TotalCount" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetContacts" name="EventGetContacts"/>
+   <xs:complexType name="RequestInsert">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Attributes" minOccurs="0" type="AttributesList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestInsert" name="RequestInsert"/>
+   <xs:complexType name="AttributesHeader">
+      <xs:all>
+         <xs:element name="AttrName" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttributesInfoList" minOccurs="0" type="AttributesInfoList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="AttributesHeader" name="AttributesHeader"/>
+   <xs:complexType name="AttributesInfo">
+      <xs:all>
+         <xs:element name="AttrIndex" minOccurs="0" type="xs:int"/>
+         <xs:element name="AttrId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttrValue" minOccurs="0" type="StringBinary"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="AttributesInfo" name="AttributesInfo"/>
+   <xs:complexType name="EventInsert">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInsert" name="EventInsert"/>
+   <xs:complexType name="RequestDelete">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDelete" name="RequestDelete"/>
+   <xs:complexType name="EventDelete">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDelete" name="EventDelete"/>
+   <xs:complexType name="RequestRemoveAllAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRemoveAllAttributes" name="RequestRemoveAllAttributes"/>
+   <xs:complexType name="EventRemoveAllAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRemoveAllAttributes" name="EventRemoveAllAttributes"/>
+   <xs:complexType name="RequestMergeContacts">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="SourceContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DestinationContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMergeContacts" name="RequestMergeContacts"/>
+   <xs:complexType name="EventMergeContacts">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="MergeId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMergeContacts" name="EventMergeContacts"/>
+   <xs:complexType name="RequestGetAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttributeList" minOccurs="0" type="StringList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetAttributes" name="RequestGetAttributes"/>
+   <xs:complexType name="EventGetAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Attributes" minOccurs="0" type="AttributesList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetAttributes" name="EventGetAttributes"/>
+   <xs:complexType name="RequestUpdateAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DeleteAttributes" minOccurs="0" type="DeleteAttributesList"/>
+         <xs:element name="InsertAttributes" minOccurs="0" type="AttributesList"/>
+         <xs:element name="UpdateAttributes" minOccurs="0" type="AttributesList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateAttributes" name="RequestUpdateAttributes"/>
+   <xs:complexType name="DeleteAttributesInfo">
+      <xs:all>
+         <xs:element name="AttrName" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttrId" minOccurs="0" type="StringList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="DeleteAttributesInfo" name="DeleteAttributesInfo"/>
+   <xs:complexType name="EventUpdateAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Attributes" minOccurs="0" type="AttributesList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateAttributes" name="EventUpdateAttributes"/>
+   <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="FaultCode" minOccurs="0" type="ErrorCodes"/>
+         <xs:element name="ErrorDescription" minOccurs="0" type="xs:string"/>
+         <xs:element name="FaultString" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+   <xs:complexType name="RequestUnMergeContacts">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnMergeContacts" name="RequestUnMergeContacts"/>
+   <xs:complexType name="EventUnMergeContacts">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="SourceContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DestinationContactId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUnMergeContacts" name="EventUnMergeContacts"/>
+   <xs:complexType name="RequestMergeListGet">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PageMaxSize" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMergeListGet" name="RequestMergeListGet"/>
+   <xs:complexType name="EventMergeListGet">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="HasNext" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MergeListId" minOccurs="0" type="xs:string"/>
+         <xs:element name="RecordCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="MergeData" minOccurs="0" type="MergeDataDetailsList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMergeListGet" name="EventMergeListGet"/>
+   <xs:complexType name="MergeDataDetails">
+      <xs:all>
+         <xs:element name="MergeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="SourceContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DestinationContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" minOccurs="0" type="xs:string"/>
+         <xs:element name="MergeDate" minOccurs="0" type="gc:dateTime"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="MergeDataDetails" name="MergeDataDetails"/>
+   <xs:complexType name="RequestMergeListGetNextPage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="MergeListId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PageMaxSize" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMergeListGetNextPage" name="RequestMergeListGetNextPage"/>
+   <xs:complexType name="EventMergeListGetNextPage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="HasNext" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="RecordCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="MergeData" minOccurs="0" type="MergeDataDetailsList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMergeListGetNextPage" name="EventMergeListGetNextPage"/>
+   <xs:complexType name="RequestMergeListRelease">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="MergeListId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMergeListRelease" name="RequestMergeListRelease"/>
+   <xs:complexType name="EventMergeListRelease">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMergeListRelease" name="EventMergeListRelease"/>
+   <xs:complexType name="RequestGetInteractionsForContact">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AttributeList" minOccurs="0" type="StringList"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="EntityTypeId" minOccurs="0" type="EntityTypes"/>
+         <xs:element name="SearchCriteria" minOccurs="0" type="SearchCriteriaCollection"/>
+         <xs:element name="SortCriteria" minOccurs="0" type="SortCriteriaCollection"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DataSource" minOccurs="0" type="DataSourceType"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetInteractionsForContact" name="RequestGetInteractionsForContact"/>
+   <xs:complexType name="EventGetInteractionsForContact">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ContactInteractions" minOccurs="0" type="ContactInteractionList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetInteractionsForContact" name="EventGetInteractionsForContact"/>
+   <xs:complexType name="ContactInteraction">
+      <xs:all>
+         <xs:element name="InteractionIndex" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionAttributes" minOccurs="0" type="InteractionAttributeList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ContactInteraction" name="ContactInteraction"/>
+   <xs:complexType name="RequestInsertInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionAttributes" minOccurs="0" type="InteractionAttributes"/>
+         <xs:element name="InteractionContent" minOccurs="0" type="InteractionContent"/>
+         <xs:element name="EntityAttributes" minOccurs="0" type="BaseEntityAttributes"/>
+         <xs:element name="InteractionContentSentReceived" minOccurs="0"
+                     type="InteractionContentSentReceived"/>
+         <xs:element name="DeleteAllAttachmentsBefore" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Attachments" minOccurs="0" type="IndexedAttachmentList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestInsertInteraction" name="RequestInsertInteraction"/>
+   <xs:complexType name="InteractionContentSentReceived">
+      <xs:all>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="InteractionContentSentReceived" name="InteractionContentSentReceived"/>
+   <xs:complexType name="InteractionAttributes">
+      <xs:all>
+         <xs:element name="CanBeParent" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="CreatorAppId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Timeshift" minOccurs="0" type="xs:int"/>
+         <xs:element name="EntityTypeId" minOccurs="0" type="EntityTypes"/>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ParentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="StartDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Status" minOccurs="0" type="Statuses"/>
+         <xs:element name="Subject" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SubtypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ExternalId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ThreadId" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsCategoryApproved" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="StoppedReason" minOccurs="0" type="xs:string"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="QueueName" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsSpam" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="WebSafeEmailStatus" minOccurs="0" type="xs:string"/>
+         <xs:element name="OwnerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TheComment" minOccurs="0" type="xs:string"/>
+         <xs:element name="EndDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="AllAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="OtherFields" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="InteractionAttributes" name="InteractionAttributes"/>
+   <xs:complexType name="InteractionContent">
+      <xs:all>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="StructuredText" minOccurs="0" type="xs:string"/>
+         <xs:element name="StructTextMimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="InteractionContent" name="InteractionContent"/>
+   <xs:complexType name="EmailInEntityAttributes">
+      <xs:all>
+         <xs:element name="FromAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="FromPersonal" minOccurs="0" type="xs:string"/>
+         <xs:element name="ReplyToAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="ToAddresses" minOccurs="0" type="xs:string"/>
+         <xs:element name="CcAddresses" minOccurs="0" type="xs:string"/>
+         <xs:element name="BccAddresses" minOccurs="0" type="xs:string"/>
+         <xs:element name="SentDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Mailbox" minOccurs="0" type="xs:string"/>
+         <xs:element name="WhichRuleMatched" minOccurs="0" type="xs:string"/>
+         <xs:element name="EmailOutId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Header" minOccurs="0" type="xs:string"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EmailInEntityAttributes" name="EmailInEntityAttributes"/>
+   <xs:complexType name="EmailOutEntityAttributes">
+      <xs:all>
+         <xs:element name="FromAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="FromPersonal" minOccurs="0" type="xs:string"/>
+         <xs:element name="ReplyToAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="ToAddresses" minOccurs="0" type="xs:string"/>
+         <xs:element name="CcAddresses" minOccurs="0" type="xs:string"/>
+         <xs:element name="BccAddresses" minOccurs="0" type="xs:string"/>
+         <xs:element name="SentDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ReviewerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EmailOutEntityAttributes" name="EmailOutEntityAttributes"/>
+   <xs:complexType name="ChatEntityAttributes">
+      <xs:all>
+         <xs:element name="EstablishedDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="ReleasedDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ChatEntityAttributes" name="ChatEntityAttributes"/>
+   <xs:complexType name="PhoneCallEntityAttributes">
+      <xs:all>
+         <xs:element name="Duration" minOccurs="0" type="xs:int"/>
+         <xs:element name="Outcome" minOccurs="0" type="xs:string"/>
+         <xs:element name="PhoneNumber" minOccurs="0" type="xs:string"/>
+         <xs:element name="TConnectionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="PhoneCallEntityAttributes" name="PhoneCallEntityAttributes"/>
+   <xs:complexType name="CallbackEntityAttributes">
+      <xs:all>
+         <xs:element name="CallBackStatus" minOccurs="0" type="xs:int"/>
+         <xs:element name="DetailedDescription" minOccurs="0" type="xs:string"/>
+         <xs:element name="CustomData" minOccurs="0" type="xs:string"/>
+         <xs:element name="DesiredResponseType" minOccurs="0" type="xs:int"/>
+         <xs:element name="StartTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="EndTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="CustomerNumber" minOccurs="0" type="xs:string"/>
+         <xs:element name="Attempts" minOccurs="0" type="xs:int"/>
+         <xs:element name="DN" minOccurs="0" type="xs:string"/>
+         <xs:element name="Location" minOccurs="0" type="xs:string"/>
+         <xs:element name="CallbackServerID" minOccurs="0" type="xs:string"/>
+         <xs:element name="CallResult" minOccurs="0" type="xs:int"/>
+         <xs:element name="TheType" minOccurs="0" type="xs:int"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="CallbackEntityAttributes" name="CallbackEntityAttributes"/>
+   <xs:complexType name="CoBrowseEntityAttributes">
+      <xs:all>
+         <xs:element name="VisitedURL" minOccurs="0" type="DateTimeList"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="CoBrowseEntityAttributes" name="CoBrowseEntityAttributes"/>
+   <xs:complexType name="EventInsertInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInsertInteraction" name="EventInsertInteraction"/>
+   <xs:complexType name="RequestUpdateInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionAttributes" minOccurs="0" type="InteractionAttributes"/>
+         <xs:element name="InteractionContent" minOccurs="0" type="InteractionContent"/>
+         <xs:element name="EntityAttributes" minOccurs="0" type="BaseEntityAttributes"/>
+         <xs:element name="InteractionContentSentReceived" minOccurs="0"
+                     type="InteractionContentSentReceived"/>
+         <xs:element name="DeleteAllAttachmentsBefore" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Attachments" minOccurs="0" type="IndexedAttachmentList"/>
+         <xs:element name="Action" minOccurs="0" type="CoBrowseAction"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateInteraction" name="RequestUpdateInteraction"/>
+   <xs:complexType name="EventUpdateInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateInteraction" name="EventUpdateInteraction"/>
+   <xs:complexType name="RequestDeleteInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DataSource" minOccurs="0" type="DataSourceType"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteInteraction" name="RequestDeleteInteraction"/>
+   <xs:complexType name="EventDeleteInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteInteraction" name="EventDeleteInteraction"/>
+   <xs:complexType name="RequestSetInteractionStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="StoppedReason" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="Statuses"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSetInteractionStatus" name="RequestSetInteractionStatus"/>
+   <xs:complexType name="EventSetInteractionStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSetInteractionStatus" name="EventSetInteractionStatus"/>
+   <xs:complexType name="RequestGetInteractionContent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="IncludeBinaryContent" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="IncludeAttachments" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="DataSource" minOccurs="0" type="DataSourceType"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetInteractionContent" name="RequestGetInteractionContent"/>
+   <xs:complexType name="EventGetInteractionContent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionAttributes" minOccurs="0" type="InteractionAttributes"/>
+         <xs:element name="InteractionContent" minOccurs="0" type="InteractionContent"/>
+         <xs:element name="EntityAttributes" minOccurs="0" type="BaseEntityAttributes"/>
+         <xs:element name="Attachments" minOccurs="0" type="AttachmentList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetInteractionContent" name="EventGetInteractionContent"/>
+   <xs:complexType name="Attachment">
+      <xs:all>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="Attachment" name="Attachment"/>
+   <xs:complexType name="IndexedAttachment">
+      <xs:all>
+         <xs:element name="Index" minOccurs="0" type="xs:int"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="IndexedAttachment" name="IndexedAttachment"/>
+   <xs:complexType name="RequestGetInteractionsWithStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionSubtype" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionType" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="Statuses"/>
+         <xs:element name="SubmittedBy" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetInteractionsWithStatus" name="RequestGetInteractionsWithStatus"/>
+   <xs:complexType name="EventGetInteractionsWithStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="IdList" minOccurs="0" type="StringList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetInteractionsWithStatus" name="EventGetInteractionsWithStatus"/>
+   <xs:complexType name="RequestCheckForUpdates">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Language" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="LastUpdate" minOccurs="0" type="gc:dateTime"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCheckForUpdates" name="RequestCheckForUpdates"/>
+   <xs:complexType name="EventCheckForUpdates">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="NeedsUpdate" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCheckForUpdates" name="EventCheckForUpdates"/>
+   <xs:complexType name="RequestGetAllCategories">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Language" minOccurs="0" type="xs:string"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetAllCategories" name="RequestGetAllCategories"/>
+   <xs:complexType name="EventGetAllCategories">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="LastUpdate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SRLContent" minOccurs="0" type="CategoryList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetAllCategories" name="EventGetAllCategories"/>
+   <xs:complexType name="Category">
+      <xs:all>
+         <xs:element name="ChildrenCategories" minOccurs="0" type="CategoryList"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ChildrenStdResponses" minOccurs="0" type="StandardResponseList"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="ModifiedDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Name" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="Language" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="Category" name="Category"/>
+   <xs:complexType name="StandardResponse">
+      <xs:all>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AckUsageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentDesktopUsageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="AutoRespUsageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="EmailOutUsageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="VoiceAutoRespUsageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="WSSUsageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Body" minOccurs="0" type="xs:string"/>
+         <xs:element name="CustomFieldCodes" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="ExpirationDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsActive" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="ModifiedDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="OwnerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StartDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="StructuredBody" minOccurs="0" type="xs:string"/>
+         <xs:element name="Subject" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Version" minOccurs="0" type="xs:int"/>
+         <xs:element name="Attachments" minOccurs="0" type="AttachmentList"/>
+         <xs:element name="NullAttributes" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="StandardResponse" name="StandardResponse"/>
+   <xs:complexType name="RequestGetDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="IncludeBinaryContent" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="DataSource" minOccurs="0" type="DataSourceType"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetDocument" name="RequestGetDocument"/>
+   <xs:complexType name="EventGetDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetDocument" name="EventGetDocument"/>
+   <xs:complexType name="RequestAddDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddDocument" name="RequestAddDocument"/>
+   <xs:complexType name="EventAddDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddDocument" name="EventAddDocument"/>
+   <xs:complexType name="RequestRemoveDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRemoveDocument" name="RequestRemoveDocument"/>
+   <xs:complexType name="EventRemoveDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRemoveDocument" name="EventRemoveDocument"/>
+   <xs:complexType name="RequestUpdateDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateDocument" name="RequestUpdateDocument"/>
+   <xs:complexType name="EventUpdateDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateDocument" name="EventUpdateDocument"/>
+   <xs:complexType name="RequestRenderFieldCodes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+         <xs:element name="Interaction" minOccurs="0" type="ContactInteractionProperties"/>
+         <xs:element name="Contact" minOccurs="0" type="ContactProperties"/>
+         <xs:element name="Agent" minOccurs="0" type="AgentProperties"/>
+         <xs:element name="CustomProperties" minOccurs="0" type="CustomProperties"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRenderFieldCodes" name="RequestRenderFieldCodes"/>
+   <xs:complexType name="ContactInteractionProperties">
+      <xs:all>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="Subject" minOccurs="0" type="xs:string"/>
+         <xs:element name="StartDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="TimeZone" minOccurs="0" type="xs:string"/>
+         <xs:element name="ToAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="FromAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="AttachedData" minOccurs="0" type="PropertyList"/>
+         <xs:element name="OtherProperties" minOccurs="0" type="PropertyList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ContactInteractionProperties" name="ContactInteractionProperties"/>
+   <xs:complexType name="Property">
+      <xs:all>
+         <xs:element name="Name" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="Property" name="Property"/>
+   <xs:complexType name="ContactProperties">
+      <xs:all>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="FirstName" minOccurs="0" type="xs:string"/>
+         <xs:element name="LastName" minOccurs="0" type="xs:string"/>
+         <xs:element name="FullName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Title" minOccurs="0" type="xs:string"/>
+         <xs:element name="PrimaryEmailAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="PrimaryPhoneNumber" minOccurs="0" type="xs:string"/>
+         <xs:element name="OtherProperties" minOccurs="0" type="PropertyList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ContactProperties" name="ContactProperties"/>
+   <xs:complexType name="AgentProperties">
+      <xs:all>
+         <xs:element name="FirstName" minOccurs="0" type="xs:string"/>
+         <xs:element name="LastName" minOccurs="0" type="xs:string"/>
+         <xs:element name="FullName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Signature" minOccurs="0" type="xs:string"/>
+         <xs:element name="OtherProperties" minOccurs="0" type="PropertyList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="AgentProperties" name="AgentProperties"/>
+   <xs:complexType name="CustomProperties">
+      <xs:all>
+         <xs:element name="Properties" minOccurs="0" type="PropertyList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="CustomProperties" name="CustomProperties"/>
+   <xs:complexType name="EventRenderFieldCodes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRenderFieldCodes" name="EventRenderFieldCodes"/>
+   <xs:complexType name="RequestValidateFieldCodes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestValidateFieldCodes" name="RequestValidateFieldCodes"/>
+   <xs:complexType name="EventValidateFieldCodes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Errors" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventValidateFieldCodes" name="EventValidateFieldCodes"/>
+   <xs:complexType name="RequestFindOrCreatePhoneCall">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PhoneCallId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Duration" minOccurs="0" type="xs:int"/>
+         <xs:element name="OutCome" minOccurs="0" type="xs:string"/>
+         <xs:element name="PhoneNumber" minOccurs="0" type="xs:string"/>
+         <xs:element name="TConnectionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OwnerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CanBeParent" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="CreatorAppId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="StartDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Status" minOccurs="0" type="Statuses"/>
+         <xs:element name="Timeshift" minOccurs="0" type="xs:int"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SubtypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ExternalId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ThreadId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Subject" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsCategoryApproved" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="StoppedReason" minOccurs="0" type="xs:string"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ParentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="QueueName" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsSpam" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="WebSafeEmailStatus" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheComment" minOccurs="0" type="xs:string"/>
+         <xs:element name="EndDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="AllAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestFindOrCreatePhoneCall" name="RequestFindOrCreatePhoneCall"/>
+   <xs:complexType name="EventFindOrCreatePhoneCall">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PhoneCallId" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsCreated" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventFindOrCreatePhoneCall" name="EventFindOrCreatePhoneCall"/>
+   <xs:complexType name="RequestAssignInteractionToContact">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAssignInteractionToContact"
+               name="RequestAssignInteractionToContact"/>
+   <xs:complexType name="EventAssignInteractionToContact">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAssignInteractionToContact" name="EventAssignInteractionToContact"/>
+   <xs:complexType name="RequestIdentifyContact">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ReturnUnique" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="UpdateUserData" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="DatePattern" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="CreateContact" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+         <xs:element name="OtherFields" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestIdentifyContact" name="RequestIdentifyContact"/>
+   <xs:complexType name="EventIdentifyContact">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="NumberOfContactsFound" minOccurs="0" type="xs:int"/>
+         <xs:element name="ContactIdList" minOccurs="0" type="StringList"/>
+         <xs:element name="ContactCreated" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OtherFields" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventIdentifyContact" name="EventIdentifyContact"/>
+   <xs:complexType name="RequestStopInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Reason" minOccurs="0" type="xs:string"/>
+         <xs:element name="Delete" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionType" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OtherFields" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopInteraction" name="RequestStopInteraction"/>
+   <xs:complexType name="EventStopInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventStopInteraction" name="EventStopInteraction"/>
+   <xs:complexType name="RequestGetAgentStdRespFavorites">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetAgentStdRespFavorites" name="RequestGetAgentStdRespFavorites"/>
+   <xs:complexType name="EventGetAgentStdRespFavorites">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponses" minOccurs="0" type="StringList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetAgentStdRespFavorites" name="EventGetAgentStdRespFavorites"/>
+   <xs:complexType name="RequestAddAgentStdRespFavorite">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StandardResponse" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddAgentStdRespFavorite" name="RequestAddAgentStdRespFavorite"/>
+   <xs:complexType name="EventAddAgentStdRespFavorite">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddAgentStdRespFavorite" name="EventAddAgentStdRespFavorite"/>
+   <xs:complexType name="RequestDeleteAgentStdRespFavorite">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DeleteAll" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="StandardResponse" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteAgentStdRespFavorite"
+               name="RequestDeleteAgentStdRespFavorite"/>
+   <xs:complexType name="EventDeleteAgentStdRespFavorite">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteAgentStdRespFavorite" name="EventDeleteAgentStdRespFavorite"/>
+   <xs:complexType name="RequestInteractionListGet">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ESQuery" minOccurs="0" type="xs:string"/>
+         <xs:element name="CloseScroll" minOccurs="0" type="xs:string"/>
+         <xs:element name="PageMaxSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="DataSource" minOccurs="0" type="DataSourceType"/>
+         <xs:element name="SearchCriteria" minOccurs="0" type="SearchCriteriaCollection"/>
+         <xs:element name="SortCriteria" minOccurs="0" type="SortCriteriaCollection"/>
+         <xs:element name="AttributeList" minOccurs="0" type="StringList"/>
+         <xs:element name="EntityTypeId" minOccurs="0" type="EntityTypes"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestInteractionListGet" name="RequestInteractionListGet"/>
+   <xs:complexType name="EventInteractionListGet">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="HasNext" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="PageSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="TotalCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScrollId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionData" minOccurs="0" type="InteractionDataList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionListGet" name="EventInteractionListGet"/>
+   <xs:complexType name="InteractionData">
+      <xs:all>
+         <xs:element name="InteractionIndex" minOccurs="0" type="xs:int"/>
+         <xs:element name="ContactIndex" minOccurs="0" type="xs:int"/>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="Attributes" minOccurs="0" type="InteractionAttributeList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="InteractionData" name="InteractionData"/>
+   <xs:complexType name="RequestInteractionListGetNextPage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ScrollId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PageMaxSize" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestInteractionListGetNextPage"
+               name="RequestInteractionListGetNextPage"/>
+   <xs:complexType name="EventInteractionListGetNextPage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="HasNext" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="PageSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionData" minOccurs="0" type="InteractionDataList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionListGetNextPage" name="EventInteractionListGetNextPage"/>
+   <xs:complexType name="RequestInteractionListRelease">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ScrollId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestInteractionListRelease" name="RequestInteractionListRelease"/>
+   <xs:complexType name="EventInteractionListRelease">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionListRelease" name="EventInteractionListRelease"/>
+   <xs:complexType name="RequestCountInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DataSource" minOccurs="0" type="DataSourceType"/>
+         <xs:element name="SearchCriteria" minOccurs="0" type="SearchCriteriaCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCountInteractions" name="RequestCountInteractions"/>
+   <xs:complexType name="EventCountInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TotalCount" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCountInteractions" name="EventCountInteractions"/>
+   <xs:complexType name="RequestSearch">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="IndexName" minOccurs="0" type="xs:string"/>
+         <xs:element name="MaxResults" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Query" minOccurs="0" type="xs:string"/>
+         <xs:element name="DefaultFields" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSearch" name="RequestSearch"/>
+   <xs:complexType name="EventSearch">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="FoundDocuments" minOccurs="0" type="xs:int"/>
+         <xs:element name="ReturnedDocuments" minOccurs="0" type="xs:int"/>
+         <xs:element name="Documents" minOccurs="0" type="DocumentList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSearch" name="EventSearch"/>
+   <xs:complexType name="DocumentData">
+      <xs:all>
+         <xs:element name="DocumentIndex" minOccurs="0" type="xs:int"/>
+         <xs:element name="BoostFactor" minOccurs="0" type="xs:int"/>
+         <xs:element name="Fields" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="DocumentData" name="DocumentData"/>
+   <xs:complexType name="RequestGetIndexProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetIndexProperties" name="RequestGetIndexProperties"/>
+   <xs:complexType name="EventGetIndexProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Indexes" minOccurs="0" type="IndexList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetIndexProperties" name="EventGetIndexProperties"/>
+   <xs:complexType name="IndexData">
+      <xs:all>
+         <xs:element name="IndexName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="Fields" minOccurs="0" type="FieldDataList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="IndexData" name="IndexData"/>
+   <xs:complexType name="FieldData">
+      <xs:all>
+         <xs:element name="FieldName" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsSearchable" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="IsStored" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="FieldData" name="FieldData"/>
+   <xs:complexType name="RequestBoostDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="IndexName" minOccurs="0" type="xs:string"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="BoostFactor" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestBoostDocument" name="RequestBoostDocument"/>
+   <xs:complexType name="EventBoostDocument">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventBoostDocument" name="EventBoostDocument"/>
+   <xs:complexType name="RequestGetRootCategories">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Language" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetRootCategories" name="RequestGetRootCategories"/>
+   <xs:complexType name="EventGetRootCategories">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Categories" minOccurs="0" type="CategoryList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetRootCategories" name="EventGetRootCategories"/>
+   <xs:complexType name="RequestGetCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ReturnChildrenCategories" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="ReturnChildrenSRInfo" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetCategory" name="RequestGetCategory"/>
+   <xs:complexType name="EventGetCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Category" minOccurs="0" type="Category"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetCategory" name="EventGetCategory"/>
+   <xs:complexType name="RequestGetStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Version" minOccurs="0" type="xs:int"/>
+         <xs:element name="Attachments" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStandardResponse" name="RequestGetStandardResponse"/>
+   <xs:complexType name="EventGetStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponse" minOccurs="0" type="StandardResponse"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetStandardResponse" name="EventGetStandardResponse"/>
+   <xs:complexType name="RequestGetMergeDetail">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="MergeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SourceContactId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetMergeDetail" name="RequestGetMergeDetail"/>
+   <xs:complexType name="EventGetMergeDetail">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="SourceContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DestinationContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MergeDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Reason" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="SourceContact" minOccurs="0" type="ContactInfo"/>
+         <xs:element name="DestinationContact" minOccurs="0" type="ContactInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetMergeDetail" name="EventGetMergeDetail"/>
+   <xs:complexType name="ContactInfo">
+      <xs:all>
+         <xs:element name="ContactId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsExternalResource" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="CreatedDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="ModifiedDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Attributes" minOccurs="0" type="AttributesList"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ContactInfo" name="ContactInfo"/>
+   <xs:complexType name="RequestAddStdRespUsage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ResponseType" minOccurs="0" type="ResponseType"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddStdRespUsage" name="RequestAddStdRespUsage"/>
+   <xs:complexType name="EventAddStdRespUsage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddStdRespUsage" name="EventAddStdRespUsage"/>
+   <xs:complexType name="RequestGetSystemSettings">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetSystemSettings" name="RequestGetSystemSettings"/>
+   <xs:complexType name="EventGetSystemSettings">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Host" minOccurs="0" type="HostInfo"/>
+         <xs:element name="Ports" minOccurs="0" type="PortInfoList"/>
+         <xs:element name="Database" minOccurs="0" type="DatabaseInfoList"/>
+         <xs:element name="Options" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetSystemSettings" name="EventGetSystemSettings"/>
+   <xs:complexType name="HostInfo">
+      <xs:all>
+         <xs:element name="HostName" minOccurs="0" type="xs:string"/>
+         <xs:element name="IPAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="LCAPort" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="HostInfo" name="HostInfo"/>
+   <xs:complexType name="PortInfo">
+      <xs:all>
+         <xs:element name="Id" minOccurs="0" type="xs:string"/>
+         <xs:element name="Port" minOccurs="0" type="xs:string"/>
+         <xs:element name="Protocol" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsSecured" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="PortInfo" name="PortInfo"/>
+   <xs:complexType name="DatabaseInfo">
+      <xs:all>
+         <xs:element name="DAPName" minOccurs="0" type="xs:string"/>
+         <xs:element name="DBMSName" minOccurs="0" type="xs:string"/>
+         <xs:element name="DBMSType" minOccurs="0" type="xs:string"/>
+         <xs:element name="DBMSRole" minOccurs="0" type="DataSourceType"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="DatabaseInfo" name="DatabaseInfo"/>
+   <xs:complexType name="RequestSetProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PersonId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Properties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSetProperties" name="RequestSetProperties"/>
+   <xs:complexType name="EventSetProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSetProperties" name="EventSetProperties"/>
+   <xs:complexType name="RequestGetProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PersonId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Keys" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetProperties" name="RequestGetProperties"/>
+   <xs:complexType name="EventGetProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PersonId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Properties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetProperties" name="EventGetProperties"/>
+   <xs:complexType name="RequestDeleteProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="PersonId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Keys" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteProperties" name="RequestDeleteProperties"/>
+   <xs:complexType name="EventDeleteProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteProperties" name="EventDeleteProperties"/>
+   <xs:complexType name="RequestAddStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponse" minOccurs="0" type="StandardResponse"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddStandardResponse" name="RequestAddStandardResponse"/>
+   <xs:complexType name="EventAddStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddStandardResponse" name="EventAddStandardResponse"/>
+   <xs:complexType name="RequestUpdateStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponse" minOccurs="0" type="StandardResponse"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateStandardResponse" name="RequestUpdateStandardResponse"/>
+   <xs:complexType name="EventUpdateStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateStandardResponse" name="EventUpdateStandardResponse"/>
+   <xs:complexType name="RequestDeleteStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Version" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteStandardResponse" name="RequestDeleteStandardResponse"/>
+   <xs:complexType name="EventDeleteStandardResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteStandardResponse" name="EventDeleteStandardResponse"/>
+   <xs:complexType name="RequestGetServerTime">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetServerTime" name="RequestGetServerTime"/>
+   <xs:complexType name="EventGetServerTime">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Time" minOccurs="0" type="gc:dateTime"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetServerTime" name="EventGetServerTime"/>
+   <xs:complexType name="RequestRefresh">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="IndexName" minOccurs="0" type="IndexNameType"/>
+         <xs:element name="Persistents" minOccurs="0" type="xs:string"/>
+         <xs:element name="File" minOccurs="0" type="xs:string"/>
+         <xs:element name="Query" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRefresh" name="RequestRefresh"/>
+   <xs:complexType name="EventRefresh">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Updated" minOccurs="0" type="xs:int"/>
+         <xs:element name="Deleted" minOccurs="0" type="xs:int"/>
+         <xs:element name="Processed" minOccurs="0" type="xs:int"/>
+         <xs:element name="Errors" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRefresh" name="EventRefresh"/>
+   <xs:complexType name="RequestGetStandardResponses">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Attachments" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStandardResponses" name="RequestGetStandardResponses"/>
+   <xs:complexType name="EventGetStandardResponses">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StdResp" minOccurs="0" type="StandardResponseList"/>
+         <xs:element name="Attachments" minOccurs="0" type="AttachmentList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetStandardResponses" name="EventGetStandardResponses"/>
+   <xs:complexType name="RequestCreateStandardResponseRevision">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCreateStandardResponseRevision"
+               name="RequestCreateStandardResponseRevision"/>
+   <xs:complexType name="EventCreateStandardResponseRevision">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Version" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCreateStandardResponseRevision"
+               name="EventCreateStandardResponseRevision"/>
+   <xs:complexType name="RequestRestoreStandardResponseRevision">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Version" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRestoreStandardResponseRevision"
+               name="RequestRestoreStandardResponseRevision"/>
+   <xs:complexType name="EventRestoreStandardResponseRevision">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRestoreStandardResponseRevision"
+               name="EventRestoreStandardResponseRevision"/>
+   <xs:complexType name="RequestAddCategoryRoot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Language" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="OwnerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddCategoryRoot" name="RequestAddCategoryRoot"/>
+   <xs:complexType name="EventAddCategoryRoot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddCategoryRoot" name="EventAddCategoryRoot"/>
+   <xs:complexType name="RequestDeleteCategoryRoot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteCategoryRoot" name="RequestDeleteCategoryRoot"/>
+   <xs:complexType name="EventDeleteCategoryRoot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteCategoryRoot" name="EventDeleteCategoryRoot"/>
+   <xs:complexType name="RequestAddCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryParentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="OwnerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddCategory" name="RequestAddCategory"/>
+   <xs:complexType name="EventAddCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddCategory" name="EventAddCategory"/>
+   <xs:complexType name="RequestMoveCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryParentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MoveCategoryToRoot" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMoveCategory" name="RequestMoveCategory"/>
+   <xs:complexType name="EventMoveCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMoveCategory" name="EventMoveCategory"/>
+   <xs:complexType name="RequestUpdateCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Status" minOccurs="0" type="xs:string"/>
+         <xs:element name="OwnerId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateCategory" name="RequestUpdateCategory"/>
+   <xs:complexType name="EventUpdateCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateCategory" name="EventUpdateCategory"/>
+   <xs:complexType name="RequestDeleteCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteCategory" name="RequestDeleteCategory"/>
+   <xs:complexType name="EventDeleteCategory">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteCategory" name="EventDeleteCategory"/>
+   <xs:complexType name="RequestAddCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheType" minOccurs="0" type="xs:int"/>
+         <xs:element name="StrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="LongStrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="BinValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="IdValue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddCategoryAttribute" name="RequestAddCategoryAttribute"/>
+   <xs:complexType name="EventAddCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddCategoryAttribute" name="EventAddCategoryAttribute"/>
+   <xs:complexType name="RequestUpdateCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheType" minOccurs="0" type="xs:int"/>
+         <xs:element name="StrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="LongStrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="BinValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="IdValue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateCategoryAttribute" name="RequestUpdateCategoryAttribute"/>
+   <xs:complexType name="EventUpdateCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateCategoryAttribute" name="EventUpdateCategoryAttribute"/>
+   <xs:complexType name="RequestDeleteCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteCategoryAttribute" name="RequestDeleteCategoryAttribute"/>
+   <xs:complexType name="EventDeleteCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteCategoryAttribute" name="EventDeleteCategoryAttribute"/>
+   <xs:complexType name="RequestGetCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetCategoryAttribute" name="RequestGetCategoryAttribute"/>
+   <xs:complexType name="EventGetCategoryAttribute">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheType" minOccurs="0" type="xs:int"/>
+         <xs:element name="StrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="LongStrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="BinValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="IdValue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetCategoryAttribute" name="EventGetCategoryAttribute"/>
+   <xs:complexType name="CategoryAttribute">
+      <xs:all>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheType" minOccurs="0" type="xs:int"/>
+         <xs:element name="StrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="LongStrValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="BinValue" minOccurs="0" type="xs:string"/>
+         <xs:element name="IntValue" minOccurs="0" type="xs:int"/>
+         <xs:element name="IdValue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="CategoryAttribute" name="CategoryAttribute"/>
+   <xs:complexType name="RequestGetCategoryAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="IdValue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetCategoryAttributes" name="RequestGetCategoryAttributes"/>
+   <xs:complexType name="EventGetCategoryAttributes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="CategoryAttributes" minOccurs="0" type="CategoryAttributeList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetCategoryAttributes" name="EventGetCategoryAttributes"/>
+   <xs:complexType name="RequestAddFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddFieldCode" name="RequestAddFieldCode"/>
+   <xs:complexType name="EventAddFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddFieldCode" name="EventAddFieldCode"/>
+   <xs:complexType name="RequestUpdateFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateFieldCode" name="RequestUpdateFieldCode"/>
+   <xs:complexType name="EventUpdateFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateFieldCode" name="EventUpdateFieldCode"/>
+   <xs:complexType name="RequestDeleteFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteFieldCode" name="RequestDeleteFieldCode"/>
+   <xs:complexType name="EventDeleteFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteFieldCode" name="EventDeleteFieldCode"/>
+   <xs:complexType name="RequestGetFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetFieldCode" name="RequestGetFieldCode"/>
+   <xs:complexType name="EventGetFieldCode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetFieldCode" name="EventGetFieldCode"/>
+   <xs:complexType name="FieldCode">
+      <xs:all>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="FieldCode" name="FieldCode"/>
+   <xs:complexType name="RequestGetFieldCodes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetFieldCodes" name="RequestGetFieldCodes"/>
+   <xs:complexType name="EventGetFieldCodes">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="FieldCodes" minOccurs="0" type="FieldCodeList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetFieldCodes" name="EventGetFieldCodes"/>
+   <xs:complexType name="RequestAddFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsConstant" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddFieldValue" name="RequestAddFieldValue"/>
+   <xs:complexType name="EventAddFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddFieldValue" name="EventAddFieldValue"/>
+   <xs:complexType name="RequestUpdateFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsConstant" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateFieldValue" name="RequestUpdateFieldValue"/>
+   <xs:complexType name="EventUpdateFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateFieldValue" name="EventUpdateFieldValue"/>
+   <xs:complexType name="RequestDeleteFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteFieldValue" name="RequestDeleteFieldValue"/>
+   <xs:complexType name="EventDeleteFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteFieldValue" name="EventDeleteFieldValue"/>
+   <xs:complexType name="RequestGetFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetFieldValue" name="RequestGetFieldValue"/>
+   <xs:complexType name="EventGetFieldValue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsConstant" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetFieldValue" name="EventGetFieldValue"/>
+   <xs:complexType name="FieldValue">
+      <xs:all>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Type" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsConstant" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Comment" minOccurs="0" type="xs:string"/>
+         <xs:element name="Value" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="FieldValue" name="FieldValue"/>
+   <xs:complexType name="RequestGetFieldValues">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetFieldValues" name="RequestGetFieldValues"/>
+   <xs:complexType name="EventGetFieldValues">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="FieldValues" minOccurs="0" type="FieldValueList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetFieldValues" name="EventGetFieldValues"/>
+   <xs:complexType name="RequestAddScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsEnabled" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInHeader" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInBody" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInSubject" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Order" minOccurs="0" type="xs:int"/>
+         <xs:element name="LogicalRule" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="AddressesToMatch" minOccurs="0" type="xs:string"/>
+         <xs:element name="MatchText" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddScreeningRule" name="RequestAddScreeningRule"/>
+   <xs:complexType name="EventAddScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddScreeningRule" name="EventAddScreeningRule"/>
+   <xs:complexType name="RequestUpdateScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsEnabled" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInHeader" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInBody" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInSubject" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Order" minOccurs="0" type="xs:int"/>
+         <xs:element name="LogicalRule" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="AddressesToMatch" minOccurs="0" type="xs:string"/>
+         <xs:element name="MatchText" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateScreeningRule" name="RequestUpdateScreeningRule"/>
+   <xs:complexType name="EventUpdateScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateScreeningRule" name="EventUpdateScreeningRule"/>
+   <xs:complexType name="RequestDeleteScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteScreeningRule" name="RequestDeleteScreeningRule"/>
+   <xs:complexType name="EventDeleteScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteScreeningRule" name="EventDeleteScreeningRule"/>
+   <xs:complexType name="RequestGetScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetScreeningRule" name="RequestGetScreeningRule"/>
+   <xs:complexType name="EventGetScreeningRule">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsEnabled" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInHeader" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInBody" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInSubject" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Order" minOccurs="0" type="xs:int"/>
+         <xs:element name="LogicalRule" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="AddressesToMatch" minOccurs="0" type="xs:string"/>
+         <xs:element name="MatchText" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetScreeningRule" name="EventGetScreeningRule"/>
+   <xs:complexType name="ScreeningRule">
+      <xs:all>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsEnabled" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInHeader" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInBody" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MatchTextInSubject" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Order" minOccurs="0" type="xs:int"/>
+         <xs:element name="LogicalRule" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="AddressesToMatch" minOccurs="0" type="xs:string"/>
+         <xs:element name="MatchText" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="ScreeningRule" name="ScreeningRule"/>
+   <xs:complexType name="RequestGetScreeningRules">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetScreeningRules" name="RequestGetScreeningRules"/>
+   <xs:complexType name="EventGetScreeningRules">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="ScreeningRules" minOccurs="0" type="ScreeningRuleList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetScreeningRules" name="EventGetScreeningRules"/>
+   <xs:complexType name="Model">
+      <xs:all>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="ModelContent" minOccurs="0" type="xs:string"/>
+         <xs:element name="CreationDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="TrainingDataObjectId" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsActive" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="ModelSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="RunDate" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="RunDurationSec" minOccurs="0" type="xs:int"/>
+         <xs:element name="AppName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Engine" minOccurs="0" type="xs:string"/>
+         <xs:element name="PersonId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Params" minOccurs="0" type="xs:string"/>
+         <xs:element name="RootName" minOccurs="0" type="xs:string"/>
+         <xs:element name="AdvancedParams" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="Model" name="Model"/>
+   <xs:complexType name="RequestAddModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Model" minOccurs="0" type="Model"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddModel" name="RequestAddModel"/>
+   <xs:complexType name="EventAddModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddModel" name="EventAddModel"/>
+   <xs:complexType name="RequestUpdateModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Model" minOccurs="0" type="Model"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateModel" name="RequestUpdateModel"/>
+   <xs:complexType name="EventUpdateModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateModel" name="EventUpdateModel"/>
+   <xs:complexType name="RequestDeleteModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteModel" name="RequestDeleteModel"/>
+   <xs:complexType name="EventDeleteModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteModel" name="EventDeleteModel"/>
+   <xs:complexType name="RequestGetModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetModel" name="RequestGetModel"/>
+   <xs:complexType name="EventGetModel">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Model" minOccurs="0" type="Model"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetModel" name="EventGetModel"/>
+   <xs:complexType name="RequestGetModels">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="SkipModelData" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetModels" name="RequestGetModels"/>
+   <xs:complexType name="EventGetModels">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Models" minOccurs="0" type="ModelList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetModels" name="EventGetModels"/>
+   <xs:complexType name="TrainingDataObject">
+      <xs:all>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="CreationTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="StartTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="EndTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="RootName" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="TrainingDataObject" name="TrainingDataObject"/>
+   <xs:complexType name="RequestAddTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TrainingDataObject" minOccurs="0" type="TrainingDataObject"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddTrainingDataObject" name="RequestAddTrainingDataObject"/>
+   <xs:complexType name="EventAddTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddTrainingDataObject" name="EventAddTrainingDataObject"/>
+   <xs:complexType name="RequestUpdateTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TrainingDataObject" minOccurs="0" type="TrainingDataObject"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateTrainingDataObject" name="RequestUpdateTrainingDataObject"/>
+   <xs:complexType name="EventUpdateTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUpdateTrainingDataObject" name="EventUpdateTrainingDataObject"/>
+   <xs:complexType name="RequestDeleteTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteTrainingDataObject" name="RequestDeleteTrainingDataObject"/>
+   <xs:complexType name="EventDeleteTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleteTrainingDataObject" name="EventDeleteTrainingDataObject"/>
+   <xs:complexType name="RequestGetTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetTrainingDataObject" name="RequestGetTrainingDataObject"/>
+   <xs:complexType name="EventGetTrainingDataObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TrainingDataObject" minOccurs="0" type="TrainingDataObject"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetTrainingDataObject" name="EventGetTrainingDataObject"/>
+   <xs:complexType name="RequestGetTrainingDataObjects">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Lang" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetTrainingDataObjects" name="RequestGetTrainingDataObjects"/>
+   <xs:complexType name="EventGetTrainingDataObjects">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TrainingDataObjects" minOccurs="0" type="TrainingDataObjectList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetTrainingDataObjects" name="EventGetTrainingDataObjects"/>
+   <xs:complexType name="RequestAddDocument2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddDocument2" name="RequestAddDocument2"/>
+   <xs:complexType name="EventAddDocument2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAddDocument2" name="EventAddDocument2"/>
+   <xs:complexType name="RequestRemoveDocument2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="StandardResponseId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRemoveDocument2" name="RequestRemoveDocument2"/>
+   <xs:complexType name="EventRemoveDocument2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRemoveDocument2" name="EventRemoveDocument2"/>
+   <xs:complexType name="RequestGetDocument2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetDocument2" name="RequestGetDocument2"/>
+   <xs:complexType name="EventGetDocument2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="DocumentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MimeType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="TheSize" minOccurs="0" type="xs:int"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetDocument2" name="EventGetDocument2"/>
+   <xs:complexType name="RequestGetIdentifier">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetIdentifier" name="RequestGetIdentifier"/>
+   <xs:complexType name="EventGetIdentifier">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="TheId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventGetIdentifier" name="EventGetIdentifier"/>
+   <xs:complexType name="KeyValueObject">
+      <xs:complexContent>
+         <xs:extension base="xs:anyType">
+            <xs:attribute name="type" type="xs:string"/>
+         </xs:extension>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="StringBinary">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="type" type="xs:string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="StringInteger">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="type" type="xs:string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="BaseEntityAttributes">
+      <xs:all minOccurs="1">
+         <xs:element name="CallbackEntityAttributes" type="CallbackEntityAttributes" minOccurs="0"/>
+         <xs:element name="ChatEntityAttributes" type="ChatEntityAttributes" minOccurs="0"/>
+         <xs:element name="EmailInEntityAttributes" type="EmailInEntityAttributes" minOccurs="0"/>
+         <xs:element name="EmailOutEntityAttributes" type="EmailOutEntityAttributes" minOccurs="0"/>
+         <xs:element name="PhoneCallEntityAttributes" type="PhoneCallEntityAttributes" minOccurs="0"/>
+         <xs:element name="CoBrowseEntityAttributes" type="CoBrowseEntityAttributes" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="StringListElement">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="idx" type="xs:int"/>
+            <xs:attribute name="type" type="xs:string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="StringList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" type="StringListElement" minOccurs="0"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="DateTimeListElement">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="key" type="xs:string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="DateTimeList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" type="DateTimeListElement" minOccurs="0"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="SearchCriteriaCollection">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="ComplexSearchCriteria" type="ComplexSearchCriteria" minOccurs="0"/>
+         <xs:element name="SimpleSearchCriteria" type="SimpleSearchCriteria" minOccurs="0"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="BaseSearchCriteria">
+      <xs:choice minOccurs="1" maxOccurs="1">
+         <xs:element name="ComplexSearchCriteria" type="ComplexSearchCriteria" minOccurs="0"/>
+         <xs:element name="SimpleSearchCriteria" type="SimpleSearchCriteria" minOccurs="0"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="SortCriteriaCollection">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="SortCriteria"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="ContactDataList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Contact"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="CategoryAttributeList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="CategoryAttribute"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="ContactAttributeList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Attribute"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="AttributesList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="AttributesHeader"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="AttributesInfoList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="AttributesInfo"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="DeleteAttributesList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="DeleteAttributesInfo"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="MergeDataDetailsList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="MergeDataDetails"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="ContactInteractionList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="ContactInteraction"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="InteractionAttributeList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Attribute"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="AttachmentList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Attachment"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="IndexedAttachmentList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="IndexedAttachment"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="PropertyList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Property"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="CategoryList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Category"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="StandardResponseList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="StandardResponse"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="InteractionDataList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="InteractionData"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="DocumentList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="DocumentData"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="IndexList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="IndexData"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="FieldDataList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="FieldData"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="PortInfoList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="PortInfo"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="DatabaseInfoList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="DatabaseInfo"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="FieldCodeList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="FieldCode"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="FieldValueList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="FieldValue"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="ScreeningRuleList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="ScreeningRule"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="ModelList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="Model"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="TrainingDataObjectList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="TrainingDataObject"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="RequestorInfo">
+      <xs:all>
+         <xs:element name="RequestorAppName" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestorAppType" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorAppDBID" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorAppVersion" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestorClientId" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestorSessionId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+  </xs:complexType>
+</xs:schema>

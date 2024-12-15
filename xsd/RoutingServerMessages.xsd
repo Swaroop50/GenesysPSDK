@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Routing/RoutingServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Routing/RoutingServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="ClientType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Generic"/>
+         <xs:enumeration value="Ide"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ErrorCode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoError"/>
+         <xs:enumeration value="SyntaxError"/>
+         <xs:enumeration value="NotOwner"/>
+         <xs:enumeration value="NotUser"/>
+         <xs:enumeration value="NotAvailable"/>
+         <xs:enumeration value="IOError"/>
+         <xs:enumeration value="MaxClients"/>
+         <xs:enumeration value="Rejected"/>
+         <xs:enumeration value="DefaultRouting"/>
+         <xs:enumeration value="NoCall"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="CallType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Internal"/>
+         <xs:enumeration value="Inbound"/>
+         <xs:enumeration value="Outbound"/>
+         <xs:enumeration value="Consult"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="RoutingPointStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Released"/>
+         <xs:enumeration value="Loaded"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="StatisticUsage">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Any"/>
+         <xs:enumeration value="Min"/>
+         <xs:enumeration value="Max"/>
+      </xs:restriction>
+   </xs:simpleType>
+        <xs:complexType name="OperationContext">
+      <xs:all>
+         <xs:element name="CallType" minOccurs="0" type="CallType"/>
+         <xs:element name="ThisQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="ThisLocation" minOccurs="0" type="xs:string"/>
+         <xs:element name="OtherDN" minOccurs="0" type="xs:string"/>
+         <xs:element name="ANI" minOccurs="0" type="xs:string"/>
+         <xs:element name="DNIS" minOccurs="0" type="xs:string"/>
+         <xs:element name="CED" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extensions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+   </xs:complexType>
+    
+            
+
+            
+
+            <xs:complexType name="RequestLoadStrategy">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TServer" minOccurs="0" type="xs:string"/>
+         <xs:element name="RoutingPoint" minOccurs="0" type="xs:string"/>
+         <xs:element name="Path" minOccurs="0" type="xs:string"/>
+         <xs:element name="Strategy" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestLoadStrategy" name="RequestLoadStrategy"/>
+
+            <xs:complexType name="RequestReleaseStrategy">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TServer" minOccurs="0" type="xs:string"/>
+         <xs:element name="RoutingPoint" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReleaseStrategy" name="RequestReleaseStrategy"/>
+
+            <xs:complexType name="RequestNotify">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestNotify" name="RequestNotify"/>
+
+            
+
+            <xs:complexType name="RequestDebug">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DebugMessage" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDebug" name="RequestDebug"/>
+
+            
+
+            <xs:complexType name="RequestExecuteStrategy">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Strategy" minOccurs="0" type="xs:string"/>
+         <xs:element name="Tenant" minOccurs="0" type="xs:string"/>
+         <xs:element name="Context" minOccurs="0" type="OperationContext"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestExecuteStrategy" name="RequestExecuteStrategy"/>
+
+            <xs:complexType name="RequestFindTarget">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tenant" minOccurs="0" type="xs:string"/>
+         <xs:element name="Targets" minOccurs="0" type="xs:string"/>
+         <xs:element name="Timeout" minOccurs="0" type="xs:int"/>
+         <xs:element name="Statistic" minOccurs="0" type="xs:string"/>
+         <xs:element name="StatisticUsage" minOccurs="0" type="StatisticUsage"/>
+         <xs:element name="VirtualQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="Priority" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestFindTarget" name="RequestFindTarget"/>
+
+            <xs:complexType name="RequestGetStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Tenant" minOccurs="0" type="xs:string"/>
+         <xs:element name="Targets" minOccurs="0" type="xs:string"/>
+         <xs:element name="Statistic" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetStatistic" name="RequestGetStatistic"/>
+
+            <xs:complexType name="RequestCancelExecution">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ExecutionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCancelExecution" name="RequestCancelExecution"/>
+
+            <xs:complexType name="RequestQueryExecution">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ExecutionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestQueryExecution" name="RequestQueryExecution"/>
+        
+            <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TServer" minOccurs="0" type="xs:string"/>
+         <xs:element name="RoutingPoint" minOccurs="0" type="xs:string"/>
+         <xs:element name="Path" minOccurs="0" type="xs:string"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:string"/>
+         <xs:element name="RoutingPointStatus" minOccurs="0" type="RoutingPointStatus"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="ErrorCode"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="Message" minOccurs="0" type="xs:string"/>
+         <xs:element name="Context" minOccurs="0" type="OperationContext"/>
+         <xs:element name="Result" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+
+            <xs:complexType name="EventInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TServer" minOccurs="0" type="xs:string"/>
+         <xs:element name="RoutingPoint" minOccurs="0" type="xs:string"/>
+         <xs:element name="Path" minOccurs="0" type="xs:string"/>
+         <xs:element name="Timestamp" minOccurs="0" type="xs:string"/>
+         <xs:element name="Message" minOccurs="0" type="xs:string"/>
+         <xs:element name="RoutingPointStatus" minOccurs="0" type="RoutingPointStatus"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="ErrorCode"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="Context" minOccurs="0" type="OperationContext"/>
+         <xs:element name="Result" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInfo" name="EventInfo"/>
+
+            
+
+            <xs:complexType name="EventExecutionInProgress">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventExecutionInProgress" name="EventExecutionInProgress"/>
+
+            <xs:complexType name="EventExecutionAck">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Result" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Context" minOccurs="0" type="OperationContext"/>
+         <xs:element name="ExecutionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventExecutionAck" name="EventExecutionAck"/>
+
+            <xs:complexType name="EventExecutionError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Result" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Context" minOccurs="0" type="OperationContext"/>
+         <xs:element name="ExecutionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventExecutionError" name="EventExecutionError"/>
+
+            <xs:complexType name="EventDebug">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DebugMessage" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDebug" name="EventDebug"/>
+        </xs:schema>

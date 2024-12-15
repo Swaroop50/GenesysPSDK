@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Routing/CustomServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Routing/CustomServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="ErrorCode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoError"/>
+         <xs:enumeration value="SyntaxError"/>
+         <xs:enumeration value="NotOwner"/>
+         <xs:enumeration value="NotUser"/>
+         <xs:enumeration value="NotAvailable"/>
+         <xs:enumeration value="IOError"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="Status">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Info"/>
+         <xs:enumeration value="NoMore"/>
+      </xs:restriction>
+   </xs:simpleType>
+            
+            <xs:complexType name="RequestUnregisterClient">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnregisterClient" name="RequestUnregisterClient"/>
+            <xs:complexType name="RequestExecuteProcedure">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Message" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestExecuteProcedure" name="RequestExecuteProcedure"/>
+        
+            <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ClientNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="ErrorCode"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+            <xs:complexType name="EventInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ClientNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="Message" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="ErrorCode"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInfo" name="EventInfo"/>
+            <xs:complexType name="EventDeleted">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="ErrorCode"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDeleted" name="EventDeleted"/>
+            <xs:complexType name="EventOpenOk">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ClientNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="ErrorCode"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventOpenOk" name="EventOpenOk"/>
+        </xs:schema>

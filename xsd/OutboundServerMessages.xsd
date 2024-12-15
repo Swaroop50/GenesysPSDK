@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Outbound/OutboundServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Outbound/OutboundServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="Errors">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoError"/>
+         <xs:enumeration value="ServerConnectionError"/>
+         <xs:enumeration value="RegistrationError"/>
+         <xs:enumeration value="CampaignNotFound"/>
+         <xs:enumeration value="CampaignNotLoaded"/>
+         <xs:enumeration value="CampaignAlreadyLoaded"/>
+         <xs:enumeration value="CampaignNotStarted"/>
+         <xs:enumeration value="CampaignAlreadyStarted"/>
+         <xs:enumeration value="GroupNotFound"/>
+         <xs:enumeration value="CampaignGroupNotFound"/>
+         <xs:enumeration value="InvalidParameter"/>
+         <xs:enumeration value="InvalidCampaignMode"/>
+         <xs:enumeration value="InvalidCampaignSchedule"/>
+         <xs:enumeration value="CampaignScheduleNotFound"/>
+         <xs:enumeration value="InvalidCampaignScheduleMode"/>
+         <xs:enumeration value="LicenseViolation"/>
+         <xs:enumeration value="WrongConfiguration"/>
+         <xs:enumeration value="PartOfSequence"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="GroupCampaignStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NotLoaded"/>
+         <xs:enumeration value="WaitingUnload"/>
+         <xs:enumeration value="UnloadInProgress"/>
+         <xs:enumeration value="InActive"/>
+         <xs:enumeration value="Active"/>
+         <xs:enumeration value="Running"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="DialMode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoDialMode"/>
+         <xs:enumeration value="Predict"/>
+         <xs:enumeration value="Progress"/>
+         <xs:enumeration value="Preview"/>
+         <xs:enumeration value="ProgressAndSeize"/>
+         <xs:enumeration value="PredictAndSeize"/>
+         <xs:enumeration value="Power"/>
+         <xs:enumeration value="PowerAndSeize"/>
+         <xs:enumeration value="PushPreview"/>
+         <xs:enumeration value="ProgressGVP"/>
+         <xs:enumeration value="PredictGVP"/>
+         <xs:enumeration value="PowerGVP"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="OptimizationMethod">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoOptimizationMethod"/>
+         <xs:enumeration value="BusyFactor"/>
+         <xs:enumeration value="OverdialRate"/>
+         <xs:enumeration value="WaitTime"/>
+         <xs:enumeration value="DistributionTime"/>
+         <xs:enumeration value="MaximumGain"/>
+      </xs:restriction>
+   </xs:simpleType>
+        <xs:complexType name="CommonEventProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+   </xs:complexType>
+    
+          
+
+          <xs:complexType name="RequestLoadCampaign">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestLoadCampaign" name="RequestLoadCampaign"/>
+
+          <xs:complexType name="RequestUnloadCampaign">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnloadCampaign" name="RequestUnloadCampaign"/>
+
+          <xs:complexType name="RequestStartDialing">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStartDialing" name="RequestStartDialing"/>
+
+          <xs:complexType name="RequestStopDialing">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopDialing" name="RequestStopDialing"/>
+
+          <xs:complexType name="RequestSetDialingMode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSetDialingMode" name="RequestSetDialingMode"/>
+
+          <xs:complexType name="RequestGetCampaignStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetCampaignStatus" name="RequestGetCampaignStatus"/>
+
+          <xs:complexType name="RequestRegisterCampaign">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRegisterCampaign" name="RequestRegisterCampaign"/>
+
+          <xs:complexType name="RequestUnregisterCampaign">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnregisterCampaign" name="RequestUnregisterCampaign"/>
+
+        <xs:complexType name="RequestForceUnloadCampaign">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestForceUnloadCampaign" name="RequestForceUnloadCampaign"/>
+        <xs:complexType name="RequestCompleteCampaign">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCompleteCampaign" name="RequestCompleteCampaign"/>
+      
+
+        
+      
+        <xs:complexType name="EventCampaignLoaded">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCampaignLoaded" name="EventCampaignLoaded"/>
+
+        <xs:complexType name="EventCampaignUnloaded">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCampaignUnloaded" name="EventCampaignUnloaded"/>
+
+        <xs:complexType name="EventDialingStarted">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDialingStarted" name="EventDialingStarted"/>
+
+        <xs:complexType name="EventDialingStopped">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDialingStopped" name="EventDialingStopped"/>
+
+        <xs:complexType name="EventDialingModeChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDialingModeChanged" name="EventDialingModeChanged"/>
+
+        <xs:complexType name="EventCampaignStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCampaignStatus" name="EventCampaignStatus"/>
+
+        <xs:complexType name="EventCampaignRegistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCampaignRegistered" name="EventCampaignRegistered"/>
+
+        <xs:complexType name="EventCampaignUnregistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCampaignUnregistered" name="EventCampaignUnregistered"/>
+
+        <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CampaignId" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DialMode" minOccurs="0" type="DialMode"/>
+         <xs:element name="OptimizeGoal" minOccurs="0" type="xs:int"/>
+         <xs:element name="GroupCampaignStatus" minOccurs="0" type="GroupCampaignStatus"/>
+         <xs:element name="OptimizeBy" minOccurs="0" type="OptimizationMethod"/>
+         <xs:element name="RequestProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorMessage" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ScheduleScriptId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+
+
+      </xs:schema>

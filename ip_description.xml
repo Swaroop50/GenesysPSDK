@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InstallationPackage FormatVersion="8.0">
+  <Product License="NotRequired" AppClass="SDK">
+    <Release Version="9.0.010.28" BuildDate="2024-07-23" BuildNumber="1" Type="General"/>
+    <Name>
+      <Long>Platform SDK for Java</Long>
+      <Nickname>LWKitJava64</Nickname>
+    </Name>
+    <Language LocaleId="ENU">
+      <Name>English (United States)</Name>
+    </Language>
+    <Description>
+      The Platform SDK for Java provides a set of low-level APIs
+      that allow you to create custom applications for
+      integration with a variety of Genesys components, including
+      T-Server, Stat Server, Configuration Server, Outbound
+      Contact Server, Interaction Server, Web API Server,
+      Solution Control Server, Message Server, Local Control
+      Agents, and others.
+    </Description>
+    <ReleaseNotes Place="Web" WebDBId="." FileName="release_notes.html"/>
+  </Product>
+  <Platforms OSGroupName="windows">
+    <Computer Type="Intel EM64T">
+      <OS Name="Windows Server 2008" CfgOSType="17"/>
+      <OS Name="Windows Server 2012"/>
+      <OS Name="Windows Server 2016"/>
+      <OS Name="Windows Server 2019"/>
+      <OS Name="Windows 7"/>
+      <OS Name="Windows 8"/>
+      <OS Name="Windows 10"/>
+    </Computer>
+  </Platforms>
+  <InstallationPgm>
+    <Release Version="8.5.000.03" Date="2019-10-23"/>
+    <Name>
+      <Long>Platform SDK for Java Installation Project</Long>
+      <Nickname>LWKitJava</Nickname>
+    </Name>
+    <Language LocaleId="ENU">
+      <Name>English (United States)</Name>
+    </Language>
+  </InstallationPgm>
+</InstallationPackage>

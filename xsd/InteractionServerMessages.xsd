@@ -1,0 +1,2062 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/OpenMedia/InteractionServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/OpenMedia/InteractionServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="Errors">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoError"/>
+         <xs:enumeration value="ErrorNotRegistered"/>
+         <xs:enumeration value="ErrorUnknownClientType"/>
+         <xs:enumeration value="ErrorUnknownClientId"/>
+         <xs:enumeration value="ErrorUnsupportedProtocolElement"/>
+         <xs:enumeration value="Error_proxy_through_proxy"/>
+         <xs:enumeration value="Error_tenant_not_specified"/>
+         <xs:enumeration value="Error_unknown_tenant_in_request"/>
+         <xs:enumeration value="Error_place_not_specified"/>
+         <xs:enumeration value="Error_unknown_place_in_request"/>
+         <xs:enumeration value="Error_unknown_agent_in_request"/>
+         <xs:enumeration value="Error_place_disabled"/>
+         <xs:enumeration value="Error_place_occupied"/>
+         <xs:enumeration value="Error_agent_disabled"/>
+         <xs:enumeration value="Error_already_logged_in"/>
+         <xs:enumeration value="Error_place_not_occupied"/>
+         <xs:enumeration value="Error_place_not_occupied_by_agent"/>
+         <xs:enumeration value="Error_incorrect_media_list"/>
+         <xs:enumeration value="Error_unsupported_media_type"/>
+         <xs:enumeration value="Error_interaction_id_not_specified"/>
+         <xs:enumeration value="Error_queue_not_specified"/>
+         <xs:enumeration value="Error_unknown_queue_in_request"/>
+         <xs:enumeration value="Error_media_type_not_specified"/>
+         <xs:enumeration value="Error_interaction_type_not_specified"/>
+         <xs:enumeration value="Error_interaction_subtype_not_specified"/>
+         <xs:enumeration value="Error_unsupported_interaction_type"/>
+         <xs:enumeration value="Error_unsupported_interaction_subtype"/>
+         <xs:enumeration value="Error_dbmanager_failed"/>
+         <xs:enumeration value="Error_database_failed"/>
+         <xs:enumeration value="Error_view_id_not_specified"/>
+         <xs:enumeration value="Error_pull_failed"/>
+         <xs:enumeration value="Error_invalid_time_format"/>
+         <xs:enumeration value="Error_wrong_tenant"/>
+         <xs:enumeration value="Error_workbin_not_specified"/>
+         <xs:enumeration value="Error_client_not_logged_in"/>
+         <xs:enumeration value="Error_not_an_owner"/>
+         <xs:enumeration value="Error_tenancy_violation"/>
+         <xs:enumeration value="Error_itx_manager_internal"/>
+         <xs:enumeration value="Error_agent_not_specified"/>
+         <xs:enumeration value="Error_place_group_not_specified"/>
+         <xs:enumeration value="Error_agent_group_not_specified"/>
+         <xs:enumeration value="Error_workbin_inaccessible"/>
+         <xs:enumeration value="Error_unknown_view_in_request"/>
+         <xs:enumeration value="Error_unknown_interaction"/>
+         <xs:enumeration value="Error_target_is_not_specified"/>
+         <xs:enumeration value="Error_ambiguous_target_specified"/>
+         <xs:enumeration value="Error_party_unavailable"/>
+         <xs:enumeration value="Error_not_invited"/>
+         <xs:enumeration value="Error_pull_parameter_absent"/>
+         <xs:enumeration value="Error_pull_parameter_invalid"/>
+         <xs:enumeration value="Error_routing_target_invalid"/>
+         <xs:enumeration value="Error_transfer_target_invalid"/>
+         <xs:enumeration value="Error_already_participating"/>
+         <xs:enumeration value="Error_snapshot_view_failed"/>
+         <xs:enumeration value="Error_snapshot_dbrequest_failed"/>
+         <xs:enumeration value="Error_snapshot_dbrequest_error"/>
+         <xs:enumeration value="Error_snapshot_getparam_invalid"/>
+         <xs:enumeration value="Error_snapshot_posparam_invalid"/>
+         <xs:enumeration value="Error_snapshot_countparam_invalid"/>
+         <xs:enumeration value="Error_snapshot_no_interaction_id"/>
+         <xs:enumeration value="Error_snapshot_no_record"/>
+         <xs:enumeration value="Error_snapshot_limit_reached"/>
+         <xs:enumeration value="Error_snapshot_can_not_lock_interaction"/>
+         <xs:enumeration value="Error_snapshot_interaction_locked"/>
+         <xs:enumeration value="Error_snapshot_interaction_unlocked"/>
+         <xs:enumeration value="Error_invalid_property_type"/>
+         <xs:enumeration value="Error_read_only_property"/>
+         <xs:enumeration value="Error_duplicate_media_types"/>
+         <xs:enumeration value="Error_license_unavailable"/>
+         <xs:enumeration value="Error_do_not_have_media"/>
+         <xs:enumeration value="Error_already_have_media"/>
+         <xs:enumeration value="Error_dnd_already_on"/>
+         <xs:enumeration value="Error_dnd_already_off"/>
+         <xs:enumeration value="Error_already_ready_for_media"/>
+         <xs:enumeration value="Error_already_not_ready_for_media"/>
+         <xs:enumeration value="Error_have_to_contact_primary"/>
+         <xs:enumeration value="Error_have_to_contact_secondary"/>
+         <xs:enumeration value="Error_invalid_interaction_identifier"/>
+         <xs:enumeration value="Error_transfer_in_progress"/>
+         <xs:enumeration value="Error_invalid_protocol_message"/>
+         <xs:enumeration value="Error_invalid_interaction_data"/>
+         <xs:enumeration value="Error_duplicated_interaction_id"/>
+         <xs:enumeration value="Error_dbmanager_no_dbconnections"/>
+         <xs:enumeration value="Error_view_definition_invalid"/>
+         <xs:enumeration value="Error_not_implemented"/>
+         <xs:enumeration value="Error_duplicated_properties"/>
+         <xs:enumeration value="Error_limit_proxy_clients_reached"/>
+         <xs:enumeration value="Error_dnd_on"/>
+         <xs:enumeration value="Error_snapshot_releasing"/>
+         <xs:enumeration value="Error_invalid_interaction_state"/>
+         <xs:enumeration value="Error_conditional_stop_failed"/>
+         <xs:enumeration value="Error_cannot_resolve_queue"/>
+         <xs:enumeration value="Error_cannot_resolve_tenant"/>
+         <xs:enumeration value="Error_already_held"/>
+         <xs:enumeration value="Error_not_held"/>
+         <xs:enumeration value="Error_locked_by_snapshot"/>
+         <xs:enumeration value="Error_find_dbrequest_failed"/>
+         <xs:enumeration value="Error_find_condition_or_order_failed"/>
+         <xs:enumeration value="Error_custom_eventid_out_of_range"/>
+         <xs:enumeration value="Error_interaction_cached_not_available"/>
+         <xs:enumeration value="Error_already_in_the_same_queue"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="InteractionClient">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Proxy"/>
+         <xs:enumeration value="AgentApplication"/>
+         <xs:enumeration value="MediaServer"/>
+         <xs:enumeration value="ReportingEngine"/>
+         <xs:enumeration value="RoutingEngine"/>
+         <xs:enumeration value="ThirdPartyServer"/>
+         <xs:enumeration value="UniversalRouter"/>
+         <xs:enumeration value="ThirdPartyClient"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ActorType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Strategy"/>
+         <xs:enumeration value="Agent"/>
+         <xs:enumeration value="MediaServer"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="InteractionOperation">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Transfer"/>
+         <xs:enumeration value="Conference"/>
+         <xs:enumeration value="Intrude"/>
+         <xs:enumeration value="Route"/>
+         <xs:enumeration value="Pull"/>
+         <xs:enumeration value="Create"/>
+         <xs:enumeration value="Reject"/>
+         <xs:enumeration value="Timeout"/>
+         <xs:enumeration value="Leave"/>
+         <xs:enumeration value="Stop"/>
+         <xs:enumeration value="PlaceInWorkbin"/>
+         <xs:enumeration value="PlaceInQueue"/>
+         <xs:enumeration value="PartyDisconnect"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="VisibilityMode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Conference"/>
+         <xs:enumeration value="Monitor"/>
+         <xs:enumeration value="Coach"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="WorkbinContentOperation">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="TakenOut"/>
+         <xs:enumeration value="PlacedIn"/>
+         <xs:enumeration value="PropertiesChanged"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="InteractionState">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Queued"/>
+         <xs:enumeration value="Cached"/>
+         <xs:enumeration value="Routing"/>
+         <xs:enumeration value="Handling"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="PartyType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="StrategyParty"/>
+         <xs:enumeration value="ResourceParty"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="TargetType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="TargetTypeNone"/>
+         <xs:enumeration value="TargetTypeAgent"/>
+         <xs:enumeration value="TargetTypeQueue"/>
+         <xs:enumeration value="TargetTypeWorkbin"/>
+         <xs:enumeration value="TargetTypeStop"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="MediaState">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NotReady"/>
+         <xs:enumeration value="Ready"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="AgentStateChangeOperation">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Reserved"/>
+         <xs:enumeration value="NotReadyForMedia"/>
+         <xs:enumeration value="ReadyForMedia"/>
+         <xs:enumeration value="MediaRemoved"/>
+         <xs:enumeration value="MediaAdded"/>
+         <xs:enumeration value="LoggedOut"/>
+      </xs:restriction>
+   </xs:simpleType>
+    <xs:complexType name="ReasonInfo">
+      <xs:all>
+         <xs:element name="ReasonSystemName" minOccurs="0" type="xs:string"/>
+         <xs:element name="ReasonDescription" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" minOccurs="0" type="xs:int"/>
+      </xs:all>
+   </xs:complexType>
+    <xs:complexType name="ActorInfo">
+      <xs:all>
+         <xs:element name="ActorType" minOccurs="0" type="ActorType"/>
+         <xs:element name="ActorMediaServerId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorTenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActorStrategyId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorRouterId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorPlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActorAgentDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentLoginSessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="LoggedInAt" minOccurs="0" type="gc:dateTime"/>
+      </xs:all>
+   </xs:complexType>
+    <xs:complexType name="AgentDescription">
+      <xs:all>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentDbId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+   </xs:complexType>
+    <xs:complexType name="InteractionProperties">
+      <xs:all>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionParentInteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionType" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionSubtype" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionMediatype" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionTenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionState" minOccurs="0" type="InteractionState"/>
+         <xs:element name="InteractionQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionPlaceGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionReceivedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionSubmittedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionDeliveredAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionPlacedInQueueAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionMovedToQueueAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionAbandonedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionSubmittedBy" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionIsOnline" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="InteractionIsLocked" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="InteractionWorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionUserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionSubmitSeq" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionPlaceInQueueSeq" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionCompletedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionAssignedTo" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionAssignedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InteractionIsHeld" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="InteractionHeldAt" minOccurs="0" type="gc:dateTime"/>
+      </xs:all>
+   </xs:complexType>
+    <xs:complexType name="WorkbinInfo">
+      <xs:all>
+         <xs:element name="WorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinPlaceGroupId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+    <xs:complexType name="OldWorkbinInfo">
+      <xs:all>
+         <xs:element name="OldWorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinPlaceGroupId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+    <xs:complexType name="PartyInfo">
+      <xs:all>
+         <xs:element name="PartyType" minOccurs="0" type="PartyType"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StrategyId" minOccurs="0" type="xs:string"/>
+         <xs:element name="RouterId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TargetType" minOccurs="0" type="TargetType"/>
+         <xs:element name="TargetQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="TargetWorkbin" minOccurs="0" type="xs:string"/>
+         <xs:element name="TargetPlace" minOccurs="0" type="xs:string"/>
+         <xs:element name="TargetAgent" minOccurs="0" type="xs:string"/>
+         <xs:element name="TargetPlaceGroup" minOccurs="0" type="xs:string"/>
+         <xs:element name="TargetAgentGroup" minOccurs="0" type="xs:string"/>
+         <xs:element name="VisibilityMode" minOccurs="0" type="VisibilityMode"/>
+      </xs:all>
+   </xs:complexType>
+  
+
+      <xs:complexType name="RequestRegisterClient">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ClientType" minOccurs="0" type="InteractionClient"/>
+         <xs:element name="ClientName" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRegisterClient" name="RequestRegisterClient"/>
+
+      <xs:complexType name="RequestSubmit">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Queue" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaType" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionType" minOccurs="0" type="xs:string"/>
+         <xs:element name="InteractionSubtype" minOccurs="0" type="xs:string"/>
+         <xs:element name="IsOnline" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="ReceivedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ParentInteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InQueues" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="OutQueues" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="WorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinPlaceGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Hold" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSubmit" name="RequestSubmit"/>
+
+      <xs:complexType name="RequestStopProcessing">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopProcessing" name="RequestStopProcessing"/>
+
+      <xs:complexType name="RequestChangeProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AddedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ChangedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DeletedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Queue" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestChangeProperties" name="RequestChangeProperties"/>
+
+      <xs:complexType name="RequestPlaceInQueue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Queue" minOccurs="0" type="xs:string"/>
+         <xs:element name="AddedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ChangedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DeletedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Hold" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestPlaceInQueue" name="RequestPlaceInQueue"/>
+
+      <xs:complexType name="RequestPlaceInWorkbin">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Hold" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="AddedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ChangedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DeletedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Workbin" type="WorkbinInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestPlaceInWorkbin" name="RequestPlaceInWorkbin"/>
+
+      <xs:complexType name="RequestDeliver">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InQueues" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="OutQueues" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeliver" name="RequestDeliver"/>
+
+      <xs:complexType name="RequestPull">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ViewId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PullParameters" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Count" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InitialInFocusState" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="IgnoreHold" minOccurs="0" type="xs:int"/>
+         <xs:element name="GetIdsOnly" minOccurs="0" type="xs:int"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestPull" name="RequestPull"/>
+
+      <xs:complexType name="RequestTransfer">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestTransfer" name="RequestTransfer"/>
+
+      <xs:complexType name="RequestConference">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="VisibilityMode" minOccurs="0" type="VisibilityMode"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestConference" name="RequestConference"/>
+
+      <xs:complexType name="RequestLeaveInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestLeaveInteraction" name="RequestLeaveInteraction"/>
+
+      <xs:complexType name="RequestGetWorkbinContent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="FindMaxInteractions" minOccurs="0" type="xs:int"/>
+         <xs:element name="Condition" minOccurs="0" type="xs:string"/>
+         <xs:element name="Order" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Workbin" type="WorkbinInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetWorkbinContent" name="RequestGetWorkbinContent"/>
+
+      <xs:complexType name="RequestWorkbinNotifications">
+      <xs:all>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="NotifyPropertyChanges" minOccurs="0" type="xs:int"/>
+         <xs:element name="IdsOnlyInTakenOutNotification" minOccurs="0" type="xs:int"/>
+         <xs:element name="Workbin" type="WorkbinInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestWorkbinNotifications" name="RequestWorkbinNotifications"/>
+
+      <xs:complexType name="RequestCancelWorkbinNotifications">
+      <xs:all>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Workbin" type="WorkbinInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCancelWorkbinNotifications"
+               name="RequestCancelWorkbinNotifications"/>
+
+      <xs:complexType name="RequestTakeSnapshot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ViewId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Condition" minOccurs="0" type="xs:string"/>
+         <xs:element name="Order" minOccurs="0" type="xs:string"/>
+         <xs:element name="Lock" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="CheckInteractionsState" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SnapshotMaxInteractions" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestTakeSnapshot" name="RequestTakeSnapshot"/>
+
+      <xs:complexType name="RequestGetSnapshotInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="StartFrom" minOccurs="0" type="xs:int"/>
+         <xs:element name="NumberOfInteractions" minOccurs="0" type="xs:int"/>
+         <xs:element name="GetIdentifierOnly" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetSnapshotInteractions" name="RequestGetSnapshotInteractions"/>
+
+      <xs:complexType name="RequestLockInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestLockInteraction" name="RequestLockInteraction"/>
+
+      <xs:complexType name="RequestUnlockInteraction">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnlockInteraction" name="RequestUnlockInteraction"/>
+
+      <xs:complexType name="RequestReleaseSnapshot">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReleaseSnapshot" name="RequestReleaseSnapshot"/>
+
+      <xs:complexType name="RequestAccept">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TicketId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="InitialInFocusState" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAccept" name="RequestAccept"/>
+
+      <xs:complexType name="RequestReject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TicketId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReject" name="RequestReject"/>
+
+      <xs:complexType name="RequestIntrude">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="VisibilityMode" minOccurs="0" type="VisibilityMode"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestIntrude" name="RequestIntrude"/>
+
+      <xs:complexType name="RequestAgentLogin">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DonotDisturb" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MediaList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAgentLogin" name="RequestAgentLogin"/>
+
+      <xs:complexType name="RequestAgentLogout">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAgentLogout" name="RequestAgentLogout"/>
+
+      <xs:complexType name="RequestDoNotDisturbOn">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDoNotDisturbOn" name="RequestDoNotDisturbOn"/>
+
+      <xs:complexType name="RequestDoNotDisturbOff">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDoNotDisturbOff" name="RequestDoNotDisturbOff"/>
+
+      <xs:complexType name="RequestAddMedia">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAddMedia" name="RequestAddMedia"/>
+
+      <xs:complexType name="RequestRemoveMedia">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRemoveMedia" name="RequestRemoveMedia"/>
+
+      <xs:complexType name="RequestNotReadyForMedia">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestNotReadyForMedia" name="RequestNotReadyForMedia"/>
+
+      <xs:complexType name="RequestCancelNotReadyForMedia">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCancelNotReadyForMedia" name="RequestCancelNotReadyForMedia"/>
+
+      <xs:complexType name="RequestChangeAgentStateReason">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestChangeAgentStateReason" name="RequestChangeAgentStateReason"/>
+
+      <xs:complexType name="RequestChangeMediaStateReason">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestChangeMediaStateReason" name="RequestChangeMediaStateReason"/>
+
+      <xs:complexType name="RequestAgentAvailable">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAgentAvailable" name="RequestAgentAvailable"/>
+
+      <xs:complexType name="RequestAgentNotAvailable">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAgentNotAvailable" name="RequestAgentNotAvailable"/>
+
+      <xs:complexType name="RequestStartPlaceAgentStateReporting">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStartPlaceAgentStateReporting"
+               name="RequestStartPlaceAgentStateReporting"/>
+
+      <xs:complexType name="RequestStartPlaceAgentStateReportingAll">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStartPlaceAgentStateReportingAll"
+               name="RequestStartPlaceAgentStateReportingAll"/>
+
+      <xs:complexType name="RequestStopPlaceAgentStateReporting">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopPlaceAgentStateReporting"
+               name="RequestStopPlaceAgentStateReporting"/>
+
+      <xs:complexType name="RequestStopPlaceAgentStateReportingAll">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopPlaceAgentStateReportingAll"
+               name="RequestStopPlaceAgentStateReportingAll"/>
+
+      <xs:complexType name="RequestUnregisterClient">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnregisterClient" name="RequestUnregisterClient"/>
+
+      <xs:complexType name="RequestWorkbinTypesInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestWorkbinTypesInfo" name="RequestWorkbinTypesInfo"/>
+
+      <xs:complexType name="RequestWorkbinStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="WorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestWorkbinStatistic" name="RequestWorkbinStatistic"/>
+
+      <xs:complexType name="RequestSubscribe">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="PsTopicList" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSubscribe" name="RequestSubscribe"/>
+
+      <xs:complexType name="RequestUnsubscribe">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="PsTopicList" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnsubscribe" name="RequestUnsubscribe"/>
+
+      <xs:complexType name="RequestPublish">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PsTopic" minOccurs="0" type="xs:string"/>
+         <xs:element name="PsEventContent" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DistributeToOriginator" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestPublish" name="RequestPublish"/>
+
+      <xs:complexType name="RequestGetInteractionProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SearchByExternalId" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetInteractionProperties" name="RequestGetInteractionProperties"/>
+
+      <xs:complexType name="RequestWorkflowConfiguration">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestWorkflowConfiguration" name="RequestWorkflowConfiguration"/>
+
+      <xs:complexType name="RequestMoveInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Queue" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMoveInteractions" name="RequestMoveInteractions"/>
+
+      <xs:complexType name="RequestHold">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestHold" name="RequestHold"/>
+
+      <xs:complexType name="RequestResume">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestResume" name="RequestResume"/>
+
+      <xs:complexType name="RequestFindInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Condition" minOccurs="0" type="xs:string"/>
+         <xs:element name="Order" minOccurs="0" type="xs:string"/>
+         <xs:element name="FindMaxInteractions" minOccurs="0" type="xs:int"/>
+         <xs:element name="FindIdsOnly" minOccurs="0" type="xs:int"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestFindInteractions" name="RequestFindInteractions"/>
+
+      <xs:complexType name="RequestDistributeEvent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CustomEventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventContent" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDistributeEvent" name="RequestDistributeEvent"/>
+
+      
+      <xs:complexType name="RequestAgentState">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAgentState" name="RequestAgentState"/>
+      
+      <xs:complexType name="RequestCancelInvite">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCancelInvite" name="RequestCancelInvite"/>
+
+      
+      <xs:complexType name="RequestAgentWorkbinStats">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="WorkbinAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinPlaceGroupId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAgentWorkbinStats" name="RequestAgentWorkbinStats"/>
+
+    
+      <xs:complexType name="EventInteractionProperties">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionProperties" name="EventInteractionProperties"/>
+
+      <xs:complexType name="EventPropertiesChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AddedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ChangedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DeletedProperties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPropertiesChanged" name="EventPropertiesChanged"/>
+
+      <xs:complexType name="EventPulledInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interactions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPulledInteractions" name="EventPulledInteractions"/>
+
+      <xs:complexType name="EventWorkbinContent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interactions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventWorkbinContent" name="EventWorkbinContent"/>
+
+      <xs:complexType name="EventWorkbinContentChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="WorkbinContentOperation" minOccurs="0" type="WorkbinContentOperation"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Workbin" type="WorkbinInfo" minOccurs="0"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventWorkbinContentChanged" name="EventWorkbinContentChanged"/>
+
+      <xs:complexType name="EventSnapshotTaken">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="NumberOfInteractions" minOccurs="0" type="xs:int"/>
+         <xs:element name="HaveMoreInteractions" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSnapshotTaken" name="EventSnapshotTaken"/>
+
+      <xs:complexType name="EventSnapshotInteractions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Interactions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSnapshotInteractions" name="EventSnapshotInteractions"/>
+
+      <xs:complexType name="EventAck">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAck" name="EventAck"/>
+
+      <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorDescription" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+
+      <xs:complexType name="EventInvite">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TicketId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Parties" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InQueues" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="OutQueues" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="VisibilityMode" minOccurs="0" type="VisibilityMode"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInvite" name="EventInvite"/>
+
+      <xs:complexType name="EventActivityReport">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PartyType" minOccurs="0" type="PartyType"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="PlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActorPlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActorAgentDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="InteractionsInFocus" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InteractionsOutOfFocus" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventActivityReport" name="EventActivityReport"/>
+
+      <xs:complexType name="EventPartyAdded">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InitialInFocusState" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPartyAdded" name="EventPartyAdded"/>
+
+      <xs:complexType name="EventPartyRemoved">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="OldQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="OldWorkbinPlaceGroupId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPartyRemoved" name="EventPartyRemoved"/>
+
+      <xs:complexType name="EventRevoked">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRevoked" name="EventRevoked"/>
+
+      <xs:complexType name="EventAgentLogin">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DonotDisturb" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MediaList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentLogin" name="EventAgentLogin"/>
+
+      <xs:complexType name="EventAgentLogout">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentLogout" name="EventAgentLogout"/>
+
+      <xs:complexType name="EventDoNotDisturbOn">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDoNotDisturbOn" name="EventDoNotDisturbOn"/>
+
+      <xs:complexType name="EventDoNotDisturbOff">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventDoNotDisturbOff" name="EventDoNotDisturbOff"/>
+
+      <xs:complexType name="EventMediaAdded">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="MediaTypeState" minOccurs="0" type="MediaState"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMediaAdded" name="EventMediaAdded"/>
+
+      <xs:complexType name="EventMediaRemoved">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMediaRemoved" name="EventMediaRemoved"/>
+
+      <xs:complexType name="EventNotReadyForMedia">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventNotReadyForMedia" name="EventNotReadyForMedia"/>
+
+      <xs:complexType name="EventReadyForMedia">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventReadyForMedia" name="EventReadyForMedia"/>
+
+      <xs:complexType name="EventAgentStateReasonChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentStateReasonChanged" name="EventAgentStateReasonChanged"/>
+
+      <xs:complexType name="EventMediaStateReasonChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMediaStateReasonChanged" name="EventMediaStateReasonChanged"/>
+
+      <xs:complexType name="EventCurrentAgentStatus">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DonotDisturb" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MediaStateList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaCapacityList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCurrentAgentStatus" name="EventCurrentAgentStatus"/>
+
+      <xs:complexType name="EventAgentAvailable">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentAvailable" name="EventAgentAvailable"/>
+
+      <xs:complexType name="EventAgentNotAvailable">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentDescription" type="AgentDescription" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentNotAvailable" name="EventAgentNotAvailable"/>
+
+      <xs:complexType name="EventInteractionSubmited">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionSubmited" name="EventInteractionSubmited"/>
+
+      <xs:complexType name="EventProcessingStopped">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventProcessingStopped" name="EventProcessingStopped"/>
+
+      <xs:complexType name="EventPlacedInQueue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OldQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+         <xs:element name="OldWorkbin" type="OldWorkbinInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPlacedInQueue" name="EventPlacedInQueue"/>
+
+      <xs:complexType name="EventPlacedInWorkbin">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OldQueue" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Workbin" type="WorkbinInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+         <xs:element name="OldWorkbin" type="OldWorkbinInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPlacedInWorkbin" name="EventPlacedInWorkbin"/>
+
+      <xs:complexType name="EventLocked">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventLocked" name="EventLocked"/>
+
+      <xs:complexType name="EventUnlocked">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUnlocked" name="EventUnlocked"/>
+
+      <xs:complexType name="EventAgentInvited">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TicketId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentInvited" name="EventAgentInvited"/>
+
+      <xs:complexType name="EventAccepted">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAccepted" name="EventAccepted"/>
+
+      <xs:complexType name="EventRejected">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TicketId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRejected" name="EventRejected"/>
+
+      <xs:complexType name="EventPlaceAgentState">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="DoNotDisturb" minOccurs="0" type="xs:int"/>
+         <xs:element name="Monitored" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interactions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="AgentLoginSessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="LoggedInAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="DndChangedAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="MediaListEx" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="PlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPlaceAgentState" name="EventPlaceAgentState"/>
+
+      <xs:complexType name="EventMessagePing">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="PingInfo" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventMessagePing" name="EventMessagePing"/>
+
+      <xs:complexType name="EventCustom">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CustomMessageType" minOccurs="0" type="xs:int"/>
+         <xs:element name="CustomMessageData" minOccurs="0" type="xs:base64Binary"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCustom" name="EventCustom"/>
+
+      
+      <xs:complexType name="EventTakenFromQueue">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="InitialInFocusState" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventTakenFromQueue" name="EventTakenFromQueue"/>
+
+      <xs:complexType name="EventWorkbinTypesInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="WorkbinTypes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventWorkbinTypesInfo" name="EventWorkbinTypesInfo"/>
+
+      <xs:complexType name="EventWorkbinStatistic">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="WorkbinTypeId" minOccurs="0" type="xs:string"/>
+         <xs:element name="WorkbinOwnerType" minOccurs="0" type="xs:int"/>
+         <xs:element name="WorkbinStatistic" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventWorkbinStatistic" name="EventWorkbinStatistic"/>
+
+      <xs:complexType name="EventTakenFromWorkbin">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Operation" minOccurs="0" type="InteractionOperation"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="InitialInFocusState" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventTakenFromWorkbin" name="EventTakenFromWorkbin"/>
+
+      <xs:complexType name="EventUserEvent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="PsTopic" minOccurs="0" type="xs:string"/>
+         <xs:element name="PsEventContent" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ActorType" minOccurs="0" type="ActorType"/>
+         <xs:element name="ActorMediaServerId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorTenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActorStrategyId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorRouterId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorPlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorAgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ActorPlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActorAgentDbId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventUserEvent" name="EventUserEvent"/>
+
+      <xs:complexType name="EventForcedDisconnect">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventForcedDisconnect" name="EventForcedDisconnect"/>
+
+      <xs:complexType name="EventForcedAgentStateChange">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MediaList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="DonotDisturb" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="AgentStateChangeOperation" minOccurs="0" type="AgentStateChangeOperation"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventForcedAgentStateChange" name="EventForcedAgentStateChange"/>
+
+      <xs:complexType name="EventWorkflowConfiguration">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="QueuesConfiguration" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ViewsConfiguration" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventWorkflowConfiguration" name="EventWorkflowConfiguration"/>
+
+      <xs:complexType name="EventExternalServiceRequested">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspClientRefid" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspServerRefid" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspRequestEnvelope" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="EspRequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventExternalServiceRequested" name="EventExternalServiceRequested"/>
+
+      <xs:complexType name="EventExternalServiceResponded">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspClientRefid" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspServerRefid" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspResponseType" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspRequestEnvelope" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="EspRequestId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventExternalServiceResponded" name="EventExternalServiceResponded"/>
+
+      <xs:complexType name="EventAgentConnectionClosed">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ClientName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="PlaceDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentDbId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentConnectionClosed" name="EventAgentConnectionClosed"/>
+
+      <xs:complexType name="EventInteractionsMoved">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SnapshotId" minOccurs="0" type="xs:int"/>
+         <xs:element name="MovedInteractions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionsMoved" name="EventInteractionsMoved"/>
+
+      <xs:complexType name="EventHeld">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventHeld" name="EventHeld"/>
+
+      <xs:complexType name="EventResumed">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventResumed" name="EventResumed"/>
+
+      <xs:complexType name="EventInteractionsFound">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interactions" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="HaveMoreInteractions" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInteractionsFound" name="EventInteractionsFound"/>
+
+      <xs:complexType name="EventCustomReporting">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CustomEventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MediaTypeName" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventContent" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Party" type="PartyInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCustomReporting" name="EventCustomReporting"/>
+      
+      <xs:complexType name="EventAgentState">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="TenantId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AgentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="PlaceId" minOccurs="0" type="xs:string"/>
+         <xs:element name="DonotDisturb" minOccurs="0" type="gc:boolean"/>
+         <xs:element name="MediaList" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interactions" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentState" name="EventAgentState"/>
+      <xs:complexType name="EventHint">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Hint" minOccurs="0" type="xs:string"/>
+         <xs:element name="ConditionStarting" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventHint" name="EventHint"/>
+
+      
+      <xs:complexType name="EventAgentWorkbinStats">
+      <xs:all>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="WorkbinStatistic" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAgentWorkbinStats" name="EventAgentWorkbinStats"/>
+      
+      <xs:complexType name="EventAbandoned">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ProxyClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventTime" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="SubmittedToRouterAt" minOccurs="0" type="gc:dateTime"/>
+         <xs:element name="Extension" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Interaction" type="InteractionProperties" minOccurs="0"/>
+         <xs:element name="Actor" type="ActorInfo" minOccurs="0"/>
+         <xs:element name="Reason" type="ReasonInfo" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAbandoned" name="EventAbandoned"/>
+    
+        <xs:complexType name="EspRequest3rdServer">
+      <xs:all>
+         <xs:element name="EspReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspRequest" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EspUserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EspRequest3rdServer" name="EspRequest3rdServer"/>        
+      
+        <xs:complexType name="EspEvent3rdServerResponse">
+      <xs:all>
+         <xs:element name="EspReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspRequest" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EspUserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EspEvent3rdServerResponse" name="EspEvent3rdServerResponse"/>
+        <xs:complexType name="EspEvent3rdServerFault">
+      <xs:all>
+         <xs:element name="EspReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EspRequest" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EspEvent3rdServerFault" name="EspEvent3rdServerFault"/>        
+      </xs:schema>

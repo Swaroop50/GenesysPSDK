@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/WebMedia/BasicChat/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/WebMedia/BasicChat/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="Action">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="KeepAlive"/>
+         <xs:enumeration value="CloseIfNoAgents"/>
+         <xs:enumeration value="ForceClose"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="UserType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Client"/>
+         <xs:enumeration value="Agent"/>
+         <xs:enumeration value="Supervisor"/>
+         <xs:enumeration value="External"/>
+         <xs:enumeration value="System"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ProtocolType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Basic"/>
+         <xs:enumeration value="Flex"/>
+         <xs:enumeration value="Esp"/>
+         <xs:enumeration value="None"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="UserStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="On"/>
+         <xs:enumeration value="Off"/>
+         <xs:enumeration value="Keep"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="SessionStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Alive"/>
+         <xs:enumeration value="Over"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="Visibility">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="All"/>
+         <xs:enumeration value="Int"/>
+         <xs:enumeration value="Vip"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="TreatAs">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NORMAL"/>
+         <xs:enumeration value="SYSTEM"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="MsgCheck">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="None"/>
+         <xs:enumeration value="Alert"/>
+         <xs:enumeration value="Altered"/>
+      </xs:restriction>
+   </xs:simpleType>
+        <xs:complexType name="Description">
+      <xs:all>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="Reason">
+      <xs:all>
+         <xs:element name="Code" minOccurs="0" type="xs:int"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="MessageText">
+      <xs:all>
+         <xs:element name="MsgCheck" minOccurs="0" type="MsgCheck"/>
+         <xs:element name="MessageType" minOccurs="0" type="xs:string"/>
+         <xs:element name="TreatAs" minOccurs="0" type="TreatAs"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="NoticeText">
+      <xs:all>
+         <xs:element name="NoticeType" minOccurs="0" type="NoticeType"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="ChatTranscript">
+      <xs:all>
+         <xs:element name="StartAt" minOccurs="0" type="xs:string"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="ChatEventList" minOccurs="0" type="BasicChatEventList"/>
+         <xs:element name="SavedPosition" minOccurs="0" type="xs:int"/>
+         <xs:element name="IdleTimeExpire" minOccurs="0" type="IntNotZero"/>
+         <xs:element name="Monitored" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+   </xs:complexType>
+        
+        <xs:complexType name="UserInfo">
+      <xs:all>
+         <xs:element name="PersonId" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserNickname" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserType" minOccurs="0" type="UserType"/>
+         <xs:element name="SecureKey" minOccurs="0" type="xs:string"/>
+         <xs:element name="ProtocolType" minOccurs="0" type="ProtocolType"/>
+         <xs:element name="TimeZoneOffset" minOccurs="0" type="xs:int"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="NewPartyInfo">
+      <xs:all>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeShift" minOccurs="0" type="xs:int"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="UserInfo" type="UserInfo" minOccurs="0"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="PartyLeftInfo">
+      <xs:all>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeShift" minOccurs="0" type="xs:int"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="AskerId" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Reason" type="Reason" minOccurs="0"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="ReenterInfo">
+      <xs:all>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeShift" minOccurs="0" type="xs:int"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="Agents" minOccurs="0" type="UserStatus"/>
+         <xs:element name="Clients" minOccurs="0" type="UserStatus"/>
+         <xs:element name="EventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+   </xs:complexType>
+        
+        <xs:complexType name="MessageInfo">
+      <xs:all>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeShift" minOccurs="0" type="xs:int"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="EventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ReceiverId" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+   </xs:complexType>
+
+        <xs:complexType name="NoticeInfo">
+      <xs:all>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeShift" minOccurs="0" type="xs:int"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ReceiverId" minOccurs="0" type="xs:string"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="NoticeText" type="NoticeText" minOccurs="0"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+   </xs:complexType>
+
+    
+            <xs:complexType name="RequestRegister">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="UserNickname" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserType" minOccurs="0" type="UserType"/>
+         <xs:element name="PersonId" minOccurs="0" type="xs:string"/>
+         <xs:element name="TimeZoneOffset" minOccurs="0" type="xs:int"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SecureKey" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRegister" name="RequestRegister"/>
+
+            <xs:complexType name="RequestJoin">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="QueueKey" minOccurs="0" type="xs:string"/>
+         <xs:element name="Subject" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="FromPosition" minOccurs="0" type="xs:int"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestJoin" name="RequestJoin"/>
+
+            <xs:complexType name="RequestReleaseParty">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="AfterAction" minOccurs="0" type="Action"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReleaseParty" name="RequestReleaseParty"/>
+
+            <xs:complexType name="RequestMessage">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReceiverId" minOccurs="0" type="xs:string"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestMessage" name="RequestMessage"/>
+
+            <xs:complexType name="RequestNotify">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Visibility" minOccurs="0" type="Visibility"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="EventAttributes" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="ReceiverId" minOccurs="0" type="xs:string"/>
+         <xs:element name="NoticeText" type="NoticeText" minOccurs="0"/>
+         <xs:element name="MessageText" type="MessageText" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestNotify" name="RequestNotify"/>
+
+            
+
+    	
+            <xs:complexType name="EventRegistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OccurredAt" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserId" minOccurs="0" type="xs:string"/>
+         <xs:element name="SecureKey" minOccurs="0" type="xs:string"/>
+         <xs:element name="ServerVersion" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventRegistered" name="EventRegistered"/>
+
+            <xs:complexType name="EventSessionInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionStatus" minOccurs="0" type="SessionStatus"/>
+         <xs:element name="OccurredAt" minOccurs="0" type="xs:string"/>
+         <xs:element name="ChatTranscript" type="ChatTranscript" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSessionInfo" name="EventSessionInfo"/>
+
+            <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OccurredAt" minOccurs="0" type="xs:string"/>
+         <xs:element name="ErrorId" minOccurs="0" type="xs:string"/>
+         <xs:element name="Description" type="Description" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+    	<xs:complexType name="BasicChatEventList">
+        <xs:sequence>
+            <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##targetNamespace"/>
+        </xs:sequence>
+    </xs:complexType>
+   <xs:element name="MessageInfo" type="MessageInfo"/>
+   <xs:element name="NewPartyInfo" type="NewPartyInfo"/>
+   <xs:element name="PartyLeftInfo" type="PartyLeftInfo"/>
+   <xs:element name="ReenterInfo" type="ReenterInfo"/>
+   <xs:element name="NoticeInfo" type="NoticeInfo"/>
+   <xs:simpleType name="IntNotZero">
+      <xs:restriction base="xs:integer"/>
+   </xs:simpleType>
+   <xs:simpleType name="NoticeType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="None"/>
+         <xs:enumeration value="PushUrl"/>
+         <xs:enumeration value="TypingStarted"/>
+         <xs:enumeration value="TypingStopped"/>
+         <xs:enumeration value="Custom"/>
+         <xs:enumeration value="UpdateUserData"/>
+         <xs:enumeration value="SaveTranscript"/>
+         <xs:enumeration value="Reserved"/>
+	        <xs:enumeration value="TranscriptSaveFailed"/>
+	        <xs:enumeration value="TranscriptSaveDone"/>
+	        <xs:enumeration value="Ping"/>
+	        <xs:enumeration value="UserUpdateNick"/>
+	        <xs:enumeration value="IdleControlAlert"/>
+	        <xs:enumeration value="IdleControlClose"/>
+	        <xs:enumeration value="IdleControlSet"/>
+	        <xs:enumeration value="SystemCommand"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

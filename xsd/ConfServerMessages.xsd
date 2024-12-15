@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Configuration/ConfServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Configuration/ConfServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+      
+      
+      <xs:complexType name="RequestCreateObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfObject" minOccurs="0" type="XmlDocumentV7"/>
+         <xs:element name="Object" minOccurs="0" type="ConfObjectV7"/>
+         <xs:element name="Parameters" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCreateObject" name="RequestCreateObject"/>
+      <xs:complexType name="RequestUpdateObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfObject" minOccurs="0" type="XmlDocumentV7"/>
+         <xs:element name="ObjectDelta" minOccurs="0" type="ConfObjectDeltaV7"/>
+         <xs:element name="Parameters" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateObject" name="RequestUpdateObject"/>
+      <xs:complexType name="RequestDeleteObject">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="Dbid" minOccurs="0" type="xs:int"/>
+         <xs:element name="Parameters" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeleteObject" name="RequestDeleteObject"/>
+      <xs:complexType name="RequestReadObjects">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="Filter" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadObjects" name="RequestReadObjects"/>
+      <xs:complexType name="RequestReadPermissions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ConfID" minOccurs="0" type="ConfConfIDV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadPermissions" name="RequestReadPermissions"/>
+      <xs:complexType name="RequestUpdatePermissions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfPermissions" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ConfPermissionsACL" minOccurs="0" type="ConfACLV6"/>
+         <xs:element name="Recursion" minOccurs="0" type="xs:int"/>
+         <xs:element name="Parameters" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdatePermissions" name="RequestUpdatePermissions"/>
+      <xs:complexType name="RequestGetBriefInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="Filter" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetBriefInfo" name="RequestGetBriefInfo"/>
+      <xs:complexType name="RequestReadAccount">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ApplicationId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ApplicationID" minOccurs="0" type="ConfAppIDV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadAccount" name="RequestReadAccount"/>
+      <xs:complexType name="RequestUpdateAccount">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ApplicationId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ApplicationID" minOccurs="0" type="ConfAppIDV6"/>
+         <xs:element name="AccountId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="AccountID" minOccurs="0" type="ConfAccountIDV6"/>
+         <xs:element name="Parameters" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUpdateAccount" name="RequestUpdateAccount"/>
+      <xs:complexType name="RequestChangeOperationalMode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OperationalMode" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestChangeOperationalMode" name="RequestChangeOperationalMode"/>
+      <xs:complexType name="RequestReadOperationalMode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadOperationalMode" name="RequestReadOperationalMode"/>
+      
+      
+      <xs:complexType name="RequestHistoryLog">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SessionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestHistoryLog" name="RequestHistoryLog"/>
+      
+      
+      <xs:complexType name="RequestReadObjectPermissions">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ConfID" minOccurs="0" type="ConfConfIDV6"/>
+         <xs:element name="AccountId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="AccountID" minOccurs="0" type="ConfAccountIDV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadObjectPermissions" name="RequestReadObjectPermissions"/>
+      
+      
+      <xs:complexType name="RequestReadLocale">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="LocaleId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadLocale" name="RequestReadLocale"/>
+      <xs:complexType name="RequestRegisterPermissionsNotification">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRegisterPermissionsNotification"
+               name="RequestRegisterPermissionsNotification"/>
+      <xs:complexType name="RequestUnregisterPermissionsNotification">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnregisterPermissionsNotification"
+               name="RequestUnregisterPermissionsNotification"/>
+      <xs:complexType name="RequestAuthenticate">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="UserName" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserPassword" minOccurs="0" type="AesString"/>
+         <xs:element name="KerberosTicket" minOccurs="0" type="xs:string"/>
+         <xs:element name="GSSToken" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestAuthenticate" name="RequestAuthenticate"/>
+      
+      
+      <xs:complexType name="RequestUnregisterNotification">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Subscription" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnregisterNotification" name="RequestUnregisterNotification"/>
+      <xs:complexType name="RequestRegisterNotification">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Subscription" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRegisterNotification" name="RequestRegisterNotification"/>
+      <xs:complexType name="RequestGetLocaleSets">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetLocaleSets" name="RequestGetLocaleSets"/>
+      <xs:complexType name="RequestChangePassword">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="UserName" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserPassword" minOccurs="0" type="AesString"/>
+         <xs:element name="NewUserPassword" minOccurs="0" type="AesString"/>
+         <xs:element name="Parameters" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestChangePassword" name="RequestChangePassword"/>
+      <xs:complexType name="RequestReadObjects2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="XPathExpression" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestReadObjects2" name="RequestReadObjects2"/>
+      
+      
+      <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="ExternalAuthentication" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+      <xs:complexType name="EventError2">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="xs:int"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError2" name="EventError2"/>
+      <xs:complexType name="EventNotificationUnregistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventNotificationUnregistered" name="EventNotificationUnregistered"/>
+      <xs:complexType name="EventNotificationRegistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventNotificationRegistered" name="EventNotificationRegistered"/>
+      <xs:complexType name="EventObjectDeleted">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="Dbid" minOccurs="0" type="xs:int"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsHistoryLog" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventObjectDeleted" name="EventObjectDeleted"/>
+      
+      
+      <xs:complexType name="EventObjectsSent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventObjectsSent" name="EventObjectsSent"/>
+      <xs:complexType name="EventPermissionsRead">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfPermissions" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ConfPermissionsACL" minOccurs="0" type="ConfACLV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPermissionsRead" name="EventPermissionsRead"/>
+      <xs:complexType name="EventPermissionsUpdated">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Recursion" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfPermissions" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ConfPermissionsACL" minOccurs="0" type="ConfACLV6"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPermissionsUpdated" name="EventPermissionsUpdated"/>
+      <xs:complexType name="EventBriefInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="BriefInfo" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="BriefObject" minOccurs="0" type="ConfObjectBriefV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventBriefInfo" name="EventBriefInfo"/>
+      <xs:complexType name="EventAccountRead">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AccountId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="AccountID" minOccurs="0" type="ConfAccountIDV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAccountRead" name="EventAccountRead"/>
+      <xs:complexType name="EventAccountUpdated">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ApplicationId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ApplicationID" minOccurs="0" type="ConfAppIDV6"/>
+         <xs:element name="AccountId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="AccountID" minOccurs="0" type="ConfAccountIDV6"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAccountUpdated" name="EventAccountUpdated"/>
+      <xs:complexType name="EventOperationalModeChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OperationalMode" minOccurs="0" type="xs:int"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventOperationalModeChanged" name="EventOperationalModeChanged"/>
+      <xs:complexType name="EventOperationalModeRead">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="OperationalMode" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventOperationalModeRead" name="EventOperationalModeRead"/>
+      <xs:complexType name="EventHistoryLogSent">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventHistoryLogSent" name="EventHistoryLogSent"/>
+      
+      
+      <xs:complexType name="EventObjectPermissionsRead">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Permissions" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventObjectPermissionsRead" name="EventObjectPermissionsRead"/>
+      
+      
+      <xs:complexType name="EventLocaleRead">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="LocaleId" minOccurs="0" type="xs:int"/>
+         <xs:element name="SchemaInfo" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="SchemaData" minOccurs="0" type="ConfSchemaV6"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventLocaleRead" name="EventLocaleRead"/>
+      <xs:complexType name="EventPermissionsNotificationRegistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPermissionsNotificationRegistered"
+               name="EventPermissionsNotificationRegistered"/>
+      <xs:complexType name="EventPermissionsNotificationUnregistered">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPermissionsNotificationUnregistered"
+               name="EventPermissionsNotificationUnregistered"/>
+      <xs:complexType name="EventPermissionsChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfId" minOccurs="0" type="XmlDocumentV6"/>
+         <xs:element name="ConfID" minOccurs="0" type="ConfConfIDV6"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPermissionsChanged" name="EventPermissionsChanged"/>
+      <xs:complexType name="EventAuthenticated">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAuthenticated" name="EventAuthenticated"/>
+      
+      
+      <xs:complexType name="EventObjectsRead">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfObject" minOccurs="0" type="XmlDocumentV7"/>
+         <xs:element name="Objects" minOccurs="0" type="ConfObjectsV7"/>
+         <xs:element name="ObjectTotalCount" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectPaths" minOccurs="0" type="PathArrayString"/>
+         <xs:element name="FolderDbids" minOccurs="0" type="DbidArrayString"/>
+         <xs:element name="Format" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventObjectsRead" name="EventObjectsRead"/>
+      <xs:complexType name="EventObjectCreated">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfObject" minOccurs="0" type="XmlDocumentV7"/>
+         <xs:element name="Object" minOccurs="0" type="ConfObjectV7"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="FolderDbid" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsHistoryLog" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventObjectCreated" name="EventObjectCreated"/>
+      <xs:complexType name="EventObjectUpdated">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectType" minOccurs="0" type="xs:int"/>
+         <xs:element name="ConfObject" minOccurs="0" type="XmlDocumentV7"/>
+         <xs:element name="ObjectDelta" minOccurs="0" type="ConfObjectDeltaV7"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="xs:int"/>
+         <xs:element name="IsHistoryLog" minOccurs="0" type="gc:boolean"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventObjectUpdated" name="EventObjectUpdated"/>
+      <xs:complexType name="EventLocaleSets">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="LocaleSets" minOccurs="0" type="IntArrayString"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventLocaleSets" name="EventLocaleSets"/>
+      <xs:complexType name="EventPasswordChanged">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="UnsolisitedEventNumber" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventPasswordChanged" name="EventPasswordChanged"/>
+    <xs:complexType name="XmlDocument">
+      <xs:sequence>
+         <xs:element name="ConfData" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:any minOccurs="1" maxOccurs="unbounded" processContents="skip"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="XmlDocumentV7">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="XmlDocumentV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfObjectV7">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfObjectsV7">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfObjectDeltaV7">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfObjectBriefV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfSchemaV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfACLV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfConfIDV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfAppIDV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:complexType name="ConfAccountIDV6">
+      <xs:complexContent>
+         <xs:extension base="XmlDocument"/>
+      </xs:complexContent>
+  </xs:complexType>
+   <xs:simpleType name="AesString">
+      <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+   <xs:simpleType name="EncodedString">
+      <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType>
+   <xs:complexType name="IntArrayString">
+      <xs:sequence>
+         <xs:element name="Int" type="xs:int" minOccurs="1" maxOccurs="unbounded">
+      </xs:element>
+      </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="DbidArrayString">
+      <xs:sequence>
+         <xs:element name="Dbid" type="xs:int" minOccurs="1" maxOccurs="unbounded">
+      </xs:element>
+      </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="PathArrayString">
+      <xs:sequence>
+         <xs:element name="Path" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+      </xs:element>
+      </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/WebMedia/EspEmail/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/KVListsBinding/2006/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/WebMedia/EspEmail/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="ErrorCodes">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="InvalidServiceName"/>
+         <xs:enumeration value="InvalidMethodName"/>
+         <xs:enumeration value="StandardResponseNotFound"/>
+         <xs:enumeration value="StandardResponseNotFoundForCategory"/>
+         <xs:enumeration value="TextNotFound"/>
+         <xs:enumeration value="AddressNotFound"/>
+         <xs:enumeration value="TooManyAddresses"/>
+         <xs:enumeration value="InvalidAddressOrDomain"/>
+         <xs:enumeration value="StandardResponseTimeFrameError"/>
+         <xs:enumeration value="StandardResponseStatusError"/>
+         <xs:enumeration value="MissingParameter"/>
+         <xs:enumeration value="TwoIncopatibleParameters"/>
+         <xs:enumeration value="IncorrectParameterType"/>
+         <xs:enumeration value="IncorrectParameterValue"/>
+         <xs:enumeration value="RenderingError"/>
+         <xs:enumeration value="ParameterValueTooLong"/>
+         <xs:enumeration value="ParameterAndUserdataNotAllowed"/>
+         <xs:enumeration value="AttributeValueTooLong"/>
+         <xs:enumeration value="InvalidMediatypeValue"/>
+         <xs:enumeration value="Invalid3rdPartyMessageType"/>
+         <xs:enumeration value="ObjectNotFound"/>
+         <xs:enumeration value="InvalidInteractionType"/>
+         <xs:enumeration value="InvalidInteractionSubtype"/>
+         <xs:enumeration value="InvalidInteractionError"/>
+         <xs:enumeration value="InvalidFieldValue"/>
+         <xs:enumeration value="MaxAutoReplyCountReached"/>
+         <xs:enumeration value="ObjectAlreadyExist"/>
+         <xs:enumeration value="FatalError"/>
+         <xs:enumeration value="InvalidObjectId"/>
+         <xs:enumeration value="IncorrectConstraints"/>
+         <xs:enumeration value="InvalidAttributes"/>
+         <xs:enumeration value="ContactIdNotExist"/>
+         <xs:enumeration value="CanNotUpdateAttribute"/>
+         <xs:enumeration value="FromContactIdNotFound"/>
+         <xs:enumeration value="ToContactIdNotFound"/>
+         <xs:enumeration value="MergeIdNotFound"/>
+         <xs:enumeration value="MergeListNotExist"/>
+         <xs:enumeration value="MergeHistoryUnavailable"/>
+         <xs:enumeration value="UnexpectedError"/>
+         <xs:enumeration value="ConnectionToDbFailed"/>
+         <xs:enumeration value="NoEsjConfig"/>
+         <xs:enumeration value="SmtpAuthentificationError"/>
+         <xs:enumeration value="UnknownHost"/>
+         <xs:enumeration value="CantStopProcessing"/>
+         <xs:enumeration value="ConnectionClosed"/>
+         <xs:enumeration value="ServerOverloadedRequestRejected"/>
+         <xs:enumeration value="ConfigError"/>
+         <xs:enumeration value="FieldCodeKeyError"/>
+         <xs:enumeration value="TimeoutError"/>
+         <xs:enumeration value="NoSearchableAttribute"/>
+         <xs:enumeration value="NoCreationAttributeSet"/>
+         <xs:enumeration value="InvalidTenant"/>
+         <xs:enumeration value="NoTenant"/>
+         <xs:enumeration value="MoreThanOneTenant"/>
+         <xs:enumeration value="ContactMergeMultipleLevels"/>
+         <xs:enumeration value="InvalidMediaConfiguration"/>
+         <xs:enumeration value="NoValidSenderFound"/>
+         <xs:enumeration value="NoValidRecipientsFound"/>
+         <xs:enumeration value="BadAddress"/>
+         <xs:enumeration value="NoEmbeddedId"/>
+         <xs:enumeration value="NoParentFound"/>
+         <xs:enumeration value="NoReplyTextFound"/>
+         <xs:enumeration value="IdMismachError"/>
+         <xs:enumeration value="NotWellConstructed"/>
+         <xs:enumeration value="MimeMessageOpenError"/>
+         <xs:enumeration value="ManualIncorrectMime"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="RequestCreateWebEmailIn">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="Subject" minOccurs="0" type="xs:string"/>
+         <xs:element name="Text" minOccurs="0" type="xs:string"/>
+         <xs:element name="Mailbox" minOccurs="0" type="xs:string"/>
+         <xs:element name="ParentId" minOccurs="0" type="xs:string"/>
+         <xs:element name="FromAddress" minOccurs="0" type="xs:string"/>
+         <xs:element name="FirstName" minOccurs="0" type="xs:string"/>
+         <xs:element name="LastName" minOccurs="0" type="xs:string"/>
+         <xs:element name="SubscriberId" minOccurs="0" type="xs:string"/>
+         <xs:element name="QueueEndpoint" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="Attachments" minOccurs="0" type="EmailAttachmentList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCreateWebEmailIn" name="RequestCreateWebEmailIn"/>
+   <xs:complexType name="EmailAttachment">
+      <xs:all>
+         <xs:element name="FileName" minOccurs="0" type="xs:string"/>
+         <xs:element name="ContentType" minOccurs="0" type="xs:string"/>
+         <xs:element name="Content" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="idx" type="xs:int"/>
+      <xs:attribute name="type" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EmailAttachment" name="EmailAttachment"/>
+   <xs:complexType name="EventCreateWebEmailIn">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="NewInteractionId" minOccurs="0" type="xs:string"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCreateWebEmailIn" name="EventCreateWebEmailIn"/>
+   <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorInfo" minOccurs="0" type="RequestorInfo"/>
+         <xs:element name="FaultCode" minOccurs="0" type="ErrorCodes"/>
+         <xs:element name="FaultString" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+   <xs:complexType name="EmailAttachmentList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="element" minOccurs="0" type="EmailAttachment"/>
+      </xs:choice>
+      <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+   <xs:complexType name="RequestorInfo">
+      <xs:all>
+         <xs:element name="RequestorAppName" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestorAppType" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorAppDBID" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestorAppVersion" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestorClientId" minOccurs="0" type="xs:string"/>
+         <xs:element name="RequestorSessionId" minOccurs="0" type="xs:string"/>
+      </xs:all>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Management/MessageServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Management/MessageServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="LogLevel">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Debug"/>
+         <xs:enumeration value="Info"/>
+         <xs:enumeration value="Interaction"/>
+         <xs:enumeration value="Error"/>
+         <xs:enumeration value="Alarm"/>
+         <xs:enumeration value="None"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="KeyFlags">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="None"/>
+         <xs:enumeration value="Integer"/>
+         <xs:enumeration value="UnsignedLong"/>
+         <xs:enumeration value="String"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="LogDataFormat">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Hex"/>
+         <xs:enumeration value="String"/>
+         <xs:enumeration value="LogAttributes"/>
+         <xs:enumeration value="TEvent"/>
+         <xs:enumeration value="TMessage"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="MessageTypes">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="RequestConnect"/>
+         <xs:enumeration value="RequestSubscribeAll"/>
+         <xs:enumeration value="RequestSubscribeType"/>
+         <xs:enumeration value="RequestSubscribeTypeKey"/>
+         <xs:enumeration value="RequestSubscribeKey"/>
+         <xs:enumeration value="RequestSubscribeQuery"/>
+         <xs:enumeration value="RequestUnsubscribeAll"/>
+         <xs:enumeration value="RequestUnsubscribeType"/>
+         <xs:enumeration value="RequestUnsubscribeKey"/>
+         <xs:enumeration value="RequestLogMessage"/>
+         <xs:enumeration value="EventConnected"/>
+         <xs:enumeration value="EventDisconnected"/>
+         <xs:enumeration value="EventServerConnectionException"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="LogCategory">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Default"/>
+         <xs:enumeration value="Application"/>
+         <xs:enumeration value="Alarm"/>
+         <xs:enumeration value="Audit"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="MessagePriority">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="NoPriority"/>
+         <xs:enumeration value="High"/>
+         <xs:enumeration value="Normal"/>
+         <xs:enumeration value="Low"/>
+      </xs:restriction>
+   </xs:simpleType>
+        <xs:complexType name="MessageKey">
+      <xs:all>
+         <xs:element name="KeyFlags" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyInteger" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyLong" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyString" minOccurs="0" type="xs:string"/>
+         <xs:element name="KeyKVList" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+   </xs:complexType>
+    
+
+            <xs:complexType name="RequestLogMessage">
+      <xs:all>
+         <xs:element name="EntryId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EntryText" minOccurs="0" type="xs:string"/>
+         <xs:element name="Level" minOccurs="0" type="LogLevel"/>
+         <xs:element name="EntryCategory" minOccurs="0" type="LogCategory"/>
+         <xs:element name="Time" minOccurs="0" type="Time"/>
+         <xs:element name="ClientHost" minOccurs="0" type="xs:string"/>
+         <xs:element name="Attributes" minOccurs="0" type="AttributeList"/>
+         <xs:element name="MessageKey" type="MessageKey" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestLogMessage" name="RequestLogMessage"/>
+
+            
+            
+
+            <xs:complexType name="RequestSubscribeAll">
+      <xs:all>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSubscribeAll" name="RequestSubscribeAll"/>
+            <xs:complexType name="RequestSubscribeType">
+      <xs:all>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSubscribeType" name="RequestSubscribeType"/>
+            <xs:complexType name="RequestSubscribeTypeKey">
+      <xs:all>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyFlags" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyInteger" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyLong" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyString" minOccurs="0" type="xs:string"/>
+         <xs:element name="KeyKVList" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSubscribeTypeKey" name="RequestSubscribeTypeKey"/>
+            <xs:complexType name="RequestUnsubscribeAll">
+      <xs:all>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnsubscribeAll" name="RequestUnsubscribeAll"/>
+            <xs:complexType name="RequestUnsubscribeType">
+      <xs:all>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnsubscribeType" name="RequestUnsubscribeType"/>
+            <xs:complexType name="RequestUnsubscribeTypeKey">
+      <xs:all>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyFlags" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyInteger" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyLong" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyString" minOccurs="0" type="xs:string"/>
+         <xs:element name="KeyKVList" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnsubscribeTypeKey" name="RequestUnsubscribeTypeKey"/>
+        
+
+            <xs:complexType name="EventSubscription">
+      <xs:all>
+         <xs:element name="MessageType" minOccurs="0" type="MessageTypes"/>
+         <xs:element name="Priority" minOccurs="0" type="MessagePriority"/>
+         <xs:element name="Origin" minOccurs="0" type="xs:int"/>
+         <xs:element name="Time" minOccurs="0" type="Time"/>
+         <xs:element name="Usec" minOccurs="0" type="xs:int"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+         <xs:element name="AttachedDataLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="AttachedData" minOccurs="0" type="xs:base64Binary"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="TimeGenerated" minOccurs="0" type="gc:long"/>
+         <xs:element name="LogParameters" minOccurs="0" type="gc:KeyValueCollection"/>
+         <xs:element name="MessageGuid1" minOccurs="0" type="xs:int"/>
+         <xs:element name="MessageGuid2" minOccurs="0" type="xs:int"/>
+         <xs:element name="MessageGuid3" minOccurs="0" type="xs:int"/>
+         <xs:element name="MessageGuid4" minOccurs="0" type="xs:base64Binary"/>
+         <xs:element name="KeyFlags" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyInteger" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyLong" minOccurs="0" type="xs:int"/>
+         <xs:element name="KeyString" minOccurs="0" type="xs:string"/>
+         <xs:element name="KeyKVList" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventSubscription" name="EventSubscription"/>
+
+            <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="MessageType" minOccurs="0" type="MessageTypes"/>
+         <xs:element name="Time" minOccurs="0" type="Time"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+         <xs:element name="AttachedDataLength" minOccurs="0" type="xs:int"/>
+         <xs:element name="AttachedData" minOccurs="0" type="xs:base64Binary"/>
+         <xs:element name="UserData" minOccurs="0" type="gc:KeyValueCollection"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+
+          
+            <xs:complexType name="EventConnected">
+      <xs:all>
+         <xs:element name="MessageType" minOccurs="0" type="MessageTypes"/>
+         <xs:element name="TimeGenerated" minOccurs="0" type="gc:long"/>
+         <xs:element name="SubscriberType" minOccurs="0" type="xs:int"/>
+         <xs:element name="MessageKey" type="MessageKey" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventConnected" name="EventConnected"/>
+
+            
+       
+            <xs:complexType name="EventLogMessage">
+      <xs:all>
+         <xs:element name="Level" minOccurs="0" type="LogLevel"/>
+         <xs:element name="Time" minOccurs="0" type="Time"/>
+         <xs:element name="Usec" minOccurs="0" type="xs:int"/>
+         <xs:element name="MessageHeader" minOccurs="0" type="xs:string"/>
+         <xs:element name="EntryId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EntryText" minOccurs="0" type="xs:string"/>
+         <xs:element name="EntryData" minOccurs="0" type="xs:base64Binary"/>
+         <xs:element name="EntryCategory" minOccurs="0" type="LogCategory"/>
+         <xs:element name="ClientHost" minOccurs="0" type="xs:string"/>
+         <xs:element name="ClientId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ClientName" minOccurs="0" type="xs:string"/>
+         <xs:element name="Attributes" minOccurs="0" type="AttributeList"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventLogMessage" name="EventLogMessage"/>
+        <xs:simpleType name="Time">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+   <xs:complexType name="AttributeType">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="key" type="xs:string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="AttributeList">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="KeyValue" minOccurs="0" type="AttributeType"/>
+      </xs:choice>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,32 @@
+<xs:schema elementFormDefault="qualified" version="1.0" id="CommonSchemaXSD" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.genesyslab.com/Commons/2005/" targetNamespace="http://schemas.genesyslab.com/Commons/2005/">
+  <xs:complexType name="PairType" mixed="true">
+    <xs:choice>
+       <xs:element name="TKVList" minOccurs="0" type="TKVList"/>
+    </xs:choice>
+    <xs:attribute name="key" use="required"/>
+    <xs:attribute name="type" use="required"/>
+    
+  </xs:complexType>
+  
+  <xs:complexType name="TKVList" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Pair" minOccurs="0" type="PairType"/>
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="KeyValueCollection">
+    <xs:choice>
+      <xs:element name="TKVList" minOccurs="1" maxOccurs="1" type="TKVList" />
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:simpleType name="long">
+    <xs:restriction base="xs:long" />
+  </xs:simpleType>
+  <xs:simpleType name="dateTime">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:simpleType name="boolean">
+    <xs:restriction base="xs:boolean" />
+  </xs:simpleType>
+</xs:schema>

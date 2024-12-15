@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.genesyslab.com/Protocols/Management/SolutionControlServer/2005/"
+           xmlns:gp="http://schemas.genesyslab.com/Protocols/2005/"
+           xmlns:gc="http://schemas.genesyslab.com/Commons/2005/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           version="1.0"
+           id="MessageSchemaXSD"
+           targetNamespace="http://schemas.genesyslab.com/Protocols/Management/SolutionControlServer/2005/">
+   <xs:import namespace="http://schemas.genesyslab.com/Commons/2005/"
+              schemaLocation="Common.xsd"/>
+   <xs:simpleType name="Errors">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Undefined"/>
+         <xs:enumeration value="ApplicationNotStarted"/>
+         <xs:enumeration value="ApplicationNotStopped"/>
+         <xs:enumeration value="ApplicationNotReady"/>
+         <xs:enumeration value="ApplicationAlreadyExists"/>
+         <xs:enumeration value="ObjectNotFound"/>
+         <xs:enumeration value="DeamonNotStarted"/>
+         <xs:enumeration value="AlreadyInProgress"/>
+         <xs:enumeration value="OperatingSystemError"/>
+         <xs:enumeration value="UnableToExecute"/>
+         <xs:enumeration value="InternalError"/>
+         <xs:enumeration value="IncorrectClientCode"/>
+         <xs:enumeration value="NotImplemented"/>
+         <xs:enumeration value="HotBackupLimitations"/>
+         <xs:enumeration value="ApplicationHostConflict"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ControlObjectType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown"/>
+         <xs:enumeration value="Solution"/>
+         <xs:enumeration value="Application"/>
+         <xs:enumeration value="Host"/>
+         <xs:enumeration value="AlarmCondition"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="AlarmStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Activated"/>
+         <xs:enumeration value="Deactivated"/>
+      </xs:restriction>
+   </xs:simpleType>
+	  <xs:complexType name="RequestStartSolution">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStartSolution" name="RequestStartSolution"/>
+	  <xs:complexType name="RequestStopSolution">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopSolution" name="RequestStopSolution"/>
+
+	  <xs:complexType name="RequestGetSolutionInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetSolutionInfo" name="RequestGetSolutionInfo"/>
+
+	  <xs:complexType name="RequestGetHostInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetHostInfo" name="RequestGetHostInfo"/>
+
+        
+
+		<xs:complexType name="RequestSubscribe">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectType" minOccurs="0" type="ControlObjectType"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestSubscribe" name="RequestSubscribe"/>
+        
+        <xs:complexType name="RequestUnsubscribe">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectType" minOccurs="0" type="ControlObjectType"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestUnsubscribe" name="RequestUnsubscribe"/>
+			
+		
+	  <xs:complexType name="RequestGetApplicationInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetApplicationInfo" name="RequestGetApplicationInfo"/>
+
+	  <xs:complexType name="RequestStartApplication">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Client" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ObjectStatus" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStartApplication" name="RequestStartApplication"/>
+
+	  <xs:complexType name="RequestStopApplication">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopApplication" name="RequestStopApplication"/>
+        
+        <xs:complexType name="RequestStopAllApplications">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopAllApplications" name="RequestStopAllApplications"/>
+        
+        <xs:complexType name="RequestChangeExecutionMode">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ExecutionMode" minOccurs="0" type="ApplicationExecutionMode"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestChangeExecutionMode" name="RequestChangeExecutionMode"/>
+        
+        
+
+        <xs:complexType name="RequestStopApplicationGracefully">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopApplicationGracefully" name="RequestStopApplicationGracefully"/>    
+
+        <xs:complexType name="RequestStopSolutionGracefully">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestStopSolutionGracefully" name="RequestStopSolutionGracefully"/>    
+
+         <xs:complexType name="RequestCustomCommand">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CustomData" minOccurs="0" type="xs:base64Binary"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestCustomCommand" name="RequestCustomCommand"/>
+
+         <xs:complexType name="RequestRetrieveEnvironment">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="RequestData" minOccurs="0" type="RequestFilter"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestRetrieveEnvironment" name="RequestRetrieveEnvironment"/>
+
+         <xs:complexType name="RequestGetActiveAlarms">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestGetActiveAlarms" name="RequestGetActiveAlarms"/>
+
+         <xs:complexType name="RequestActivateApplicationAlarm">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AlarmConditionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestActivateApplicationAlarm" name="RequestActivateApplicationAlarm"/>
+                       
+         <xs:complexType name="RequestDeactivateApplicationAlarm">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AlarmConditionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeactivateApplicationAlarm"
+               name="RequestDeactivateApplicationAlarm"/>
+        
+         <xs:complexType name="RequestDeactivateApplicationAlarms">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeactivateApplicationAlarms"
+               name="RequestDeactivateApplicationAlarms"/>
+        
+         <xs:complexType name="RequestDeactivateAlarm">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AlarmConditionId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeactivateAlarm" name="RequestDeactivateAlarm"/>
+        
+         <xs:complexType name="RequestDeactivateAlarms">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestDeactivateAlarms" name="RequestDeactivateAlarms"/>
+
+         <xs:complexType name="RequestXRequest">
+      <xs:all>
+         <xs:element name="RequestData" minOccurs="0" type="RequestFilter"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="RequestXRequest" name="RequestXRequest"/>
+
+    
+   
+         <xs:complexType name="EventInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Client" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectType" minOccurs="0" type="ControlObjectType"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="ExecutionMode" minOccurs="0" type="ApplicationExecutionMode"/>
+         <xs:element name="ControlStatus" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventInfo" name="EventInfo"/>
+
+        
+
+        
+        <xs:complexType name="EventAlarmInfo">
+      <xs:all>
+         <xs:element name="ControlObjectType" minOccurs="0" type="ControlObjectType"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="AlarmConditionId" minOccurs="0" type="xs:int"/>
+         <xs:element name="ActivationTime" minOccurs="0" type="xs:int"/>
+         <xs:element name="ExpirationTimeout" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+         <xs:element name="AlarmDescription" minOccurs="0" type="AlarmDescription"/>
+         <xs:element name="ControlStatus" minOccurs="0" type="xs:int"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventAlarmInfo" name="EventAlarmInfo"/>
+        
+        <xs:complexType name="EventError">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Client" minOccurs="0" type="xs:int"/>
+         <xs:element name="ErrorCode" minOccurs="0" type="Errors"/>
+         <xs:element name="ControlObjectType" minOccurs="0" type="ControlObjectType"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Description" minOccurs="0" type="xs:string"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventError" name="EventError"/>
+        
+        <xs:complexType name="EventXResponse">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventData" minOccurs="0" type="EnvironmentStatus"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventXResponse" name="EventXResponse"/>
+
+        <xs:complexType name="EventCustomInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Client" minOccurs="0" type="xs:int"/>
+         <xs:element name="ControlObjectType" minOccurs="0" type="ControlObjectType"/>
+         <xs:element name="ControlObjectId" minOccurs="0" type="xs:int"/>
+         <xs:element name="CustomData" minOccurs="0" type="xs:base64Binary"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventCustomInfo" name="EventCustomInfo"/>
+
+        <xs:complexType name="EventEnvironmentInfo">
+      <xs:all>
+         <xs:element name="ReferenceId" minOccurs="0" type="xs:int"/>
+         <xs:element name="Client" minOccurs="0" type="xs:int"/>
+         <xs:element name="EventData" minOccurs="0" type="EnvironmentStatus"/>
+      </xs:all>
+      <xs:attribute name="Id" type="xs:int"/>
+      <xs:attribute name="Protocol" type="xs:string"/>
+   </xs:complexType>
+   <xs:element type="EventEnvironmentInfo" name="EventEnvironmentInfo"/>        
+
+      <xs:simpleType name="AlarmCause">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Default">
+      </xs:enumeration>
+         <xs:enumeration value="LogMessage">
+      </xs:enumeration>
+         <xs:enumeration value="Manual">
+      </xs:enumeration>
+         <xs:enumeration value="Threshold">
+      </xs:enumeration>
+         <xs:enumeration value="Timeout">
+      </xs:enumeration>
+      </xs:restriction>
+  </xs:simpleType>
+   <xs:complexType name="MarkedString" mixed="true">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="type" fixed="string"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="MarkedInteger" mixed="true">
+      <xs:simpleContent>
+         <xs:extension base="xs:int">
+            <xs:attribute name="type" fixed="int"/>
+         </xs:extension>
+      </xs:simpleContent>
+  </xs:complexType>
+   <xs:complexType name="AlarmDescription">
+      <xs:all>
+         <xs:element name="APP_DBID" type="MarkedInteger"/>
+         <xs:element name="AC_DBID" type="MarkedInteger"/>
+         <xs:element name="ID" type="MarkedString"/>
+         <xs:element name="RSN" type="MarkedString"/>
+         <xs:element name="LM_ID" type="MarkedInteger"/>
+         <xs:element name="LM_TEXT" type="MarkedString"/>
+         <xs:element name="USER" type="MarkedString"/>
+         <xs:element name="TRH_ADDINFO" type="MarkedString"/>
+         <xs:element name="THRSCRIPT_ID" type="MarkedInteger"/>
+         <xs:element name="CLEARRSN" type="MarkedString"/>
+         <xs:element name="CREATOR_SCS_DBID" type="MarkedInteger" minOccurs="0"/>
+      </xs:all>
+  </xs:complexType>
+   <xs:simpleType name="ApplicationStatus">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unknown">
+      </xs:enumeration>
+         <xs:enumeration value="Stopped">
+      </xs:enumeration>
+         <xs:enumeration value="StopTransition">
+      </xs:enumeration>
+         <xs:enumeration value="StopPending">
+      </xs:enumeration>
+         <xs:enumeration value="StartTransition">
+      </xs:enumeration>
+         <xs:enumeration value="StartPending">
+      </xs:enumeration>
+         <xs:enumeration value="Running">
+      </xs:enumeration>
+         <xs:enumeration value="Initializing">
+      </xs:enumeration>
+         <xs:enumeration value="SolutionUnavailable">
+      </xs:enumeration>
+         <xs:enumeration value="ServiceUnavailable">
+      </xs:enumeration>
+         <xs:enumeration value="Suspending">
+      </xs:enumeration>
+         <xs:enumeration value="Suspended">
+      </xs:enumeration>
+      </xs:restriction>
+  </xs:simpleType>
+   <xs:simpleType name="ApplicationExecutionMode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Primary">
+      </xs:enumeration>
+         <xs:enumeration value="Backup">
+      </xs:enumeration>
+         <xs:enumeration value="Exiting">
+      </xs:enumeration>
+         <xs:enumeration value="HotBackup">
+      </xs:enumeration>
+         <xs:enumeration value="WarmBackup">
+      </xs:enumeration>
+      </xs:restriction>
+  </xs:simpleType>
+   <xs:complexType name="EnvironmentStatus">
+        <xs:complexContent>
+	        <xs:extension base="gc:KeyValueCollection"/>
+        </xs:complexContent>
+    </xs:complexType>
+   <xs:complexType name="RequestFilter">
+        <xs:complexContent>
+	        <xs:extension base="gc:KeyValueCollection"/>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
