@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+      h1 {
+        color: black; 
+        font-size: 24pt; 
+        font-weight: bold; 
+        text-align: center;
+      }
+      .gradient{
+        background: white; 
+        background: repeating-linear-gradient(to top, lightgray, white, lightgray);
+        padding: 10px;
+        border: 1px solid gray;
+      }
+      .p0 {
+        text-indent: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 0;
+      }
+      .p1 {
+        text-indent: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 0;
+      }
+      .clName {
+        color: darkblue;
+      }
+      ._h3{
+        margin-bottom: 0;
+        margin-top: 12pt;
+        padding: 0;
+        color: blue;
+        font-weight: bold;
+        font-size: 14pt;
+        cursor: pointer;
+      }
+      .logo {
+        text-align: right;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+  <div class="logo">
+    <img  src="data:image/jpeg;base64,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" />
+  </div>
+  <h1 class="gradient">Platform SDK Samples for Java</h1>
+  <a onclick="showHideContent('sample1_content')" class="_h3">1. COM AB sample<br/></a>
+  <div id="sample1_content" style="display: none">
+    <p class="p0">Sample demonstrates: </p><ul style="margin: 0">
+    <li class="p1">how to create and use <i class="clName">IConfService</i> through <i class="clName">ConfServiceFactory</i>;</li>
+    <li class="p1">how to Create/Read/Update/Delete object on the Configuration Server;</li>
+    <li class="p1">how to receive notifications from Configuration Server about changes in config objects, see <i class="clName">EventsSubscriptionSamples.java</i>;</li>
+    <li class="p1">how to enable log4j2 logging.</li>
+  </div>
+  <a onclick="showHideContent('sample2_content')" class="_h3">2. T-Server sample<br/></a>
+  <div id="sample2_content" style="display: none">
+    <p class="p0">GUI Sample demonstrates: </p><ul style="margin: 0">
+    <li class="p1">how to create and use <i class="clName">TServerProtocol</i>;</li>
+    <li class="p1">asynchronous channel API for communication with Genesys Servers, see <i class="clName">AgentModel.java</i>, most PSDK-related code is here;</li>
+    <li class="p1">handling of the unsolicited messages from Genesys Servers, see <i class="clName">ReceivedMessageHandler</i>;</li>
+    <li class="p1">handling of the channel Open and Close events;</li>
+    <li class="p1">how to attach asynchronous events to GUI thread, see <i class="clName">SwingInvoker.java</i>;</li>
+    <li class="p1">how to setup ADDP and update it's parameters at a runtime;</li>
+    <li class="p1">how to enable log4j2 logging.</li>
+  </div>
+  <a onclick="showHideContent('sample3_content')" class="_h3">3. Stat Server sample<br/></a>
+  <div id="sample3_content" style="display: none">
+    <p class="p0">GUI Sample demonstrates: </p><ul style="margin: 0">
+    <li class="p1">how to create and use <i class="clName">StatServerProtocol</i>;</li>
+    <li class="p1">how to open and close statistic;</li>
+    <li class="p1">handling of the incoming statistic notifications, see <i class="clName">StatServerMessageHandler</i>;</li>
+    <li class="p1">how to attach asynchronous events to GUI thread, see <i class="clName">SwingInvoker.java</i>;</li>
+    <li class="p1">how to configure new <i class="clName">WarmStandby</i>.</li></ul>
+  </div>
+  <a onclick="showHideContent('sample4_content')" class="_h3">4. Stat Server Console sample<br/></a>
+  <div id="sample4_content" style="display: none">
+    <p class="p0">Sample demonstrates: </p><ul style="margin: 0">
+    <li class="p1">how to implement <i class="clName">IAsyncInvoker</i> to execute user's callbacks inside <i class="clName">ThreadPool</i>.</li></ul>
+  </div>
+  <a onclick="showHideContent('sample5_content')" class="_h3">5. New WarmStandby sample<br/></a>
+  <div id="sample5_content" style="display: none">
+    <p class="p0">Sample demonstrates: </p><ul style="margin: 0">
+    <li class="p1">how to configure new <i class="clName">WarmStandby</i>;</li>
+    <li class="p1">different reconnection scenarios to multiple endpoints, switching between endpoint pools (clusters);</li>
+    <li class="p1">handling of the <i class="clName">RegistrationException</i>;</li>
+    <li class="p1">implementation of the ESP based Server, see <i class="clName">EspServer.java</i>;</li>
+    <li class="p1">implementation of the ESP based Client, see <i class="clName">EspClient.java</i>;</li>
+    <li class="p1">how to filter sensitive data in logs (for ex. passwords), see <i class="clName">initLogger()</i>;</li>
+    <li class="p1">how to enable log4j2 logging.</li></ul>
+  </div>
+  <a onclick="showHideContent('sample6_content')" class="_h3">6. FlexChat sample<br/></a>
+  <div id="sample6_content" style="display: none">
+    <p class="p0">Sample demonstrates:</p><ul style="margin: 0">
+    <li class="p1">how to login multiple clients on Chat Server using one communication channel;</li>
+    <li class="p1">how to join to chat;</li>
+    <li class="p1">how to send message to chat.</li></ul>
+  </div>
+  <a onclick="showHideContent('sample7_content')" class="_h3">7. Application Template sample<br/></a>
+  <div id="sample7_content" style="display: none">
+    <p class="p0">Sample demonstrates helpers to parse application settings, retrieved from Management Framework:</p><ul style="margin: 0">
+    <li class="p1">helper method that creates preconfigured <i class="clName">Endpoint</i>;</li>
+    <li class="p1">helper method that creates Warm Standby configuration.</li>
+  </div>
+  <a onclick="showHideContent('sample8_content')" class="_h3">8. Message server subscription sample<br/></a>
+  <div id="sample8_content" style="display: none">
+    <p class="p0">Sample demonstrates how to work with Message Server:</p><ul style="margin: 0">
+    <li class="p1">how to establish connection with Message Server;</li>
+    <li class="p1">how to handle Message Server events (opened/closed);</li>
+    <li class="p1">how to handle Message Server messages;</li>
+    <li class="p1">how to send a message to Message Server;</li>
+    <li class="p1">how to subscribe for notifications;</li>
+    <li class="p1">how to unsubscribe from notifications.</li>
+  </div>
+  <a onclick="showHideContent('sample9_content')" class="_h3">9. Cluster protocol sample<br/></a>
+  <div id="sample9_content" style="display: none">
+    <p class="p0">Sample demonstrates how to work with cluster protocol:</p><ul style="margin: 0">
+    <li class="p1">how to create and configure a cluster protocol;</li>
+    <li class="p1">how to write and set cluster protocol channel listener.;</li>
+    <li class="p1">how to open and close a cluster protocol;</li>
+    <li class="p1">how to send messages to a cluster protocol;</li>
+    <li class="p1">how to receive messages from a cluster protocol;</li>
+    <li class="p1">how to make synchronous and asynchronous requests to a cluster protocol.</li>
+  </div>
+  <script type="text/javascript">
+    function showHideContent(elmName) {
+      if (document.getElementById(elmName).style.display == '')
+        { document.getElementById(elmName).style.display = 'none'; }
+      else
+        { document.getElementById(elmName).style.display = ''; }
+    }
+  </script>
+</body>
+</html>
